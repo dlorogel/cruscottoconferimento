@@ -1,0 +1,20 @@
+<mvc:View controllerName="it.orogel.cruscottoconferimento.controller.FAD"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="page" title="Fattura di Acconto socio" showNavButton="true" navButtonPress="onNavBack">
+        <IconTabBar id="idTabBar" class="sapUiResponsiveContentPadding" select="onTabSelect">
+            <items>
+                <IconTabFilter text="Importo Forfettario" key="FAD1">
+                    <core:Fragment fragmentName="it.orogel.cruscottoconferimento.view.FAD.FAD1" type="XML" />
+                </IconTabFilter>
+                <IconTabFilter text="Fattura collegata a bolla" key="FAD2">
+                    <core:Fragment fragmentName="it.orogel.cruscottoconferimento.view.FAD.FAD2" type="XML" />
+                </IconTabFilter>
+                <IconTabFilter text="Storico" key="FAD3">
+                    <core:Fragment fragmentName="it.orogel.cruscottoconferimento.view.FAD.FAD3" type="XML" />
+                </IconTabFilter>
+            </items>
+        </IconTabBar>
+    </Page>
+</mvc:View>

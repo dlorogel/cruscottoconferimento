@@ -1,0 +1,127 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:smartMultiInput="sap.ui.comp.smartmultiinput"
+    xmlns:smartField="sap.ui.comp.smartfield">
+    <fb:FilterBar reset="onReset" search="onSearchFAD1" showRestoreButton="true" showClearButton="true">
+        <fb:filterGroupItems>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="societa" label="Società" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                    <smartField:SmartField id="idFilterSocietaFAD1" value="{path: 'Societa', mode:'OneWay'}" mandatory="true" entitySet="FADBolleConferimentoSet" change="onSocieta" />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="fornitore" label="Fornitore" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterFornitoreFAD1" mandatory="true" entitySet="FADBolleConferimentoSet" value="{path: 'Fornitore', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="produttore" label="Produttore">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterProduttoreFAD1" entitySet="FADBolleConferimentoSet" value="{path: 'Produttore', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="orgacquisti" label="Org. Acquisti">
+                <fb:control>
+                    <smartField:SmartField id="idFilterOrgAcquistiFAD1" value="{path: 'OrgAcquisti', mode:'OneWay'}" entitySet="FADBolleConferimentoSet">
+                        <smartField:configuration>
+                            <smartField:Configuration controlType="dropDownList" displayBehaviour="idAndDescription" />
+                        </smartField:configuration>
+                    </smartField:SmartField>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="numerobolla" label="Numero Bolla di conferimento (OdA)">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterNumeroBollaFAD1" entitySet="FADBolleConferimentoSet" value="{path: 'NumeroBolla', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="dataregistrazione" label="Data registrazione bolla di conferimento" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                    <DateRangeSelection required="true" id="idFilterDataRegistrazioneBollaFAD1" delimiter="-" dateValue="" secondDateValue="" displayFormat="short"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+        </fb:filterGroupItems>
+    </fb:FilterBar>
+    <t:Table id="idTableFAD1" rows="{FAD1Model>/}" selectionMode="Multi" fixedColumnCount="7">
+        <t:columns>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Società"/>
+                <t:template>
+                    <Text text="{FAD1Model>Societa}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Fornitore"/>
+                <t:template>
+                    <Text text="{FAD1Model>Fornitore}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Nome fornitore"/>
+                <t:template>
+                    <Text text="{FAD1Model>NomeFornitore}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Produttore"/>
+                <t:template>
+                    <Text text="{FAD1Model>Produttore}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Org. Acquisti"/>
+                <t:template>
+                    <Text text="{FAD1Model>OrgAcquisti}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Numero Bolla di conferimento (OdA)"/>
+                <t:template>
+                    <Text text="{FAD1Model>NumeroBolla}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Posizione Bolla"/>
+                <t:template>
+                    <Text text="{FAD1Model>PosizioneBolla}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Data registrazione bolla di conferimento"/>
+                <t:template>
+                    <Text text="{ path: 'FAD1Model>DataRegistrazioneBolla', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long' } }" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Ricevimento (EM)"/>
+                <t:template>
+                    <Text text="{FAD1Model>Ricevimento}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Codice materiale"/>
+                <t:template>
+                    <Text text="{FAD1Model>Materiale}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Tipo materiale"/>
+                <t:template>
+                    <Text text="{FAD1Model>TipoMateriale}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Quantità"/>
+                <t:template>
+                    <Text text="{path: 'FAD1Model>Quantita', type: 'sap.ui.model.type.Float', formatOptions: {maxFractionDigits: 2, groupingEnabled: true, groupingSeparator: '.', decimalSeparator: ','}}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="UM"/>
+                <t:template>
+                    <Text text="{FAD1Model>UM}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+        </t:columns>
+    </t:Table>
+</core:FragmentDefinition>

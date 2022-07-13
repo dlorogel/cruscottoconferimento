@@ -1,0 +1,5 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:smartField="sap.ui.comp.smartfield">
+    <Text text="Prova" />
+</core:FragmentDefinition>

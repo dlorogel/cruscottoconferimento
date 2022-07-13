@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:Reference Uri="http://orogeldev:44333/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='FIORI_MENU')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+        <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+    </edmx:Reference>
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="Z_CRUSCOTTOCONFERIMENTO_SRV" xml:lang="it" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Societa" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Bukrs"/>
+                </Key>
+                <Property Name="Bukrs" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Società" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="Butxt" Type="Edm.String" MaxLength="25" sap:unicode="false" sap:label="Nome della ditta" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="FADBolleConferimentoSet" Relationship="Z_CRUSCOTTOCONFERIMENTO_SRV.FADBCtoSocieta" FromRole="ToRole_FADBCtoSocieta" ToRole="FromRole_FADBCtoSocieta"/>
+            </EntityType>
+            <EntityType Name="FADBolleConferimento" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Societa"/>
+                </Key>
+                <Property Name="Societa" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:creatable="false" sap:updatable="false"/>
+                <NavigationProperty Name="FADBCSocieta" Relationship="Z_CRUSCOTTOCONFERIMENTO_SRV.FADBCtoSocieta" FromRole="FromRole_FADBCtoSocieta" ToRole="ToRole_FADBCtoSocieta"/>
+            </EntityType>
+            <Association Name="FADBCtoSocieta" sap:content-version="1">
+                <End Type="Z_CRUSCOTTOCONFERIMENTO_SRV.FADBolleConferimento" Multiplicity="*" Role="FromRole_FADBCtoSocieta"/>
+                <End Type="Z_CRUSCOTTOCONFERIMENTO_SRV.Societa" Multiplicity="1" Role="ToRole_FADBCtoSocieta"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_FADBCtoSocieta">
+                        <PropertyRef Name="Societa"/>
+                    </Principal>
+                    <Dependent Role="ToRole_FADBCtoSocieta">
+                        <PropertyRef Name="Bukrs"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="Z_CRUSCOTTOCONFERIMENTO_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="SocietaSet" EntityType="Z_CRUSCOTTOCONFERIMENTO_SRV.Societa" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1" sap:semantics="fixed-values"/>
+                <EntitySet Name="FADBolleConferimentoSet" EntityType="Z_CRUSCOTTOCONFERIMENTO_SRV.FADBolleConferimento" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                <AssociationSet Name="FADBCtoSocietaSet" Association="Z_CRUSCOTTOCONFERIMENTO_SRV.FADBCtoSocieta" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="FADBolleConferimentoSet" Role="FromRole_FADBCtoSocieta"/>
+                    <End EntitySet="SocietaSet" Role="ToRole_FADBCtoSocieta"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="http://orogeldev:44333/sap/opu/odata/sap/Z_CRUSCOTTOCONFERIMENTO_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="http://orogeldev:44333/sap/opu/odata/sap/Z_CRUSCOTTOCONFERIMENTO_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
