@@ -9,7 +9,7 @@
         <VBox class="sapUiSmallMargin">
             <f:SimpleForm id="idSimpleForm" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
                 <f:content>
-                    <Label text="Esercizio dompetenza" />
+                    <Label text="Esercizio competenza" />
                     <Input value="" required="true" maxLength="4"/>
                     <Label text="Data documento" />
                     <DatePicker id="idDataDocumento" value="" valueFormat="yyyyMMdd" displayFormat="short" required="true" class="sapUiSmallMarginBottom"/>
