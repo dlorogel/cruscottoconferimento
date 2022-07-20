@@ -4,7 +4,7 @@
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:smartMultiInput="sap.ui.comp.smartmultiinput"
     xmlns:smartField="sap.ui.comp.smartfield">
-    <fb:FilterBar reset="onReset" search="onSearchFAD1" showRestoreButton="true" showClearButton="true">
+    <fb:FilterBar search="onSearchFAD1" showRestoreButton="true">
         <fb:filterGroupItems>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="societa" label="Società" partOfCurrentVariant="true" visibleInFilterBar="true">
                 <fb:control>
@@ -43,6 +43,12 @@
         </fb:filterGroupItems>
     </fb:FilterBar>
     <t:Table id="idTableFAD1" rows="{FAD1Model>/}" selectionMode="Multi" fixedColumnCount="7">
+        <t:extension>
+            <OverflowToolbar style="Clear">
+                <ToolbarSpacer/>
+                <Button text="Simula fattura" press="onSimulaFatturaFAD1" />
+            </OverflowToolbar>
+        </t:extension>
         <t:columns>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true">
                 <Label text="Società"/>
@@ -89,7 +95,9 @@
             <t:Column hAlign="Begin" resizable="true" autoResizable="true">
                 <Label text="Data registrazione bolla di conferimento"/>
                 <t:template>
-                    <Text text="{ path: 'FAD1Model>DataRegistrazioneBolla', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long' } }" wrapping="false"/>
+                  <!--  <Text text="{ path: 'FAD1Model>DataRegistrazioneBolla', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long' } }" wrapping="false"/>
+                -->
+                <Text text="{FAD1Model>DataRegistrazioneBolla}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true">

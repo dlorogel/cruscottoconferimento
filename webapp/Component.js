@@ -1,8 +1,8 @@
 sap.ui.define([
-        "sap/ui/core/UIComponent",
-        "sap/ui/Device",
-        "it/orogel/cruscottoconferimento/model/models"
-    ],
+    "sap/ui/core/UIComponent",
+    "sap/ui/Device",
+    "it/orogel/cruscottoconferimento/model/models"
+],
     function (UIComponent, Device, models) {
         "use strict";
 
@@ -10,6 +10,7 @@ sap.ui.define([
             metadata: {
                 manifest: "json"
             },
+            oNavigation: null,
 
             /**
              * The component is initialized by UI5 automatically during the startup of the app and calls the init method once.
@@ -25,6 +26,12 @@ sap.ui.define([
 
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
+            },
+            setNavigation: function (oNavigation) {
+                this.oNavigation = oNavigation;
+            },
+            getNavigation: function () {
+                return this.oNavigation;
             }
         });
     }
