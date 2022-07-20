@@ -51,7 +51,7 @@ sap.ui.define([
                     sError = false;
                 oForm.forEach(function (Field) {
                     if (typeof Field.getValue === "function") {
-                        if (Field.mProperties.hasOwnProperty("required") && Field.getProperty("required") && (!Field.getValue() || Field.getValue().length < 1)) {
+                        if (((Field.mProperties.hasOwnProperty("required") && Field.getProperty("required")) || (Field.mProperties.hasOwnProperty("mandatory") && Field.getProperty("mandatory"))) && (!Field.getValue() || Field.getValue().length < 1)) {
                             Field.setValueState("Error");
                             sError = true;
                         } else {

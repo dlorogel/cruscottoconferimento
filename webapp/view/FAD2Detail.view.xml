@@ -16,7 +16,7 @@
                     <Label text="Importo Acconto" />
                     <Input value="" required="true" maxLength="23"/>
                     <Label text="Codice IVA" />
-                    <Input value="" required="true" maxLength="2"/>
+                    <smartField:SmartField id="idCodiceIVA" value="{path: 'Mwskz', mode:'OneWay'}" entitySet="CodiceIVASet" mandatory="true" />
                     <core:Title text="Testi" />
                     <Label text="Testo 1" />
                     <TextArea id="idFAD2DetailText1" value="" showExceededText="true" maxLength="200" required="false"/>
@@ -39,7 +39,7 @@
             <OverflowToolbar style="Clear">
                 <ToolbarSpacer/>
                 <Button text="Calcola" press="onCalcola" />
-                <Button id="idStampa" visible="false" text="Stampa" press="onStampa" />
+                <Button id="idStampa" visible="false" text="Invio Fattura" press="onStampa" />
             </OverflowToolbar>
         </VBox>
         <t:Table id="idTableFAD2Detail" rows="{FAD2DetailModel>/}" visible="false" selectionMode="Multi" fixedColumnCount="3">

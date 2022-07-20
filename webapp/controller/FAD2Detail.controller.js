@@ -51,7 +51,7 @@ sap.ui.define([
                     sError = false;
                 oForm.forEach(function (Field) {
                     if (typeof Field.getValue === "function") {
-                        if (Field.mProperties.hasOwnProperty("required") && Field.getProperty("required") && (!Field.getValue() || Field.getValue().length < 1)) {
+                        if (((Field.mProperties.hasOwnProperty("required") && Field.getProperty("required")) || (Field.mProperties.hasOwnProperty("mandatory") && Field.getProperty("mandatory"))) && (!Field.getValue() || Field.getValue().length < 1)) {
                             Field.setValueState("Error");
                             sError = true;
                         } else {
@@ -61,23 +61,16 @@ sap.ui.define([
                 });
                 if (!sError) {
                     let aModel = this.getOwnerComponent().getNavigation(),
-                        aOutput = [],
-                        aFornitori = [];
+                        aOutput = [];
 
                     aModel.forEach(x => {
-                        let oFind = aFornitori.find(y => y === x.Fornitore);
-                        if (oFind) {
-
-                        } else {
-                            aFornitori.push(x.Fornitore);
-                            let oRow = {
-                                Societa: x.Societa,
-                                Fornitore: x.Fornitore,
-                                NomeFornitore: x.NomeFornitore,
-                                DataDocumento: this.getView().byId("idDataDocumento").getDateValue()
-                            }
-                            aOutput.push(oRow);
+                        let oRow = {
+                            Societa: x.Societa,
+                            Fornitore: x.Fornitore,
+                            NomeFornitore: "",
+                            DataDocumento: this.getView().byId("idDataDocumento").getDateValue()
                         }
+                        aOutput.push(oRow);
                     });
                     let oJSONTableModel = new sap.ui.model.json.JSONModel(aOutput);
                     this.getView().setModel(oJSONTableModel, "FAD2DetailModel");

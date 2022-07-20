@@ -19,6 +19,6 @@
     </fb:FilterBar>
     <OverflowToolbar style="Clear">
         <ToolbarSpacer/>
-        <Button text="Simula fattura" press="onSimulaFatturaFAD2" />
+        <Button id="idSimulaFatturaFAD2" visible="false" text="Simula fattura" press="onSimulaFatturaFAD2" />
     </OverflowToolbar>
 </core:FragmentDefinition>

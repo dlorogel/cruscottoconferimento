@@ -14,7 +14,7 @@
                     <Label text="Data documento" />
                     <DatePicker id="idDataDocumento" value="" valueFormat="yyyyMMdd" displayFormat="short" required="true" class="sapUiSmallMarginBottom"/>
                     <Label text="Codice IVA" />
-                    <Input value="" required="true" maxLength="2"/>
+                    <smartField:SmartField id="idCodiceIVA" value="{path: 'Mwskz', mode:'OneWay'}" entitySet="CodiceIVASet" mandatory="true" />
                     <core:Title text="Testi" />
                     <Label text="Testo 1" />
                     <TextArea id="idFAD1DetailText1" value="" showExceededText="true" maxLength="200" required="false"/>
@@ -30,14 +30,14 @@
                             <smartField:Configuration controlType="dropDownList" displayBehaviour="descriptionOnly"/>
                         </smartField:configuration>
                     </smartField:SmartField>
-                    <Label text="Testo 4" /> 
+                    <Label text="Testo 4" />
                     <TextArea id="idFAD1DetailText4" value="" showExceededText="true" maxLength="200" required="false"/>
                 </f:content>
             </f:SimpleForm>
             <OverflowToolbar style="Clear">
                 <ToolbarSpacer/>
                 <Button text="Calcola" press="onCalcola" />
-                <Button id="idStampa" visible="false" text="Stampa" press="onStampa" />
+                <Button id="idStampa" visible="false" text="Invio Fattura" press="onStampa" />
             </OverflowToolbar>
         </VBox>
         <t:Table id="idTableFAD1Detail" rows="{FAD1DetailModel>/}" visible="false" selectionMode="Multi" fixedColumnCount="3">

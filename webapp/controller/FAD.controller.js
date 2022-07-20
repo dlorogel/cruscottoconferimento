@@ -74,6 +74,24 @@ sap.ui.define([
                     sap.m.MessageToast.show(sErrore);
                 }
             },
+            onSearchFAD2: function (oEvent) {
+                let bFiltro = false,
+                    sErrore = "";
+                if (!this.byId("idFilterSocietaFAD2").getValue() || this.byId("idFilterSocietaFAD2").getValue() === "") {
+                    bFiltro = true;
+                    sErrore = "Valorizzare il filtro Società";
+                }
+                if (!this.byId("idFilterFornitoreFAD2").getValue() || this.byId("idFilterFornitoreFAD2").getValue().length === 0) {
+                    bFiltro = true;
+                    sErrore = "Valorizzare il filtro Fornitore";
+                }
+                if (!bFiltro) {
+                    this.getView().byId("idSimulaFatturaFAD2").setVisible(true);
+                } else {
+                    this.getView().byId("idSimulaFatturaFAD2").setVisible(false);
+                    sap.m.MessageToast.show(sErrore);
+                }
+            },
             onSocieta: function (oEvent) {
                 let sCompany = oEvent.getParameter("value"),
                     oBinding = this.byId("idFilterOrgAcquistiFAD1").getContent().getBinding("items"),
@@ -97,9 +115,17 @@ sap.ui.define([
                 }
             },
             onSimulaFatturaFAD2: function () {
-                /* TODO: Implementare estrazione e controllo filtri */                
                 let aSelected = [],
                     oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+
+                this.byId("idFilterFornitoreFAD2").getValue().forEach(x => {
+                    let oRow = {
+                        Societa: this.getView().byId("idFilterSocietaFAD2").getValue(),
+                        Fornitore: x.getKey().padStart(10, "0")
+                    };
+                    aSelected.push(oRow);
+                });
+
                 this.getOwnerComponent().setNavigation(aSelected);
                 oRouter.navTo("FAD2Detail");
             }
