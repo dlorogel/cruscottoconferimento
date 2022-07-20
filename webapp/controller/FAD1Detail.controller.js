@@ -29,21 +29,13 @@ sap.ui.define([
             onText2: function (oEvent) {
                 let sValue = oEvent.getParameter("value"),
                     oBinding = this.byId("idFAD1DetailText3").getContent().getBinding("items"),
-                    aFilter = [new Filter({
-                        path: "Codifica",
-                        operator: FilterOperator.NE,
-                        value1: sValue
-                    })];
+                    aFilter = [new Filter("Codifica", FilterOperator.NE, sValue)];
                 oBinding.filter(aFilter);
             },
             onText3: function (oEvent) {
                 let sValue = oEvent.getParameter("value"),
                     oBinding = this.byId("idFAD1DetailText2").getContent().getBinding("items"),
-                    aFilter = [new Filter({
-                        path: "Codifica",
-                        operator: FilterOperator.NE,
-                        value1: sValue
-                    })];
+                    aFilter = [new Filter("Codifica", FilterOperator.NE, sValue)];
                 oBinding.filter(aFilter);
             },
             onCalcola: function () {

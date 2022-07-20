@@ -29,21 +29,13 @@ sap.ui.define([
             onText2: function (oEvent) {
                 let sValue = oEvent.getParameter("value"),
                     oBinding = this.byId("idFAD2DetailText3").getContent().getBinding("items"),
-                    aFilter = [new Filter({
-                        path: "Codifica",
-                        operator: FilterOperator.NE,
-                        value1: sValue
-                    })];
+                    aFilter = [new Filter("Codifica", FilterOperator.NE, sValue)];
                 oBinding.filter(aFilter);
             },
             onText3: function (oEvent) {
                 let sValue = oEvent.getParameter("value"),
                     oBinding = this.byId("idFAD2DetailText2").getContent().getBinding("items"),
-                    aFilter = [new Filter({
-                        path: "Codifica",
-                        operator: FilterOperator.NE,
-                        value1: sValue
-                    })];
+                    aFilter = [new Filter("Codifica", FilterOperator.NE, sValue)];
                 oBinding.filter(aFilter);
             },
             onCalcola: function () {
@@ -60,22 +52,46 @@ sap.ui.define([
                     }
                 });
                 if (!sError) {
+                    this.oGlobalBusyDialog.open();
                     let aModel = this.getOwnerComponent().getNavigation(),
-                        aOutput = [];
-
+                        aOutput = [],
+                        aFilterFornitore = [],
+                        aFilter = [];
                     aModel.forEach(x => {
-                        let oRow = {
-                            Societa: x.Societa,
-                            Fornitore: x.Fornitore,
-                            NomeFornitore: "",
-                            DataDocumento: this.getView().byId("idDataDocumento").getDateValue()
-                        }
-                        aOutput.push(oRow);
+                        aFilterFornitore.push(new Filter("Lifnr", FilterOperator.EQ, x.Fornitore.padStart(10, "0")));
                     });
-                    let oJSONTableModel = new sap.ui.model.json.JSONModel(aOutput);
-                    this.getView().setModel(oJSONTableModel, "FAD2DetailModel");
-                    this.getView().byId("idTableFAD2Detail").setVisible(true);
-                    this.getView().byId("idStampa").setVisible(true);
+                    aFilter.push(new Filter({
+                        filters: aFilterFornitore,
+                        and: false
+                    }));
+
+                    this.getView().getModel().read("/FornitoreSet", {
+                        filters: aFilter,
+                        success: (oDataFornitori) => {
+                            aModel.forEach(x => {
+                                let oRow = {
+                                    Societa: x.Societa,
+                                    Fornitore: x.Fornitore,
+                                    NomeFornitore: "",
+                                    DataDocumento: this.getView().byId("idDataDocumento").getDateValue()
+                                };
+                                let oNomeFornitore = oDataFornitori.results.find(y => y.Lifnr === parseInt(x.Fornitore, 10).toString());
+                                if (oNomeFornitore) {
+                                    oRow.NomeFornitore = oNomeFornitore.Name1;                                    
+                                }
+                                aOutput.push(oRow);
+                            });
+                            let oJSONTableModel = new sap.ui.model.json.JSONModel(aOutput);
+                            this.getView().setModel(oJSONTableModel, "FAD2DetailModel");
+                            this.getView().byId("idTableFAD2Detail").setVisible(true);
+                            this.getView().byId("idStampa").setVisible(true);
+                            this.oGlobalBusyDialog.close();
+                        },
+                        error: () => {
+                            this.oGlobalBusyDialog.close();
+                            sap.m.MessageToast.show("Errore di connessione");
+                        }
+                    });
                 }
             }
         });
