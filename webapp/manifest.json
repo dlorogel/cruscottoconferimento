@@ -86,7 +86,7 @@
             "": {
                 "dataSource": "mainService",
                 "preload": true,
-                "settings": { 
+                "settings": {
                     "defaultBindingMode": "TwoWay",
                     "defaultCountMode": "Inline",
                     "refreshAfterChange": true
@@ -131,6 +131,20 @@
                     "target": [
                         "TargetFAD"
                     ]
+                },
+                {
+                    "name": "FAD1Detail",
+                    "pattern": "FAD1Detail",
+                    "target": [
+                        "TargetFAD1Detail"
+                    ]
+                },
+                {
+                    "name": "FAD2Detail",
+                    "pattern": "FAD2Detail",
+                    "target": [
+                        "TargetFAD2Detail"
+                    ]
                 }
             ],
             "targets": {
@@ -147,6 +161,20 @@
                     "clearControlAggregation": false,
                     "viewId": "FAD",
                     "viewName": "FAD"
+                },
+                "TargetFAD1Detail": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "FAD1Detail",
+                    "viewName": "FAD1Detail"
+                },
+                "TargetFAD2Detail": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "FAD2Detail",
+                    "viewName": "FAD2Detail"
                 }
             }
         },

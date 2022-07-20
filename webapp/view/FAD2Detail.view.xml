@@ -1,0 +1,74 @@
+<mvc:View controllerName="it.orogel.cruscottoconferimento.controller.FAD2Detail"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:smartField="sap.ui.comp.smartfield"
+    xmlns:t="sap.ui.table"
+    xmlns="sap.m">
+    <Page id="page" title="Simulazione Fattura" showNavButton="true" navButtonPress="onNavBack">
+        <VBox class="sapUiSmallMargin">
+            <f:SimpleForm id="idSimpleForm" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="2" singleContainerFullSize="false">
+                <f:content>
+                    <Label text="Esercizio dompetenza" />
+                    <Input value="" required="true" maxLength="4"/>
+                    <Label text="Data documento" />
+                    <DatePicker id="idDataDocumento" value="" valueFormat="yyyyMMdd" displayFormat="short" required="true" class="sapUiSmallMarginBottom"/>
+                    <Label text="Importo Acconto" />
+                    <Input value="" required="true" maxLength="23"/>
+                    <Label text="Codice IVA" />
+                    <Input value="" required="true" maxLength="2"/>
+                    <core:Title text="Testi" />
+                    <Label text="Testo 1" />
+                    <TextArea id="idFAD2DetailText1" value="" showExceededText="true" maxLength="200" required="false"/>
+                    <Label text="Testo 2" />
+                    <smartField:SmartField id="idFAD2DetailText2" value="{path: 'Codifica', mode:'OneWay'}" entitySet="TestiSet" change="onText2" mandatory="false">
+                        <smartField:configuration>
+                            <smartField:Configuration controlType="dropDownList" displayBehaviour="descriptionOnly" />
+                        </smartField:configuration>
+                    </smartField:SmartField>
+                    <Label text="Testo 3" />
+                    <smartField:SmartField id="idFAD2DetailText3" value="{path: 'Codifica', mode:'OneWay'}" entitySet="TestiSet" change="onText3" mandatory="false">
+                        <smartField:configuration>
+                            <smartField:Configuration controlType="dropDownList" displayBehaviour="descriptionOnly"/>
+                        </smartField:configuration>
+                    </smartField:SmartField>
+                    <Label text="Testo 4" />
+                    <TextArea id="idFAD2DetailText4" value="" showExceededText="true" maxLength="200" required="false"/>
+                </f:content>
+            </f:SimpleForm>
+            <OverflowToolbar style="Clear">
+                <ToolbarSpacer/>
+                <Button text="Calcola" press="onCalcola" />
+                <Button id="idStampa" visible="false" text="Stampa" press="onStampa" />
+            </OverflowToolbar>
+        </VBox>
+        <t:Table id="idTableFAD2Detail" rows="{FAD2DetailModel>/}" visible="false" selectionMode="Multi" fixedColumnCount="3">
+            <t:columns>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Società"/>
+                    <t:template>
+                        <Text text="{FAD2DetailModel>Societa}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Fornitore"/>
+                    <t:template>
+                        <Text text="{FAD2DetailModel>Fornitore}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Nome fornitore"/>
+                    <t:template>
+                        <Text text="{FAD2DetailModel>NomeFornitore}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Data documento"/>
+                    <t:template>
+                        <Text text="{ path: 'FAD2DetailModel>DataDocumento', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long' } }" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+            </t:columns>
+        </t:Table>
+    </Page>
+</mvc:View>

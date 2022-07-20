@@ -1,5 +1,24 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core"
     xmlns="sap.m"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:smartMultiInput="sap.ui.comp.smartmultiinput"
     xmlns:smartField="sap.ui.comp.smartfield">
-    <Text text="Prova" />
+    <fb:FilterBar search="onSearchFAD2" showRestoreButton="true">
+        <fb:filterGroupItems>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="societa" label="Società" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                    <smartField:SmartField id="idFilterSocietaFAD2" value="{path: 'Societa', mode:'OneWay'}" mandatory="true" entitySet="FAD2Set" />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="fornitore" label="Fornitore" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterFornitoreFAD2" mandatory="true" entitySet="FAD2Set" value="{path: 'Fornitore', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+        </fb:filterGroupItems>
+    </fb:FilterBar>
+    <OverflowToolbar style="Clear">
+        <ToolbarSpacer/>
+        <Button text="Simula fattura" press="onSimulaFatturaFAD2" />
+    </OverflowToolbar>
 </core:FragmentDefinition>
