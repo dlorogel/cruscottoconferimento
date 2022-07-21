@@ -8,22 +8,22 @@
         <fb:filterGroupItems>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="societa" label="Società" partOfCurrentVariant="true" visibleInFilterBar="true">
                 <fb:control>
-                    <smartField:SmartField id="idFilterSocietaFAD1" value="{path: 'Societa', mode:'OneWay'}" mandatory="true" entitySet="FADBolleConferimentoSet" change="onSocieta" />
+                    <smartField:SmartField id="idFilterSocietaFAD1" value="{path: 'Societa', mode:'OneWay'}" mandatory="true" entitySet="FAD1FiltriSet" change="onSocieta" />
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="fornitore" label="Fornitore" partOfCurrentVariant="true" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterFornitoreFAD1" mandatory="true" entitySet="FADBolleConferimentoSet" value="{path: 'Fornitore', mode:'OneWay'}"/>
+                    <smartMultiInput:SmartMultiInput id="idFilterFornitoreFAD1" mandatory="true" entitySet="FAD1FiltriSet" value="{path: 'Fornitore', mode:'OneWay'}"/>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="produttore" label="Produttore">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterProduttoreFAD1" entitySet="FADBolleConferimentoSet" value="{path: 'Produttore', mode:'OneWay'}"/>
+                    <smartMultiInput:SmartMultiInput id="idFilterProduttoreFAD1" entitySet="FAD1FiltriSet" value="{path: 'Produttore', mode:'OneWay'}" mandatory="false"/>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="orgacquisti" label="Org. Acquisti">
                 <fb:control>
-                    <smartField:SmartField id="idFilterOrgAcquistiFAD1" value="{path: 'OrgAcquisti', mode:'OneWay'}" entitySet="FADBolleConferimentoSet">
+                    <smartField:SmartField id="idFilterOrgAcquistiFAD1" value="{path: 'OrgAcquisti', mode:'OneWay'}" entitySet="FAD1FiltriSet" mandatory="false">
                         <smartField:configuration>
                             <smartField:Configuration controlType="dropDownList" displayBehaviour="idAndDescription" />
                         </smartField:configuration>
@@ -32,12 +32,27 @@
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="numerobolla" label="Numero Bolla di conferimento (OdA)">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterNumeroBollaFAD1" entitySet="FADBolleConferimentoSet" value="{path: 'NumeroBolla', mode:'OneWay'}"/>
+                    <smartMultiInput:SmartMultiInput id="idFilterNumeroBollaFAD1" entitySet="FAD1FiltriSet" value="{path: 'NumeroBolla', mode:'OneWay'}"  mandatory="false"/>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="dataregistrazione" label="Data registrazione bolla di conferimento" partOfCurrentVariant="true" visibleInFilterBar="true">
                 <fb:control>
                     <DateRangeSelection required="true" id="idFilterDataRegistrazioneBollaFAD1" delimiter="-" dateValue="" secondDateValue="" displayFormat="short"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="tipomateriale" label="Tipo Materiale">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterTipoMaterialeFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'TipoMateriale', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="specie" label="Specie">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterSpecieFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Specie', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="stagionalita" label="Stagionalità">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterStagionalitaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Stagionalita', mode:'OneWay'}"/>
                 </fb:control>
             </fb:FilterGroupItem>
         </fb:filterGroupItems>
