@@ -32,7 +32,7 @@
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="numerobolla" label="Numero Bolla di conferimento (OdA)">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterNumeroBollaFAD1" entitySet="FAD1FiltriSet" value="{path: 'NumeroBolla', mode:'OneWay'}"  mandatory="false"/>
+                    <smartMultiInput:SmartMultiInput id="idFilterNumeroBollaFAD1" entitySet="FAD1FiltriSet" value="{path: 'NumeroBolla', mode:'OneWay'}" mandatory="false"/>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="dataregistrazione" label="Data registrazione bolla di conferimento" partOfCurrentVariant="true" visibleInFilterBar="true">
@@ -53,6 +53,66 @@
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="stagionalita" label="Stagionalità">
                 <fb:control>
                     <smartMultiInput:SmartMultiInput id="idFilterStagionalitaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Stagionalita', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="varieta" label="Varietà">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterVarietaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Varieta', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="certificazioneaziendale" label="Certificazione Aziendale">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterCertificazioneAziendaleFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CertificazioneAziendale', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="certificazioneprodotto" label="Certificazione Prodotto">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterCertificazioneProdottoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CertificazioneProdotto', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="residuo" label="Residuo">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterResiduoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Residuo', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="certificazionecommerciale" label="Certificazione Commerciale">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterCertificazioneCommercialeFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CertificazioneCommerciale', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="specifica" label="Specifica">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterSpecificaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Specifica', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="lavorazione" label="Lavorazione">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterLavorazioneFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Lavorazione', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="origine" label="Origine">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterOrigineFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Origine', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="qualita" label="Qualità">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterQualitaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Qualita', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="calibrazione" label="Calibrazione">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterCalibrazioneFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Calibrazione', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="eventicoltivazione" label="Eventi Coltivazione">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterEventiColtivazioneFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'EventiColtivazione', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="caratteristicart" label="Caratteristica di raccolta e taglio">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterCaratteristicaRaccoltaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CaratteristicaRaccolta', mode:'OneWay'}"/>
                 </fb:control>
             </fb:FilterGroupItem>
         </fb:filterGroupItems>
@@ -110,9 +170,9 @@
             <t:Column hAlign="Begin" resizable="true" autoResizable="true">
                 <Label text="Data registrazione bolla di conferimento"/>
                 <t:template>
-                  <!--  <Text text="{ path: 'FAD1Model>DataRegistrazioneBolla', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long' } }" wrapping="false"/>
+                    <!--  <Text text="{ path: 'FAD1Model>DataRegistrazioneBolla', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long' } }" wrapping="false"/>
                 -->
-                <Text text="{FAD1Model>DataRegistrazioneBolla}" wrapping="false"/>
+                    <Text text="{FAD1Model>DataRegistrazioneBolla}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true">
