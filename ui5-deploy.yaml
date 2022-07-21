@@ -17,7 +17,7 @@ builder:
           destination: S4HANA
           url: http://orogeldev:44333
         app:
-          name: CRUSCOTTO CONF.
+          name: zcrusconf
           description: Cruscotto Conferimento App
           package: Z001
           transport: SODK900400
