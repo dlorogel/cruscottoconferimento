@@ -63,6 +63,8 @@ sap.ui.define([
                         success: (oDataFAD1) => {
                             let oJSONTableModel = new sap.ui.model.json.JSONModel(oDataFAD1.results);
                             this.getView().setModel(oJSONTableModel, "FAD1Model");
+                            let oTable = this.byId("idTableFAD1");
+                            oTable.getColumns().map((col, index) => oTable.autoResizeColumn(index));
                             this.oGlobalBusyDialog.close();
                         },
                         error: () => {

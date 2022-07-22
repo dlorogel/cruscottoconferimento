@@ -115,6 +115,21 @@
                     <smartMultiInput:SmartMultiInput id="idFilterCaratteristicaRaccoltaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CaratteristicaRaccolta', mode:'OneWay'}"/>
                 </fb:control>
             </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="serviziort" label="Servizio di raccolta e taglio">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterServizioRaccoltaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioRaccolta', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioca" label="Servizio carico automezzo">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterServizioCaricoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioCarico', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioassistenzat" label="Servizio assistenza tecnica">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterServizioAssistenzaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioAssistenza', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
         </fb:filterGroupItems>
     </fb:FilterBar>
     <t:Table id="idTableFAD1" rows="{FAD1Model>/}" selectionMode="Multi" fixedColumnCount="7">
@@ -156,7 +171,7 @@
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Numero Bolla di conferimento (OdA)"/>
+                <Label text="Bolla di conferimento"/>
                 <t:template>
                     <Text text="{FAD1Model>NumeroBolla}" wrapping="false"/>
                 </t:template>
@@ -168,10 +183,8 @@
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Data registrazione bolla di conferimento"/>
+                <Label text="Data registrazione bolla"/>
                 <t:template>
-                    <!--  <Text text="{ path: 'FAD1Model>DataRegistrazioneBolla', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long' } }" wrapping="false"/>
-                -->
                     <Text text="{FAD1Model>DataRegistrazioneBolla}" wrapping="false"/>
                 </t:template>
             </t:Column>
@@ -203,6 +216,180 @@
                 <Label text="UM"/>
                 <t:template>
                     <Text text="{FAD1Model>UM}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Specie"/>
+                <t:template>
+                    <Text text="{FAD1Model>Specie}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Stagionalità"/>
+                <t:template>
+                    <Text text="{FAD1Model>Stagionalita}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Varietà"/>
+                <t:template>
+                    <Text text="{FAD1Model>Varieta}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Certificazione Aziendale"/>
+                <t:template>
+                    <Text text="{FAD1Model>CertificazioneAziendale}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Certificazione Prodotto"/>
+                <t:template>
+                    <Text text="{FAD1Model>CertificazioneProdotto}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Residuo"/>
+                <t:template>
+                    <Text text="{FAD1Model>Residuo}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Certificazione commerciale"/>
+                <t:template>
+                    <Text text="{FAD1Model>CertificazioneCommerciale}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Specifica"/>
+                <t:template>
+                    <Text text="{FAD1Model>Specifica}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Lavorazione"/>
+                <t:template>
+                    <Text text="{FAD1Model>Lavorazione}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Origine"/>
+                <t:template>
+                    <Text text="{FAD1Model>Origine}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Qualità"/>
+                <t:template>
+                    <Text text="{FAD1Model>Qualita}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Calibrazione"/>
+                <t:template>
+                    <Text text="{FAD1Model>Calibrazione}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Eventi Coltivazione"/>
+                <t:template>
+                    <Text text="{FAD1Model>EventiColtivazione}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Caratteristica di raccolta e taglio"/>
+                <t:template>
+                    <Text text="{FAD1Model>CaratteristicaRaccolta}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Servizio di raccolta/taglio"/>
+                <t:template>
+                    <Text text="{FAD1Model>ServizioRaccolta}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Servizio carico automezzo"/>
+                <t:template>
+                    <Text text="{FAD1Model>ServizioCarico}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Servizio di assistenza tecnica"/>
+                <t:template>
+                    <Text text="{FAD1Model>ServizioAssistenza}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Servizio di deposito"/>
+                <t:template>
+                    <Text text="{FAD1Model>ServizioDeposito}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Servizio di calibrazione"/>
+                <t:template>
+                    <Text text="{FAD1Model>ServizioCalibrazione}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Servizio extra 1"/>
+                <t:template>
+                    <Text text="{FAD1Model>ServizioExtra1}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Servizio extra 2"/>
+                <t:template>
+                    <Text text="{FAD1Model>ServizioExtra2}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Servizio extra 3"/>
+                <t:template>
+                    <Text text="{FAD1Model>ServizioExtra3}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Servizio extra 4"/>
+                <t:template>
+                    <Text text="{FAD1Model>ServizioExtra4}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Servizio extra 5"/>
+                <t:template>
+                    <Text text="{FAD1Model>ServizioExtra5}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Raggruppamento di liquidazione"/>
+                <t:template>
+                    <Text text="{FAD1Model>RaggruppamentoLiquidazione}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Campo politiche OP"/>
+                <t:template>
+                    <Text text="{FAD1Model>CampoPoliticheOP}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Zona di trasporto"/>
+                <t:template>
+                    <Text text="{FAD1Model>ZonaTrasporto}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Magazzino di ricezione"/>
+                <t:template>
+                    <Text text="{FAD1Model>Magazzino}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+             <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Incoterm"/>
+                <t:template>
+                    <Text text="{FAD1Model>Incoterm}" wrapping="false"/>
                 </t:template>
             </t:Column>
         </t:columns>
