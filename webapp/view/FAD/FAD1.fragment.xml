@@ -130,6 +130,51 @@
                     <smartMultiInput:SmartMultiInput id="idFilterServizioAssistenzaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioAssistenza', mode:'OneWay'}"/>
                 </fb:control>
             </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="serviziodeposito" label="Servizio deposito">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterServizioDepositoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioDeposito', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="serviziocalibrazione" label="Servizio calibrazione">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterServizioCalibrazioneFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioCalibrazione', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioextra1" label="Servizio extra 1">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterServizioExtra1FAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioExtra1', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioextra2" label="Servizio extra 2">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterServizioExtra2FAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioExtra2', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioextra3" label="Servizio extra 3">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterServizioExtra3FAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioExtra3', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioextra4" label="Servizio extra 4">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterServizioExtra4FAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioExtra4', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioextra5" label="Servizio extra 5">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterServizioExtra5FAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioExtra5', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="raggruppamentoliquidazione" label="Raggruppamento Liquidazione">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterRaggruppamentoLiquidazioneFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'RaggruppamentoLiquidazione', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="campopoliticheop" label="Campo Politiche OP">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterCampoPoliticheOPFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CampoPoliticheOP', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
         </fb:filterGroupItems>
     </fb:FilterBar>
     <t:Table id="idTableFAD1" rows="{FAD1Model>/}" selectionMode="Multi" fixedColumnCount="7">
@@ -386,7 +431,7 @@
                     <Text text="{FAD1Model>Magazzino}" wrapping="false"/>
                 </t:template>
             </t:Column>
-             <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
                 <Label text="Incoterm"/>
                 <t:template>
                     <Text text="{FAD1Model>Incoterm}" wrapping="false"/>
