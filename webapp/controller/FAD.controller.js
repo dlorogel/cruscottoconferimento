@@ -94,12 +94,12 @@ sap.ui.define([
                     sap.m.MessageToast.show(sErrore);
                 }
             },
-            onSocieta: function (oEvent) {
+            /*onSocieta: function (oEvent) {
                 let sCompany = oEvent.getParameter("value"),
                     oBinding = this.byId("idFilterOrgAcquistiFAD1").getContent().getBinding("items"),
                     oFilter = new Filter("Bukrs", FilterOperator.EQ, sCompany);
                 oBinding.filter([oFilter]);
-            },
+            },*/
             onSimulaFatturaFAD1: function () {
                 let gettingInternalTable = this.byId("idTableFAD1"),
                     oSelIndices = gettingInternalTable.getSelectedIndices(),

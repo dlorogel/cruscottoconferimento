@@ -21,13 +21,18 @@
                     <smartMultiInput:SmartMultiInput id="idFilterProduttoreFAD1" entitySet="FAD1FiltriSet" value="{path: 'Produttore', mode:'OneWay'}" mandatory="false"/>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="orgacquisti" label="Org. Acquisti">
+           <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="orgacquisti" label="Org. Acquisti">
                 <fb:control>
                     <smartField:SmartField id="idFilterOrgAcquistiFAD1" value="{path: 'OrgAcquisti', mode:'OneWay'}" entitySet="FAD1FiltriSet" mandatory="false">
                         <smartField:configuration>
                             <smartField:Configuration controlType="dropDownList" displayBehaviour="idAndDescription" />
                         </smartField:configuration>
                     </smartField:SmartField>
+                </fb:control>
+            </fb:FilterGroupItem> -->
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="orgacquisti" label="Org. Acquisti">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterOrgAcquistiFAD1" entitySet="FAD1FiltriSet" value="{path: 'OrgAcquisti', mode:'OneWay'}" mandatory="false"/>
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="numerobolla" label="Numero Bolla di conferimento (OdA)">
@@ -173,6 +178,21 @@
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="campopoliticheop" label="Campo Politiche OP">
                 <fb:control>
                     <smartMultiInput:SmartMultiInput id="idFilterCampoPoliticheOPFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CampoPoliticheOP', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="incoterm" label="Incoterm">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterIncotermFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Incoterm', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="zonatrasporto" label="Zona trasporto">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterZonaTrasportoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ZonaTrasporto', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="magazzino" label="Magazzino">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterMagazzinoFAD1" mandatory="false" innerControlsCreated="onMagazzino" entitySet="FADBolleConferimentoSet" value="{path: 'Magazzino', mode:'OneWay'}" />
                 </fb:control>
             </fb:FilterGroupItem>
         </fb:filterGroupItems>
