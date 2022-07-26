@@ -21,7 +21,7 @@
                     <smartMultiInput:SmartMultiInput id="idFilterProduttoreFAD1" entitySet="FAD1FiltriSet" value="{path: 'Produttore', mode:'OneWay'}" mandatory="false"/>
                 </fb:control>
             </fb:FilterGroupItem>
-           <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="orgacquisti" label="Org. Acquisti">
+            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="orgacquisti" label="Org. Acquisti">
                 <fb:control>
                     <smartField:SmartField id="idFilterOrgAcquistiFAD1" value="{path: 'OrgAcquisti', mode:'OneWay'}" entitySet="FAD1FiltriSet" mandatory="false">
                         <smartField:configuration>
@@ -192,7 +192,12 @@
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="magazzino" label="Magazzino">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterMagazzinoFAD1" mandatory="false" innerControlsCreated="onMagazzino" entitySet="FADBolleConferimentoSet" value="{path: 'Magazzino', mode:'OneWay'}" />
+                    <smartMultiInput:SmartMultiInput id="idFilterMagazzinoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Magazzino', mode:'OneWay'}" />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="tipolistino" label="Tipo Listino" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterTipoListinoFAD1" mandatory="true" entitySet="FADBolleConferimentoSet" value="{path: 'TipoListino', mode:'OneWay'}" />
                 </fb:control>
             </fb:FilterGroupItem>
         </fb:filterGroupItems>
