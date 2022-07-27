@@ -205,6 +205,16 @@
                     <smartMultiInput:SmartMultiInput id="idFilterCodicePercentualeFAD1" mandatory="true" entitySet="FADBolleConferimentoSet" value="{path: 'CodicePercentualeAcconto', mode:'OneWay'}" />
                 </fb:control>
             </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="considerareacconti" label="Considerare acconti">
+                <fb:control>
+                    <CheckBox id="idFilterConsiderareAccontiFAD1" selected="true" />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="eserciziocompetenza" label="Esercizio Competenza">
+                <fb:control>
+                    <Input id="idFilterEsercizioCompetenzaFAD1" maxLength="4" />
+                </fb:control>
+            </fb:FilterGroupItem>
         </fb:filterGroupItems>
     </fb:FilterBar>
     <t:Table id="idTableFAD1" rows="{FAD1Model>/}" selectionMode="Multi" fixedColumnCount="7">
