@@ -69,6 +69,12 @@ sap.ui.define([
                         and: false
                     }));
                 }
+                if (!this.byId("idFilterCodicePercentualeFAD1").getValue() || this.byId("idFilterCodicePercentualeFAD1").getValue() === "") {
+                    bFiltro = true;
+                    sErrore = "Valorizzare il filtro Codice Percentuale";
+                } else {
+                    aFilter.push(new Filter("CodicePercentualeAcconto", FilterOperator.EQ, this.byId("idFilterCodicePercentualeFAD1").getValue()));
+                }
                 if (!bFiltro) {
                     this.oGlobalBusyDialog.open();
                     this.getView().getModel().read("/FADBolleConferimentoSet", {

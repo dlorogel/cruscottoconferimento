@@ -202,7 +202,7 @@
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="codicepercentuale" label="Codice Percentuale" partOfCurrentVariant="true" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterCodicePercentualeFAD1" mandatory="true" entitySet="FADBolleConferimentoSet" value="{path: 'CodicePercentualeAcconto', mode:'OneWay'}" />
+                    <smartField:SmartField id="idFilterCodicePercentualeFAD1" value="{path: 'CodicePercentualeAcconto', mode:'OneWay'}" mandatory="true" entitySet="FADBolleConferimentoSet" />
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="considerareacconti" label="Considerare acconti">
