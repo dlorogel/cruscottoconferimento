@@ -200,6 +200,11 @@
                     <smartMultiInput:SmartMultiInput id="idFilterTipoListinoFAD1" mandatory="true" entitySet="FADBolleConferimentoSet" value="{path: 'TipoListino', mode:'OneWay'}" />
                 </fb:control>
             </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="codicepercentuale" label="Codice Percentuale" partOfCurrentVariant="true" visibleInFilterBar="true">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterCodicePercentualeFAD1" mandatory="true" entitySet="FADBolleConferimentoSet" value="{path: 'CodicePercentualeAcconto', mode:'OneWay'}" />
+                </fb:control>
+            </fb:FilterGroupItem>
         </fb:filterGroupItems>
     </fb:FilterBar>
     <t:Table id="idTableFAD1" rows="{FAD1Model>/}" selectionMode="Multi" fixedColumnCount="7">
