@@ -56,19 +56,6 @@ sap.ui.define([
                         dSecondDate = this.byId("idFilterDataRegistrazioneBollaFAD1").getSecondDateValue();
                     aFilter.push(new Filter("DataRegistrazioneBolla", FilterOperator.BT, dFirstDate.getFullYear() + String(dFirstDate.getMonth() + 1).padStart(2, "0") + String(dFirstDate.getDate()).padStart(2, "0"), dSecondDate.getFullYear() + String(dSecondDate.getMonth() + 1).padStart(2, "0") + String(dSecondDate.getDate()).padStart(2, "0")));
                 }
-                if (!this.byId("idFilterTipoListinoFAD1").getValue() || this.byId("idFilterTipoListinoFAD1").getValue().length === 0) {
-                    bFiltro = true;
-                    sErrore = "Valorizzare il filtro Tipo Listino";
-                } else {
-                    let aFilterTipoListino = [];
-                    this.byId("idFilterTipoListinoFAD1").getValue().forEach(x => {
-                        aFilterTipoListino.push(new Filter("TipoListino", FilterOperator.EQ, x.getKey()));
-                    });
-                    aFilter.push(new Filter({
-                        filters: aFilterTipoListino,
-                        and: false
-                    }));
-                }
                 if (!this.byId("idFilterCodicePercentualeFAD1").getValue() || this.byId("idFilterCodicePercentualeFAD1").getValue() === "") {
                     bFiltro = true;
                     sErrore = "Valorizzare il filtro Codice Percentuale";

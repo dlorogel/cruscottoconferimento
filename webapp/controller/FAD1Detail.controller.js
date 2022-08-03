@@ -13,6 +13,9 @@ sap.ui.define([
         return Controller.extend("it.orogel.cruscottoconferimento.controller.FAD1Detail", {
             onInit: function () {
                 this.oGlobalBusyDialog = new sap.m.BusyDialog();
+                if (this.getOwnerComponent().getNavigation() === null) {
+                    this.onNavBack();
+                }
             },
             onNavBack: function () {
                 let oHistory = History.getInstance(),

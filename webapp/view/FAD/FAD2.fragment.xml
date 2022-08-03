@@ -15,6 +15,26 @@
                     <smartMultiInput:SmartMultiInput id="idFilterFornitoreFAD2" mandatory="true" entitySet="FAD2Set" value="{path: 'Fornitore', mode:'OneWay'}"/>
                 </fb:control>
             </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="specie" label="Specie">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterSpecieFAD2" mandatory="false" entitySet="FAD2Set" value="{path: 'Specie', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="stagionalita" label="Stagionalità">
+                <fb:control>
+                    <smartMultiInput:SmartMultiInput id="idFilterStagionalitaFAD2" mandatory="false" entitySet="FAD2Set" value="{path: 'Stagionalita', mode:'OneWay'}"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="considerareacconti" label="Considerare acconti">
+                <fb:control>
+                    <CheckBox id="idFilterConsiderareAccontiFAD2" selected="true" />
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="eserciziocompetenza" label="Esercizio Competenza">
+                <fb:control>
+                    <Input id="idFilterEsercizioCompetenzaFAD2" maxLength="4" />
+                </fb:control>
+            </fb:FilterGroupItem>
         </fb:filterGroupItems>
     </fb:FilterBar>
     <OverflowToolbar style="Clear">

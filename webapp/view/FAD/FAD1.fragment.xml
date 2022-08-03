@@ -195,11 +195,6 @@
                     <smartMultiInput:SmartMultiInput id="idFilterMagazzinoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Magazzino', mode:'OneWay'}" />
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="tipolistino" label="Tipo Listino" partOfCurrentVariant="true" visibleInFilterBar="true">
-                <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterTipoListinoFAD1" mandatory="true" entitySet="FADBolleConferimentoSet" value="{path: 'TipoListino', mode:'OneWay'}" />
-                </fb:control>
-            </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="codicepercentuale" label="Codice Percentuale" partOfCurrentVariant="true" visibleInFilterBar="true">
                 <fb:control>
                     <smartField:SmartField id="idFilterCodicePercentualeFAD1" value="{path: 'CodicePercentualeAcconto', mode:'OneWay'}" mandatory="true" entitySet="FADBolleConferimentoSet" />
@@ -475,6 +470,126 @@
                 <Label text="Incoterm"/>
                 <t:template>
                     <Text text="{FAD1Model>Incoterm}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Tipo Listino"/>
+                <t:template>
+                    <Text text="{FAD1Model>TipoListino}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Prezzo base"/>
+                <t:template>
+                    <Text text="{FAD1Model>PrezzoBase}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Costo Servizio di raccolta/taglio"/>
+                <t:template>
+                    <Text text="{FAD1Model>CostoRaccolta}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Costo Servizio carico automezzo"/>
+                <t:template>
+                    <Text text="{FAD1Model>CostoCarico}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Costo Servizio di assistenza tecnica"/>
+                <t:template>
+                    <Text text="{FAD1Model>CostoAssistenza}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Costo Servizio di desposito"/>
+                <t:template>
+                    <Text text="{FAD1Model>CostoDeposito}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Costo servizio di calibrazione"/>
+                <t:template>
+                    <Text text="{FAD1Model>CostoCalibrazione}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Costo Servizio extra 1"/>
+                <t:template>
+                    <Text text="{FAD1Model>CostoExtra1}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Costo Servizio extra 2"/>
+                <t:template>
+                    <Text text="{FAD1Model>CostoExtra2}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Costo Servizio extra 3"/>
+                <t:template>
+                    <Text text="{FAD1Model>CostoExtra3}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Costo Servizio extra 4"/>
+                <t:template>
+                    <Text text="{FAD1Model>CostoExtra4}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Costo Servizio extra 5"/>
+                <t:template>
+                    <Text text="{FAD1Model>CostoExtra5}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Mark Up"/>
+                <t:template>
+                    <Text text="{FAD1Model>MarkUp}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Prezzo trasporto"/>
+                <t:template>
+                    <Text text="{FAD1Model>PrezzoTrasporto}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Codice Percentuale Acconto"/>
+                <t:template>
+                    <Text text="{FAD1Model>CodicePercentualeAcconto}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Percentuale Acconto"/>
+                <t:template>
+                    <Text text="{FAD1Model>PercentualeAcconto}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Prezzo acconto"/>
+                <t:template>
+                    <Text text="{FAD1Model>PrezzoAcconto}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Totale merce"/>
+                <t:template>
+                    <Text text="{FAD1Model>TotaleMerce}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Importo Totale"/>
+                <t:template>
+                    <Text text="{FAD1Model>ImportoTotale}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Stato"/>
+                <t:template>
+                    <Text text="{FAD1Model>Stato}" wrapping="false"/>
                 </t:template>
             </t:Column>
         </t:columns>
