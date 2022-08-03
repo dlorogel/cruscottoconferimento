@@ -66,6 +66,78 @@
                         <Text text="{ path: 'FAD1DetailModel>DataDocumento', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long' } }" wrapping="false"/>
                     </t:template>
                 </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale Merce Conferita"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>TotaleMerce}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale maggiorazione 1"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>Maggiorazione1}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale maggiorazione 2"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>Maggiorazione2}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale maggiorazione 3"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>Maggiorazione3}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale maggiorazione 4"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>Maggiorazione4}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale maggiorazione 5"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>Maggiorazione5}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale maggiorazione 6"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>Maggiorazione6}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale maggiorazione 7"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>Maggiorazione7}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale maggiorazione 8"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>Maggiorazione8}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale maggiorazione 9"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>Maggiorazione9}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale maggiorazione 10"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>Maggiorazione10}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Importo Totale"/>
+                    <t:template>
+                        <Text text="{FAD1DetailModel>ImportoTotale}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
             </t:columns>
         </t:Table>
     </Page>
