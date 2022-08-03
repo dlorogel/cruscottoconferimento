@@ -581,6 +581,66 @@
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Maggiorazione 1"/>
+                <t:template>
+                    <Text text="{FAD1Model>Maggiorazione1}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Maggiorazione 2"/>
+                <t:template>
+                    <Text text="{FAD1Model>Maggiorazione2}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Maggiorazione 3"/>
+                <t:template>
+                    <Text text="{FAD1Model>Maggiorazione3}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Maggiorazione 4"/>
+                <t:template>
+                    <Text text="{FAD1Model>Maggiorazione4}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Maggiorazione 5"/>
+                <t:template>
+                    <Text text="{FAD1Model>Maggiorazione5}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Maggiorazione 6"/>
+                <t:template>
+                    <Text text="{FAD1Model>Maggiorazione6}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Maggiorazione 7"/>
+                <t:template>
+                    <Text text="{FAD1Model>Maggiorazione7}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Maggiorazione 8"/>
+                <t:template>
+                    <Text text="{FAD1Model>Maggiorazione8}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Maggiorazione 9"/>
+                <t:template>
+                    <Text text="{FAD1Model>Maggiorazione9}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                <Label text="Maggiorazione 10"/>
+                <t:template>
+                    <Text text="{FAD1Model>Maggiorazione10}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
                 <Label text="Importo Totale"/>
                 <t:template>
                     <Text text="{FAD1Model>ImportoTotale}" wrapping="false"/>

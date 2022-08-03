@@ -56,20 +56,41 @@ sap.ui.define([
                 });
                 if (!sError) {
                     let aModel = this.getOwnerComponent().getNavigation(),
-                        aOutput = [],
-                        aFornitori = [];
+                        aOutput = [];
 
                     aModel.forEach(x => {
-                        let oFind = aFornitori.find(y => y === x.Fornitore);
+                        let oFind = aOutput.find(y => y.Fornitore === x.Fornitore);
                         if (oFind) {
-
+                            oFind.TotaleMerce += x.TotaleMerce;
+                            oFind.Maggiorazione1 += x.Maggiorazione1;
+                            oFind.Maggiorazione2 += x.Maggiorazione2;
+                            oFind.Maggiorazione3 += x.Maggiorazione3;
+                            oFind.Maggiorazione4 += x.Maggiorazione4;
+                            oFind.Maggiorazione5 += x.Maggiorazione5;
+                            oFind.Maggiorazione6 += x.Maggiorazione6;
+                            oFind.Maggiorazione7 += x.Maggiorazione7;
+                            oFind.Maggiorazione8 += x.Maggiorazione8;
+                            oFind.Maggiorazione9 += x.Maggiorazione9;
+                            oFind.Maggiorazione10 += x.Maggiorazione10;
+                            oFind.ImportoTotale += x.ImportoTotale;
                         } else {
-                            aFornitori.push(x.Fornitore);
                             let oRow = {
                                 Societa: x.Societa,
                                 Fornitore: x.Fornitore,
                                 NomeFornitore: x.NomeFornitore,
-                                DataDocumento: this.getView().byId("idDataDocumento").getDateValue()
+                                DataDocumento: this.getView().byId("idDataDocumento").getDateValue(),
+                                TotaleMerce: x.TotaleMerce,
+                                Maggiorazione1: x.Maggiorazione1,
+                                Maggiorazione2: x.Maggiorazione2,
+                                Maggiorazione3: x.Maggiorazione3,
+                                Maggiorazione4: x.Maggiorazione4,
+                                Maggiorazione5: x.Maggiorazione5,
+                                Maggiorazione6: x.Maggiorazione6,
+                                Maggiorazione7: x.Maggiorazione7,
+                                Maggiorazione8: x.Maggiorazione8,
+                                Maggiorazione9: x.Maggiorazione9,
+                                Maggiorazione10: x.Maggiorazione10,
+                                ImportoTotale: x.ImportoTotale
                             }
                             aOutput.push(oRow);
                         }
