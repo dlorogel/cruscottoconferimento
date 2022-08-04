@@ -73,6 +73,8 @@ sap.ui.define([
                             oFind.Maggiorazione9 += x.Maggiorazione9;
                             oFind.Maggiorazione10 += x.Maggiorazione10;
                             oFind.ImportoTotale += x.ImportoTotale;
+                            oFind.AccontiRegistrati += x.AccontiRegistrati;
+                            oFind.Imponibile = oFind.ImportoTotale - oFind.AccontiRegistrati;
                         } else {
                             let oRow = {
                                 Societa: x.Societa,
@@ -90,8 +92,11 @@ sap.ui.define([
                                 Maggiorazione8: x.Maggiorazione8,
                                 Maggiorazione9: x.Maggiorazione9,
                                 Maggiorazione10: x.Maggiorazione10,
-                                ImportoTotale: x.ImportoTotale
+                                ImportoTotale: x.ImportoTotale,
+                                AccontiRegistrati: x.AccontiRegistrati
                             }
+                            oRow.Imponibile = x.ImportoTotale - x.AccontiRegistrati;
+                            //oRow.ImportoIVA = oRow.Imponibile
                             aOutput.push(oRow);
                         }
                     });
