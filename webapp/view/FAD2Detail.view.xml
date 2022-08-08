@@ -14,7 +14,7 @@
                     <Label text="Data documento" />
                     <DatePicker id="idDataDocumento" value="" valueFormat="yyyyMMdd" displayFormat="short" required="true" class="sapUiSmallMarginBottom"/>
                     <Label text="Importo Acconto" />
-                    <Input value="" required="true" maxLength="23"/>
+                    <Input id="idImportoAcconto" value="" required="true" maxLength="23"/>
                     <Label text="Codice IVA" />
                     <smartField:SmartField id="idCodiceIVA" value="{path: 'Mwskz', mode:'OneWay'}" entitySet="CodiceIVASet" mandatory="true" />
                     <core:Title text="Testi" />
@@ -66,6 +66,36 @@
                     <Label text="Data documento"/>
                     <t:template>
                         <Text text="{ path: 'FAD2DetailModel>DataDocumento', type: 'sap.ui.model.type.Date', formatOptions: { style: 'long' } }" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Importo Acconto"/>
+                    <t:template>
+                        <Text text="{FAD2DetailModel>ImportoAcconto}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Acconti già registrati"/>
+                    <t:template>
+                        <Text text="{FAD2DetailModel>AccontiRegistrati}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Imponibile"/>
+                    <t:template>
+                        <Text text="{FAD2DetailModel>Imponibile}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Importo IVA"/>
+                    <t:template>
+                        <Text text="{FAD2DetailModel>ImportoIVA}" wrapping="false"/>
+                    </t:template>
+                </t:Column>
+                <t:Column hAlign="Begin" resizable="true" autoResizable="true">
+                    <Label text="Totale Documento"/>
+                    <t:template>
+                        <Text text="{FAD2DetailModel>TotaleDocumento}" wrapping="false"/>
                     </t:template>
                 </t:Column>
             </t:columns>

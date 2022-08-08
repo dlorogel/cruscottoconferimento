@@ -58,27 +58,38 @@ sap.ui.define([
                         aFilterFornitore = [],
                         aFilter = [];
                     aModel.forEach(x => {
-                        aFilterFornitore.push(new Filter("Lifnr", FilterOperator.EQ, x.Fornitore.padStart(10, "0")));
+                        aFilterFornitore.push(new Filter("Fornitore", FilterOperator.EQ, x.Fornitore.padStart(10, "0")));
                     });
+                    if (aModel.length > 0) {
+                        aFilter.push(new Filter("Societa", FilterOperator.EQ, aModel[0].Societa));
+                    }
+                    aFilter.push(new Filter("Mwskz", FilterOperator.EQ, this.getView().byId("idCodiceIVA").getValue()));
                     aFilter.push(new Filter({
                         filters: aFilterFornitore,
                         and: false
                     }));
 
-                    this.getView().getModel().read("/FornitoreSet", {
+                    this.getView().getModel().read("/FAD2Set", {
                         filters: aFilter,
                         success: (oDataFornitori) => {
                             aModel.forEach(x => {
                                 let oRow = {
                                     Societa: x.Societa,
                                     Fornitore: x.Fornitore,
-                                    NomeFornitore: "",
-                                    DataDocumento: this.getView().byId("idDataDocumento").getDateValue()
+                                    DataDocumento: this.getView().byId("idDataDocumento").getDateValue(),
+                                    ImportoAcconto: parseFloat(this.getView().byId("idImportoAcconto").getValue()),
+                                    AccontiRegistrati: 0,
+                                    PercentualeIVA: 0
                                 };
-                                let oNomeFornitore = oDataFornitori.results.find(y => y.Lifnr === parseInt(x.Fornitore, 10).toString());
+                                let oNomeFornitore = oDataFornitori.results.find(y => y.Fornitore === parseInt(x.Fornitore, 10).toString());
                                 if (oNomeFornitore) {
-                                    oRow.NomeFornitore = oNomeFornitore.Name1;                                    
+                                    oRow.NomeFornitore = oNomeFornitore.NomeFornitore;
+                                    oRow.AccontiRegistrati = oNomeFornitore.ImportoAcconto;
+                                    oRow.PercentualeIVA = oNomeFornitore.Kbetr;
                                 }
+                                oRow.Imponibile = oRow.ImportoAcconto - oRow.AccontiRegistrati;
+                                oRow.ImportoIVA = oRow.Imponibile * oRow.PercentualeIVA / 100;
+                                oRow.TotaleDocumento = oRow.Imponibile + oRow.ImportoIVA;
                                 aOutput.push(oRow);
                             });
                             let oJSONTableModel = new sap.ui.model.json.JSONModel(aOutput);

@@ -129,7 +129,11 @@ sap.ui.define([
                 this.byId("idFilterFornitoreFAD2").getValue().forEach(x => {
                     let oRow = {
                         Societa: this.getView().byId("idFilterSocietaFAD2").getValue(),
-                        Fornitore: x.getKey().padStart(10, "0")
+                        Fornitore: x.getKey().padStart(10, "0"),
+                        Specie: this.byId("idFilterSpecieFAD2").getValue().join(","),
+                        Stagionalita: this.byId("idFilterStagionalitaFAD2").getValue().join(","),
+                        ConsiderareAcconti: this.byId("idFilterConsiderareAccontiFAD2").getSelected(),
+                        EsercizioCompetenza: this.byId("idFilterEsercizioCompetenzaFAD2").getValue()
                     };
                     aSelected.push(oRow);
                 });
