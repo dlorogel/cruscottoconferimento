@@ -117,6 +117,28 @@ sap.ui.define([
                         }
                     });
                 }
+            },
+            onStampa: function () {
+                let gettingInternalTable = this.byId("idTableFAD1Detail"),
+                    oSelIndices = gettingInternalTable.getSelectedIndices(),
+                    aSelected = [],
+                    aModel = this.getOwnerComponent().getNavigat;
+                if (oSelIndices !== undefined && oSelIndices.length > 0) {
+                    for (let i of oSelIndices) {
+                        let oRow = gettingInternalTable.getContextByIndex(i).getObject(),
+                            aBolle = aModel.filter(x => x.Fornitore === oRow.Fornitore);
+                        if (aBolle.length > 0) {
+                            debugger;
+                            if (aBolle[0].Delega) {
+
+                            } else {
+                                
+                            }
+                        }
+                    }
+                } else {
+                    sap.m.MessageToast.show("Selezionare almeno una riga");
+                }
             }
         });
     });
