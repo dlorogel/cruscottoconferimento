@@ -23,6 +23,15 @@
                     "annotations": [],
                     "localUri": "localService/metadata.xml"
                 }
+            },
+            "pdfService": {
+                "uri": "/sap/opu/odata/sap/ZCPI_SRV/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
             }
         },
         "crossNavigation": {
@@ -85,6 +94,15 @@
             },
             "": {
                 "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": true
+                }
+            },
+            "pdfModel": {
+                "dataSource": "pdfService",
                 "preload": true,
                 "settings": {
                     "defaultBindingMode": "TwoWay",

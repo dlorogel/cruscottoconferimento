@@ -1,5 +1,6 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
+    "it/orogel/cruscottoconferimento/model/Constants",
     "sap/ui/core/routing/History",
     "sap/ui/model/FilterOperator",
     "sap/ui/model/Filter"
@@ -7,7 +8,7 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, History, FilterOperator, Filter) {
+    function (Controller, Constants, History, FilterOperator, Filter) {
         "use strict";
 
         return Controller.extend("it.orogel.cruscottoconferimento.controller.FAD1Detail", {
@@ -119,26 +120,231 @@ sap.ui.define([
                 }
             },
             onStampa: function () {
+                this.oGlobalBusyDialog.open();
                 let gettingInternalTable = this.byId("idTableFAD1Detail"),
                     oSelIndices = gettingInternalTable.getSelectedIndices(),
-                    aSelected = [],
-                    aModel = this.getOwnerComponent().getNavigat;
-                if (oSelIndices !== undefined && oSelIndices.length > 0) {
-                    for (let i of oSelIndices) {
-                        let oRow = gettingInternalTable.getContextByIndex(i).getObject(),
-                            aBolle = aModel.filter(x => x.Fornitore === oRow.Fornitore);
-                        if (aBolle.length > 0) {
-                            debugger;
-                            if (aBolle[0].Delega) {
+                    aXML = [],
+                    aModel = this.getOwnerComponent().getNavigation();
+                var service = "it/orogel/cruscottoconferimento/model/FAD1.xml";
+                jQuery.ajax(sap.ui.require.toUrl(service), {
+                    success: oDataXML => {
+                        let s = new XMLSerializer(),
+                            forms = "ZPRINT_INVOICE_SUMMARY",
+                            templates = "ZPRINT_INVOICE_SUMMARY";
+                        if (oSelIndices !== undefined && oSelIndices.length > 0) {
+                            for (let i of oSelIndices) {
+                                let oRow = gettingInternalTable.getContextByIndex(i).getObject(),
+                                    aBolle = aModel.filter(x => x.Fornitore === oRow.Fornitore),
+                                    aAggregazione = [];
+                                if (aBolle.length > 0) {
+                                    let filename = oRow.Fornitore + "_" + new Date().toJSON().slice(0, 10) + ".pdf",
+                                        xmlClone = s.serializeToString(oDataXML);
+                                    /* Bolle per fornitore */
+                                    aBolle.forEach(x => {
+                                        let oAggregazione = {
+                                            DataFine: x.DataFine,
+                                            DataInizio: x.DataInizio,
+                                            Specie: x.Specie,
+                                            Stagionalita: x.Stagionalita,
+                                            Varieta: x.Varieta,
+                                            CertificazioneAziendale: x.CertificazioneAziendale,
+                                            CertificazioneCommerciale: x.CertificazioneCommerciale,
+                                            CertificazioneProdotto: x.CertificazioneProdotto,
+                                            Residuo: x.Residuo,
+                                            Specifica: x.Specifica,
+                                            Lavorazione: x.Lavorazione,
+                                            Origine: x.Origine,
+                                            EventiColtivazione: x.EventiColtivazione,
+                                            CaratteristicaRaccolta: x.CaratteristicaRaccolta,
+                                            ServizioRaccolta: x.ServizioRaccolta,
+                                            ServizioCarico: x.ServizioCarico,
+                                            ServizioAssistenza: x.ServizioAssistenza,
+                                            ServizioDeposito: x.ServizioDeposito,
+                                            ServizioCalibrazione: x.ServizioCalibrazione,
+                                            ZonaTrasporto: x.ZonaTrasporto,
+                                            Incoterm: x.Incoterm,
+                                            ServizioExtra1: x.ServizioExtra1,
+                                            ServizioExtra2: x.ServizioExtra2,
+                                            ServizioExtra3: x.ServizioExtra3,
+                                            ServizioExtra4: x.ServizioExtra4,
+                                            ServizioExtra5: x.ServizioExtra5,
+                                            Dettaglio: []
+                                        },
+                                            oAggregazioneFound = aAggregazione.find(y => y.DataFine === oAggregazione.DataFine
+                                                && y.DataInizio === oAggregazione.DataInizio
+                                                && y.Specie === oAggregazione.Specie
+                                                && y.Stagionalita === oAggregazione.Stagionalita
+                                                && y.Varieta === oAggregazione.Varieta
+                                                && y.CertificazioneAziendale === oAggregazione.CertificazioneAziendale
+                                                && y.CertificazioneCommerciale === oAggregazione.CertificazioneCommerciale
+                                                && y.CertificazioneProdotto === oAggregazione.CertificazioneProdotto
+                                                && y.Residuo === oAggregazione.Residuo
+                                                && y.Specifica === oAggregazione.Specifica
+                                                && y.Lavorazione === oAggregazione.Lavorazione
+                                                && y.Origine === oAggregazione.Origine
+                                                && y.EventiColtivazione === oAggregazione.EventiColtivazione
+                                                && y.CaratteristicaRaccolta === oAggregazione.CaratteristicaRaccolta
+                                                && y.ServizioRaccolta === oAggregazione.ServizioRaccolta
+                                                && y.ServizioCarico === oAggregazione.ServizioCarico
+                                                && y.ServizioAssistenza === oAggregazione.ServizioAssistenza
+                                                && y.ServizioDeposito === oAggregazione.ServizioDeposito
+                                                && y.ServizioCalibrazione === oAggregazione.ServizioCalibrazione
+                                                && y.ZonaTrasporto === oAggregazione.ZonaTrasporto
+                                                && y.Incoterm === oAggregazione.Incoterm
+                                                && y.ServizioExtra1 === oAggregazione.ServizioExtra1
+                                                && y.ServizioExtra2 === oAggregazione.ServizioExtra2
+                                                && y.ServizioExtra3 === oAggregazione.ServizioExtra3
+                                                && y.ServizioExtra4 === oAggregazione.ServizioExtra4
+                                                && y.ServizioExtra5 === oAggregazione.ServizioExtra5);
+                                        if (!oAggregazioneFound) {
+                                            oAggregazione.Dettaglio.push(x);
+                                            aAggregazione.push(oAggregazione);
+                                        } else {
+                                            oAggregazioneFound.Dettaglio.push(x);
+                                        }
+                                    });
+                                    xmlClone = xmlClone.replace("{Name}", aBolle[0].NomeFornitore);
+                                    xmlClone = xmlClone.replace("{Street}", aBolle[0].Street);
+                                    xmlClone = xmlClone.replace("{House_Num1}", aBolle[0].House_Num1);
+                                    xmlClone = xmlClone.replace("{Post_Code1}", aBolle[0].Post_Code1);
+                                    xmlClone = xmlClone.replace("{City1}", aBolle[0].City1);
+                                    xmlClone = xmlClone.replace("{Region}", aBolle[0].Region);
+                                    xmlClone = xmlClone.replace("{Vat_Number}", aBolle[0].PartitaIVA);
+                                    xmlClone = xmlClone.replace("{Tax_Code}", aBolle[0].CodiceFiscale);
+                                    xmlClone = xmlClone.replace("{Date}", this.byId("idDataDocumento").getValue());
+                                    xmlClone = xmlClone.replace("{NomeSocieta}", aBolle[0].NomeSocieta);
+                                    xmlClone = xmlClone.replace("{StreetS}", aBolle[0].StreetS);
+                                    xmlClone = xmlClone.replace("{House_Num1S}", aBolle[0].House_Num1S);
+                                    xmlClone = xmlClone.replace("{Post_Code1S}", aBolle[0].Post_Code1S);
+                                    xmlClone = xmlClone.replace("{City1S}", aBolle[0].City1S);
+                                    xmlClone = xmlClone.replace("{RegionS}", aBolle[0].RegionS);
+                                    xmlClone = xmlClone.replace("{PartitaIVASocieta}", aBolle[0].PartitaIVASocieta);
+                                    xmlClone = xmlClone.replace("{CodiceFiscaleSocieta}", aBolle[0].CodiceFiscaleSocieta);
+                                    xmlClone = xmlClone.replace("{Text1}", this.byId("idFAD1DetailText1").getValue());
+                                    xmlClone = xmlClone.replace("{Text2}", this.byId("idFAD1DetailText2").getValue());
+                                    let sUMAll ="",
+                                    SumAllQuantity=0,
+                                    SumAllTotal=0;
+                                    /* Aggregazione Bolle */
+                                    aAggregazione.forEach(x => {
+                                        let xmlAggregazione = Constants.PositionData;
+                                        xmlAggregazione = xmlAggregazione.replace("{EffectiveDate}", x.DataInizio);
+                                        xmlAggregazione = xmlAggregazione.replace("{EndOfDate}", x.DataFine);
+                                        xmlAggregazione = xmlAggregazione.replace("{Species}", x.Specie);
+                                        xmlAggregazione = xmlAggregazione.replace("{Seasonality}", x.Stagionalita);
+                                        xmlAggregazione = xmlAggregazione.replace("{Varieties}", x.Varieta);
+                                        xmlAggregazione = xmlAggregazione.replace("{CertCorporate}", x.CertificazioneAziendale);
+                                        xmlAggregazione = xmlAggregazione.replace("{Cert_Product}", x.CertificazioneProdotto);
+                                        xmlAggregazione = xmlAggregazione.replace("{Residual}", x.Residuo);
+                                        xmlAggregazione = xmlAggregazione.replace("{CertCommercial}", x.CertificazioneCommerciale);
+                                        xmlAggregazione = xmlAggregazione.replace("{Specification}", x.Specifica);
+                                        xmlAggregazione = xmlAggregazione.replace("{Processing}", x.Lavorazione);
+                                        xmlAggregazione = xmlAggregazione.replace("{Origin}", x.Origine);
+                                        xmlAggregazione = xmlAggregazione.replace("{CultivationEvents}", x.EventiColtivazione);
+                                        xmlAggregazione = xmlAggregazione.replace("{CarattCollect}", x.CaratteristicaRaccolta);
+                                        xmlAggregazione = xmlAggregazione.replace("{Collection}", x.ServizioRaccolta);
+                                        xmlAggregazione = xmlAggregazione.replace("{Vehicle}", x.ServizioCarico);
+                                        xmlAggregazione = xmlAggregazione.replace("{TechicalService}", x.ServizioAssistenza);
+                                        xmlAggregazione = xmlAggregazione.replace("{DespositoService}", x.ServizioDeposito);
+                                        xmlAggregazione = xmlAggregazione.replace("{CalibrationService}", x.ServizioCalibrazione);
+                                        xmlAggregazione = xmlAggregazione.replace("{Route}", x.ZonaTrasporto);
+                                        xmlAggregazione = xmlAggregazione.replace("{Incoterm}", x.Incoterm);
+                                        xmlAggregazione = xmlAggregazione.replace("{ExtraService1}", x.ServizioExtra1);
+                                        xmlAggregazione = xmlAggregazione.replace("{ExtraService2}", x.ServizioExtra2);
+                                        xmlAggregazione = xmlAggregazione.replace("{ExtraService3}", x.ServizioExtra3);
+                                        xmlAggregazione = xmlAggregazione.replace("{ExtraService4}", x.ServizioExtra4);
+                                        xmlAggregazione = xmlAggregazione.replace("{ExtraService5}", x.ServizioExtra5);
+                                        let sUM = "",
+                                            SumQuantity = 0,
+                                            SumTotal = 0,
+                                            xmlPosizioni = "";
+                                        x.Dettaglio.forEach(y => {
+                                            sUM = y.UM;
+                                            SumQuantity += parseFloat(y.Quantita);
+                                            SumTotal += parseFloat(y.TotaleMerce);
+                                            let xmlPosizione = Constants.RowPositionData;
+                                            xmlPosizione = xmlPosizione.replace("{ItemCode}", y.Materiale);
+                                            xmlPosizione = xmlPosizione.replace("{Quality}", y.Qualita);
+                                            xmlPosizione = xmlPosizione.replace("{Caliber}", y.Calibrazione);
+                                            xmlPosizione = xmlPosizione.replace("{UM}", y.UM);
+                                            xmlPosizione = xmlPosizione.replace("{Quantity}", y.Quantita);
+                                            xmlPosizione = xmlPosizione.replace("{Price}", y.PrezzoBase);
+                                            xmlPosizione = xmlPosizione.replace("{Total}", y.TotaleMerce);
+                                            xmlPosizioni += xmlPosizione;
+                                        });
+                                        sUMAll = sUM;
+                                        SumAllQuantity+= parseFloat(SumQuantity);
+                                        SumAllTotal+= parseFloat(SumTotal);
+                                        xmlAggregazione = xmlAggregazione.replace("{UM}", sUM);
+                                        xmlAggregazione = xmlAggregazione.replace("{SumQuantity}", SumQuantity);
+                                        xmlAggregazione = xmlAggregazione.replace("{SumTotal}", SumTotal);
+                                        xmlAggregazione = xmlAggregazione.replace("{Rows}", xmlPosizioni);
+                                        xmlClone = xmlClone.replace("{PositionData}", xmlAggregazione);
+                                    });
+                                    xmlClone = xmlClone.replace("{UMAll}", sUMAll);
+                                    xmlClone = xmlClone.replace("{SumAllQuantity}", SumAllQuantity);
+                                    xmlClone = xmlClone.replace("{SumAllTotal}", SumAllTotal);
 
-                            } else {
-                                
+                                    debugger;
+
+                                    let xmlz = (new DOMParser()).parseFromString(xmlClone, "application/xml"),
+                                        xmlBase = window.btoa(unescape(unescape(encodeURIComponent((new XMLSerializer()).serializeToString(xmlz))))),
+                                        mObj = {
+                                            "Form": forms,
+                                            "Template": templates,
+                                            "xmlData": xmlBase,
+                                            "formType": "Print",
+                                            "formLocale": "it_IT",
+                                            "taggedPdf": "0",
+                                            "embedFont": "0"
+                                        };
+                                    aXML.push(mObj);
+                                    /*
+                                    if (aBolle[0].Delega) {
+        
+                                    } else {
+                                        
+                                    }
+                                    */
+                                }
                             }
+                            let oPromisePDF = Promise.resolve();
+                            aXML.forEach(x => {
+                                oPromisePDF = oPromisePDF.then(() => {
+                                    return this.createPDF(x);
+                                });
+                            });
+                            Promise.all([oPromisePDF]).then(() => {
+                                debugger;
+                                console.log(aXML);
+                                this.oGlobalBusyDialog.close();
+                            }, oError => {
+                                sap.m.MessageToast.show("Errore nella generazione del PDF");
+                                this.oGlobalBusyDialog.close();
+                            });
+                        } else {
+                            sap.m.MessageToast.show("Selezionare almeno una riga");
                         }
+                    },
+                    error: oError => {
+                        sap.m.MessageToast.show("Errore nella generazione del PDF");
+                        this.oGlobalBusyDialog.close();
                     }
-                } else {
-                    sap.m.MessageToast.show("Selezionare almeno una riga");
-                }
+                });
+            },
+            createPDF: function (oXML) {
+                var oPDFModel = this.getView().getModel("pdfModel");
+                return new Promise((resolve, reject) => {
+                    oPDFModel.create("/PDFSet", oXML, {
+                        success: (oData) => {
+                            oXML.PDF = "data:application/pdf;base64," + oData.PDFOut;
+                            resolve();
+                        },
+                        error: (oError) => {
+                            reject("Errore nella generazione del PDF");
+                        }
+                    });
+                });
             }
         });
     });
