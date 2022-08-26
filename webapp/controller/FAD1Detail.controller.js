@@ -125,23 +125,19 @@ sap.ui.define([
                     oSelIndices = gettingInternalTable.getSelectedIndices(),
                     aXML = [],
                     aModel = this.getOwnerComponent().getNavigation();
-
                 if (oSelIndices !== undefined && oSelIndices.length > 0) {
                     for (let i of oSelIndices) {
                         let oRow = gettingInternalTable.getContextByIndex(i).getObject(),
                             aBolle = aModel.filter(x => x.Fornitore === oRow.Fornitore);
                         if (aBolle.length > 0) {
-                            let filename = oRow.Fornitore + "_" + new Date().toJSON().slice(0, 10) + ".pdf",
-                                sAllegato1 = "",
+                            let sAllegato1 = this.Allegato1(Constants.XMLF.XML, aBolle),
                                 forms = "",
                                 templates = "";
 
                             if (aBolle[0].Delega) {
-                                sAllegato1 = this.Allegato1Delega(Constants.XMLD.XML, aBolle);
                                 forms = "ZPRINT_INVOICE_SUMMARY";
                                 templates = "ZPRINT_INVOICE_SUMMARY";
                             } else {
-                                sAllegato1 = this.Allegato1NoDelega(Constants.XMLND.XML, aBolle);
                                 forms = "ZPRINT_PROXY_INVOICE";
                                 templates = "ZPRINT_PROXY_INVOICE";
                             }
@@ -229,11 +225,9 @@ sap.ui.define([
                     });
                 });
             },
-            Allegato1Delega: function () {
-
-            },
-            Allegato1NoDelega: function (xmlClone, aBolle) {
-                let aAggregazione = []
+            Allegato1: function (xmlClone, aBolle) {
+                let aAggregazione = [],
+                    aFatture = [];
                 /* Bolle per fornitore */
                 aBolle.forEach(x => {
                     let oAggregazione = {
@@ -290,12 +284,16 @@ sap.ui.define([
                             && y.ServizioExtra2 === oAggregazione.ServizioExtra2
                             && y.ServizioExtra3 === oAggregazione.ServizioExtra3
                             && y.ServizioExtra4 === oAggregazione.ServizioExtra4
-                            && y.ServizioExtra5 === oAggregazione.ServizioExtra5);
+                            && y.ServizioExtra5 === oAggregazione.ServizioExtra5),
+                        oFattura = aFatture.find(y => y === x.Fattura);
                     if (!oAggregazioneFound) {
                         oAggregazione.Dettaglio.push(x);
                         aAggregazione.push(oAggregazione);
                     } else {
                         oAggregazioneFound.Dettaglio.push(x);
+                    }
+                    if (!oFattura) {
+                        aFatture.push(x.Fattura);
                     }
                 });
                 xmlClone = xmlClone.replace("{Name}", aBolle[0].NomeFornitore);
@@ -319,10 +317,20 @@ sap.ui.define([
                 xmlClone = xmlClone.replace("{Text2}", this.byId("idFAD1DetailText2").getValue());
                 let sUMAll = "",
                     SumAllQuantity = 0,
-                    SumAllTotal = 0;
+                    SumAllTotal = 0,
+                    nMaggiorazione1 = 0,
+                    nMaggiorazione2 = 0,
+                    nMaggiorazione3 = 0,
+                    nMaggiorazione4 = 0,
+                    nMaggiorazione5 = 0,
+                    nMaggiorazione6 = 0,
+                    nMaggiorazione7 = 0,
+                    nMaggiorazione8 = 0,
+                    nMaggiorazione9 = 0,
+                    nMaggiorazione10 = 0;
                 /* Aggregazione Bolle */
                 aAggregazione.forEach(x => {
-                    let xmlAggregazione = Constants.XMLND.PositionData;
+                    let xmlAggregazione = Constants.XMLF.PositionData;
                     xmlAggregazione = xmlAggregazione.replace("{EffectiveDate}", x.DataInizio);
                     xmlAggregazione = xmlAggregazione.replace("{EndOfDate}", x.DataFine);
                     xmlAggregazione = xmlAggregazione.replace("{Species}", x.Specie);
@@ -357,7 +365,7 @@ sap.ui.define([
                         sUM = y.UM;
                         SumQuantity += parseFloat(y.Quantita);
                         SumTotal += parseFloat(y.TotaleMerce);
-                        let xmlPosizione = Constants.XMLND.RowPositionData;
+                        let xmlPosizione = Constants.XMLF.RowPositionData;
                         xmlPosizione = xmlPosizione.replace("{ItemCode}", y.Materiale);
                         xmlPosizione = xmlPosizione.replace("{Quality}", y.Qualita);
                         xmlPosizione = xmlPosizione.replace("{Caliber}", y.Calibrazione);
@@ -366,6 +374,16 @@ sap.ui.define([
                         xmlPosizione = xmlPosizione.replace("{Price}", y.PrezzoBase);
                         xmlPosizione = xmlPosizione.replace("{Total}", y.TotaleMerce);
                         xmlPosizioni += xmlPosizione;
+                        nMaggiorazione1 += parseFloat(y.Maggiorazione1);
+                        nMaggiorazione2 += parseFloat(y.Maggiorazione2);
+                        nMaggiorazione3 += parseFloat(y.Maggiorazione3);
+                        nMaggiorazione4 += parseFloat(y.Maggiorazione4);
+                        nMaggiorazione5 += parseFloat(y.Maggiorazione5);
+                        nMaggiorazione6 += parseFloat(y.Maggiorazione6);
+                        nMaggiorazione7 += parseFloat(y.Maggiorazione7);
+                        nMaggiorazione8 += parseFloat(y.Maggiorazione8);
+                        nMaggiorazione9 += parseFloat(y.Maggiorazione9);
+                        nMaggiorazione10 += parseFloat(y.Maggiorazione10);
                     });
                     sUMAll = sUM;
                     SumAllQuantity += parseFloat(SumQuantity);
@@ -380,9 +398,115 @@ sap.ui.define([
                 xmlClone = xmlClone.replace("{SumAllQuantity}", SumAllQuantity);
                 xmlClone = xmlClone.replace("{SumAllTotal}", SumAllTotal);
 
+                let nTotaleMerceConferita = SumAllTotal,
+                    sMaggiorazioni = "",
+                    sMaggiorazione,
+                    sIntegrazioni = "",
+                    sIntegrazione,
+                    sFatture = "",
+                    sFattura,
+                    sBolle = "",
+                    sBolla;
+
                 if (aBolle[0].Societa === "IT04") {
-                    /* TODO: Orogel Fresco Constants.XMLND.FrescoOnly */
+                    /* TODO: Orogel Fresco Constants.XMLF.FrescoOnly */
+                    /* sottrarre fresco a nTotaleMerceConferita? */
                 }
+                xmlClone = xmlClone.replace("{VTotaleMerceConferita}", nTotaleMerceConferita);
+                if (nMaggiorazione1 !== 0) {
+                    sMaggiorazione = Constants.XMLF.Maggiorazione;
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 1");
+                    sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione1);
+                    sMaggiorazioni += sMaggiorazione;
+                }
+                if (nMaggiorazione2 !== 0) {
+                    sMaggiorazione = Constants.XMLF.Maggiorazione;
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 2");
+                    sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione2);
+                    sMaggiorazioni += sMaggiorazione;
+                }
+                if (nMaggiorazione3 !== 0) {
+                    sMaggiorazione = Constants.XMLF.Maggiorazione;
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 3");
+                    sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione3);
+                    sMaggiorazioni += sMaggiorazione;
+                }
+                if (nMaggiorazione4 !== 0) {
+                    sMaggiorazione = Constants.XMLF.Maggiorazione;
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 4");
+                    sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione4);
+                    sMaggiorazioni += sMaggiorazione;
+                }
+                if (nMaggiorazione5 !== 0) {
+                    sMaggiorazione = Constants.XMLF.Maggiorazione;
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 5");
+                    sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione5);
+                    sMaggiorazioni += sMaggiorazione;
+                }
+                if (nMaggiorazione6 !== 0) {
+                    sMaggiorazione = Constants.XMLF.Maggiorazione;
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 6");
+                    sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione6);
+                    sMaggiorazioni += sMaggiorazione;
+                }
+                if (nMaggiorazione7 !== 0) {
+                    sMaggiorazione = Constants.XMLF.Maggiorazione;
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 7");
+                    sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione7);
+                    sMaggiorazioni += sMaggiorazione;
+                }
+                if (nMaggiorazione8 !== 0) {
+                    sMaggiorazione = Constants.XMLF.Maggiorazione;
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 8");
+                    sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione8);
+                    sMaggiorazioni += sMaggiorazione;
+                }
+                if (nMaggiorazione9 !== 0) {
+                    sMaggiorazione = Constants.XMLF.Maggiorazione;
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 9");
+                    sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione9);
+                    sMaggiorazioni += sMaggiorazione;
+                }
+                if (nMaggiorazione10 !== 0) {
+                    sMaggiorazione = Constants.XMLF.Maggiorazione;
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 10");
+                    sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione10);
+                    sMaggiorazioni += sMaggiorazione;
+                }
+                xmlClone = xmlClone.replace("{Maggiorazione}", sMaggiorazioni);
+
+                /* TODO: Codice integrazioni Constants.XMLF.Integrazioni */
+                xmlClone = xmlClone.replace("{Integrazioni}", sIntegrazioni);
+
+                aFatture.forEach(x => {
+                    let aBolleFattura = aBolle.filter(y => y.Fattura === x),
+                        nSommaFattura = 0;
+                    aBolleFattura.forEach(y => {
+                        nSommaFattura += parseFloat(y.AccontiRegistrati);
+                    });
+                    if (nSommaFattura !== 0) {
+                        sFattura = Constants.XMLF.Acconto;
+                        sFattura = sFattura.replace("{Acconto}", x);
+                        sFattura = sFattura.replace("{VAcconto}", nSommaFattura);
+                        sFattura += sFattura;
+                    }
+                });
+                xmlClone = xmlClone.replace("{Acconti}", sFatture);
+
+                aBolle.forEach(x => {
+                    sBolla = Constants.XMLF.Bolla;
+                    sBolla = sBolla.replace("{DeliveryNoteNumber}", x.NumeroBolla);
+                    sBolla = sBolla.replace("{Date1}", x.DataRegistrazioneBolla);
+                    sBolla = sBolla.replace("{MemberDDTNumber}", x.NumeroBolla);
+                    sBolla = sBolla.replace("{Date2}", x.DataRegistrazioneBolla);
+                    sBolle += sBolla;
+                });
+                xmlClone = xmlClone.replace("{Bolle}", sBolle);
+
+                xmlClone = xmlClone.replace("{Text3}", this.byId("idFAD1DetailText3").getValue());
+                xmlClone = xmlClone.replace("{Text4}", this.byId("idFAD1DetailText4").getValue());
+                xmlClone = xmlClone.replace("{CompanyCode}", aBolle[0].Societa);
+
                 return xmlClone;
             },
             Allegato2: function () {
