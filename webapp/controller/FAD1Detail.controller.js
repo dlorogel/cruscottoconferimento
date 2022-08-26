@@ -142,8 +142,6 @@ sap.ui.define([
                                 templates = "ZPRINT_PROXY_INVOICE";
                             }
 
-                            debugger;
-
                             let xmlz = (new DOMParser()).parseFromString(sAllegato1, "application/xml"),
                                 xmlBase = window.btoa(unescape(unescape(encodeURIComponent((new XMLSerializer()).serializeToString(xmlz))))),
                                 mObj = {
