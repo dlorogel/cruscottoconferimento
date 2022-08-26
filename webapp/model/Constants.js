@@ -152,6 +152,49 @@ sap.ui.define([], function () {
                 "<MemberDDTNumber>{MemberDDTNumber}</MemberDDTNumber>" +
                 "<Date2>{Date2}</Date2>" +
                 "</Row1>"
+        },
+        XMLE: {
+            XML: '<?xml version="1.0" encoding="UTF - 8"?>' +
+                "<form1>" +
+                "<Page1>" +
+                "<Header>" +
+                "<CompanyName>ARPOR SOC. COOP. AGRICOL</CompanyName>" +
+                "<MemberCode>403012677</MemberCode>" +
+                "<PartnerName>FUINA DONATO</PartnerName>" +
+                "<Street>C.DA SCANNATURCHI</Street>" +
+                "<HouseNum>17</HouseNum>" +
+                "<PostCode>75015</PostCode>" +
+                "<City>PISTICCI</City>" +
+                "<Region>(MT)</Region>" +
+                "<VATNumber>Vale</VATNumber>" +
+                "<TaxCode>Ego ille</TaxCode>" +
+                "</Header>" +
+                "<Spacer/>" +
+                "<PositionData>" +
+                "<Table1>" +
+                "<HeaderRow/>" +
+                "<Row1>" +
+                "<TotalGoods>374.796,66</TotalGoods>" +
+                "</Row1>" +
+                "<Row2>" +
+                "<DeductionDescription>Fattura vendita MF/4</DeductionDescription>" +
+                "<Data>31/7/2020</Data>" +
+                "<Dare>6673,92</Dare>" +
+                "<Avere></Avere>" +
+                "</Row2>" +
+                "<Row2>" +
+                "<DeductionDescription>Fattura vendita MF/38</DeductionDescription>" +
+                "<Data>31/8/2020</Data>" +
+                "<Dare>55843,44</Dare>" +
+                "<Avere></Avere>" +
+                "</Row2>" +
+                "<FooterRow>" +
+                "<Balance>312279,3</Balance>" +
+                "</FooterRow>" +
+                "</Table1>" +
+                "</PositionData>" +
+                "</Page1>" +
+                "</form1>"
         }
     };
 });

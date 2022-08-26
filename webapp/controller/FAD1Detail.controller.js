@@ -131,6 +131,7 @@ sap.ui.define([
                             aBolle = aModel.filter(x => x.Fornitore === oRow.Fornitore);
                         if (aBolle.length > 0) {
                             let sAllegato1 = this.Allegato1(Constants.XMLF.XML, aBolle),
+                                sAllegato2 = this.Allegato2(Constants.XMLE.XML),
                                 forms = "",
                                 templates = "";
 
@@ -144,6 +145,8 @@ sap.ui.define([
 
                             let xmlz = (new DOMParser()).parseFromString(sAllegato1, "application/xml"),
                                 xmlBase = window.btoa(unescape(unescape(encodeURIComponent((new XMLSerializer()).serializeToString(xmlz))))),
+                                xmlz2 = (new DOMParser()).parseFromString(sAllegato2, "application/xml"),
+                                xmlBase2 = window.btoa(unescape(unescape(encodeURIComponent((new XMLSerializer()).serializeToString(xmlz2))))),
                                 mObj = {
                                     "Form": forms,
                                     "Template": templates,
@@ -153,21 +156,35 @@ sap.ui.define([
                                     "taggedPdf": "0",
                                     "embedFont": "0"
                                 },
+                                mObj2 = {
+                                    "Form": "ZPRINT_SETTLEMENT_STATEMENT",
+                                    "Template": "ZPRINT_SETTLEMENT_STATEMENT",
+                                    "xmlData": xmlBase2,
+                                    "formType": "Print",
+                                    "formLocale": "it_IT",
+                                    "taggedPdf": "0",
+                                    "embedFont": "0"
+                                },
                                 oFinal = {
                                     Fornitore: oRow.Fornitore,
                                     Delega: aBolle[0].Delega,
-                                    Allegato1: mObj
+                                    Allegato1: mObj,
+                                    Allegato2: mObj2
                                 };
                             aXML.push(oFinal);
                         }
                     }
-                    let oPromisePDF = Promise.resolve();
+                    let oPromisePDF = Promise.resolve(),
+                        oPromisePDF2 = Promise.resolve();
                     aXML.forEach(x => {
                         oPromisePDF = oPromisePDF.then(() => {
                             return this.createPDF(x.Allegato1);
                         });
+                        oPromisePDF2 = oPromisePDF2.then(() => {
+                            return this.createPDF(x.Allegato2);
+                        });
                     });
-                    Promise.all([oPromisePDF]).then(() => {
+                    Promise.all([oPromisePDF, oPromisePDF2]).then(() => {
                         console.log(aXML);
                         let oPromiseMail = Promise.resolve();
                         aXML.forEach(x => {
@@ -208,7 +225,7 @@ sap.ui.define([
                 var oModel = this.getView().getModel(),
                     oRow = {
                         Allegato1: oMail.Allegato1.PDF,
-                        Allegato2: oMail.Allegato1.PDF, //TODO: Da modificare
+                        Allegato2: oMail.Allegato2.PDF,
                         CodFornitore: oMail.Fornitore,
                         Delega: oMail.Delega
                     };
@@ -507,8 +524,8 @@ sap.ui.define([
 
                 return xmlClone;
             },
-            Allegato2: function () {
-
+            Allegato2: function (xmlClone) {
+                return xmlClone;
             }
         });
     });
