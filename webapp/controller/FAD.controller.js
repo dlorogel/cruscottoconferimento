@@ -28,7 +28,8 @@ sap.ui.define([
             onSearchFAD1: function (oEvent) {
                 let bFiltro = false,
                     sErrore = "",
-                    aFilter = [];
+                    aFilter = [],
+                    fMultifilter;
                 if (!this.byId("idFilterSocietaFAD1").getValue() || this.byId("idFilterSocietaFAD1").getValue() === "") {
                     bFiltro = true;
                     sErrore = "Valorizzare il filtro Società";
@@ -62,6 +63,143 @@ sap.ui.define([
                 } else {
                     aFilter.push(new Filter("CodicePercentualeAcconto", FilterOperator.EQ, this.byId("idFilterCodicePercentualeFAD1").getValue()));
                 }
+                fMultifilter = this.multiFilter("idFilterProduttoreFAD1", "Produttore");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterOrgAcquistiFAD1", "OrgAcquisti");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterNumeroBollaFAD1", "NumeroBolla");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterTipoMaterialeFAD1", "TipoMateriale");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterSpecieFAD1", "Specie");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterStagionalitaFAD1", "Stagionalita");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterVarietaFAD1", "Varieta");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterCertificazioneAziendaleFAD1", "CertificazioneAziendale");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterCertificazioneProdottoFAD1", "CertificazioneProdotto");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterResiduoFAD1", "Residuo");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterCertificazioneCommercialeFAD1", "CertificazioneCommerciale");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterSpecificaFAD1", "Specifica");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterLavorazioneFAD1", "Lavorazione");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterOrigineFAD1", "Origine");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterQualitaFAD1", "Qualita");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterCalibrazioneFAD1", "Calibrazione");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterEventiColtivazioneFAD1", "EventiColtivazione");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterCaratteristicaRaccoltaFAD1", "CaratteristicaRaccolta");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterServizioRaccoltaFAD1", "ServizioRaccolta");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterServizioCaricoFAD1", "ServizioCarico");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterServizioAssistenzaFAD1", "ServizioAssistenza");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterServizioDepositoFAD1", "ServizioDeposito");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterServizioCalibrazioneFAD1", "ServizioCalibrazione");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterServizioExtra1FAD1", "ServizioExtra1");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterServizioExtra2FAD1", "ServizioExtra2");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterServizioExtra3FAD1", "ServizioExtra3");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterServizioExtra4FAD1", "ServizioExtra4");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterServizioExtra5FAD1", "ServizioExtra5");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterRaggruppamentoLiquidazioneFAD1", "RaggruppamentoLiquidazione");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterCampoPoliticheOPFAD1", "CampoPoliticheOP");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterIncotermFAD1", "Incoterm");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterZonaTrasportoFAD1", "ZonaTrasporto");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                fMultifilter = this.multiFilter("idFilterMagazzinoFAD1", "Magazzino");
+                if (fMultifilter) {
+                    aFilter.push(fMultifilter);
+                }
+                aFilter.push(new Filter("ConsiderareAcconti", FilterOperator.EQ, this.byId("idFilterConsiderareAccontiFAD1").getSelected()));
+                if (this.byId("idFilterEsercizioCompetenzaFAD1").getValue()) {
+                    aFilter.push(new Filter("EsercizioCompetenza", FilterOperator.EQ, this.byId("idFilterEsercizioCompetenzaFAD1").getValue()));
+                }
+
                 if (!bFiltro) {
                     this.oGlobalBusyDialog.open();
                     this.getView().getModel().read("/FADBolleConferimentoSet", {
@@ -140,6 +278,20 @@ sap.ui.define([
 
                 this.getOwnerComponent().setNavigation(aSelected);
                 oRouter.navTo("FAD2Detail");
+            },
+            multiFilter: function (idField, sField) {
+                if (this.byId(idField).getValue() && this.byId(idField).getValue().length > 0) {
+                    let aFilterMulti = [];
+                    this.byId(idField).getValue().forEach(x => {
+                        aFilterMulti.push(new Filter(sField, FilterOperator.EQ, x));
+                    });
+                    return (new Filter({
+                        filters: aFilterMulti,
+                        and: false
+                    }));
+                } else {
+                    return null;
+                }
             }
         });
     });
