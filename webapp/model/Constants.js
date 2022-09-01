@@ -151,7 +151,7 @@ sap.ui.define([], function () {
                 "</Row1>"
         },
         XMLE: {
-            XML: '<?xml version="1.0" encoding="UTF - 8"?>' +
+            XML: '<?xml version="1.0" encoding="UTF-8"?>' +
                 "<form1>" +
                 "<Page1>" +
                 "<Header>" +

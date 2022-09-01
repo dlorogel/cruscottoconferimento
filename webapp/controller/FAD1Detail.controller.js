@@ -14,7 +14,7 @@ sap.ui.define([
         return Controller.extend("it.orogel.cruscottoconferimento.controller.FAD1Detail", {
             onInit: function () {
                 this.oGlobalBusyDialog = new sap.m.BusyDialog();
-                this.IVA = 0;
+                this.IVA = null;
                 if (this.getOwnerComponent().getNavigation() === null) {
                     this.onNavBack();
                 }
@@ -247,11 +247,14 @@ sap.ui.define([
                                             Zprzlordo: y.PrezzoLordo,
                                             Zpercodacc: y.CodicePercentualeAcconto,
                                             Zperacc: y.PercentualeAcconto,
-                                            Zstatus: "F",
-                                            Idforfettario: "",
-                                            Zimpacconto: "",
-                                            Zfattura: y.NumFattura
+                                            Zstatus: "F"
+                                            //Idforfettario: "",
+                                            //Zimpacconto: ""
                                         };
+                                        if (y.Delega) {
+                                            oRow.Zfattura = y.NumFattura;
+                                        }
+                                        debugger;
                                         oPromiseStorico = oPromiseStorico.then(() => {
                                             return this.createStorico(oRow);
                                         });
