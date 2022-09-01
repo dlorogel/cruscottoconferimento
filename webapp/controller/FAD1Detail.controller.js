@@ -14,6 +14,7 @@ sap.ui.define([
         return Controller.extend("it.orogel.cruscottoconferimento.controller.FAD1Detail", {
             onInit: function () {
                 this.oGlobalBusyDialog = new sap.m.BusyDialog();
+                this.IVA = 0;
                 if (this.getOwnerComponent().getNavigation() === null) {
                     this.onNavBack();
                 }
@@ -59,6 +60,7 @@ sap.ui.define([
                     this.oGlobalBusyDialog.open();
                     this.getView().getModel().read("/PercentualeIVASet('" + this.byId("idCodiceIVA").getValue() + "')", {
                         success: (oDataIVA) => {
+                            this.IVA = oDataIVA.Kbetr;
                             let aModel = this.getOwnerComponent().getNavigation(),
                                 aOutput = [];
                             aModel.forEach(x => {
@@ -126,80 +128,152 @@ sap.ui.define([
                     aXML = [],
                     aModel = this.getOwnerComponent().getNavigation();
                 if (oSelIndices !== undefined && oSelIndices.length > 0) {
+                    let oPromiseNFattura = Promise.resolve(),
+                        aFattura = [];
                     for (let i of oSelIndices) {
-                        let oRow = gettingInternalTable.getContextByIndex(i).getObject(),
-                            aBolle = aModel.filter(x => x.Fornitore === oRow.Fornitore);
+                        let selectedRow = gettingInternalTable.getContextByIndex(i).getObject(),
+                            aBolle = aModel.filter(x => x.Fornitore === selectedRow.Fornitore);
                         if (aBolle.length > 0) {
-                            let sAllegato1 = this.Allegato1(Constants.XMLF.XML, aBolle),
-                                sAllegato2 = this.Allegato2(Constants.XMLE.XML),
-                                forms = "",
-                                templates = "";
-
                             if (aBolle[0].Delega) {
-                                forms = "ZPRINT_INVOICE_SUMMARY";
-                                templates = "ZPRINT_INVOICE_SUMMARY";
-                            } else {
-                                forms = "ZPRINT_PROXY_INVOICE";
-                                templates = "ZPRINT_PROXY_INVOICE";
-                            }
-
-                            let xmlz = (new DOMParser()).parseFromString(sAllegato1, "application/xml"),
-                                xmlBase = window.btoa(unescape(unescape(encodeURIComponent((new XMLSerializer()).serializeToString(xmlz))))),
-                                xmlz2 = (new DOMParser()).parseFromString(sAllegato2, "application/xml"),
-                                xmlBase2 = window.btoa(unescape(unescape(encodeURIComponent((new XMLSerializer()).serializeToString(xmlz2))))),
-                                mObj = {
-                                    "Form": forms,
-                                    "Template": templates,
-                                    "xmlData": xmlBase,
-                                    "formType": "Print",
-                                    "formLocale": "it_IT",
-                                    "taggedPdf": "0",
-                                    "embedFont": "0"
-                                },
-                                mObj2 = {
-                                    "Form": "ZPRINT_SETTLEMENT_STATEMENT",
-                                    "Template": "ZPRINT_SETTLEMENT_STATEMENT",
-                                    "xmlData": xmlBase2,
-                                    "formType": "Print",
-                                    "formLocale": "it_IT",
-                                    "taggedPdf": "0",
-                                    "embedFont": "0"
-                                },
-                                oFinal = {
-                                    Fornitore: oRow.Fornitore,
-                                    Delega: aBolle[0].Delega,
-                                    Allegato1: mObj,
-                                    Allegato2: mObj2
+                                let oRow = {
+                                    Fornitore: selectedRow.Fornitore,
+                                    Esercizio: this.getView().byId("idEsercizioCompetenza").getValue(),
+                                    TipoMateriale: aBolle[0].TipoMateriale,
+                                    Societa: selectedRow.Societa,
+                                    NumFattura: ""
                                 };
-                            aXML.push(oFinal);
+                                oPromiseNFattura = oPromiseNFattura.then(() => {
+                                    return this.createNFattura(oRow, aFattura);
+                                });
+                            }
                         }
                     }
-                    let oPromisePDF = Promise.resolve(),
-                        oPromisePDF2 = Promise.resolve();
-                    aXML.forEach(x => {
-                        oPromisePDF = oPromisePDF.then(() => {
-                            return this.createPDF(x.Allegato1);
-                        });
-                        oPromisePDF2 = oPromisePDF2.then(() => {
-                            return this.createPDF(x.Allegato2);
-                        });
-                    });
-                    Promise.all([oPromisePDF, oPromisePDF2]).then(() => {
-                        console.log(aXML);
-                        let oPromiseMail = Promise.resolve();
+
+                    Promise.all([oPromiseNFattura]).then(() => {
+                        for (let i of oSelIndices) {
+                            let oRow = gettingInternalTable.getContextByIndex(i).getObject(),
+                                aBolle = aModel.filter(x => x.Fornitore === oRow.Fornitore),
+                                oFattura = aFattura.find(x => x.Fornitore === oRow.Fornitore);
+                            if (oFattura) {
+                                aBolle.forEach(x => {
+                                    x.NumFattura = oFattura.NumFattura;
+                                });
+                            }
+                            if (aBolle.length > 0) {
+                                let sAllegato1 = this.Allegato1(Constants.XMLF.XML, aBolle),
+                                    sAllegato2 = this.Allegato2(Constants.XMLE.XML, aBolle),
+                                    forms = "",
+                                    templates = "";
+
+                                if (aBolle[0].Delega) {
+                                    forms = "ZPRINT_INVOICE_SUMMARY";
+                                    templates = "ZPRINT_INVOICE_SUMMARY";
+                                } else {
+                                    forms = "ZPRINT_PROXY_INVOICE";
+                                    templates = "ZPRINT_PROXY_INVOICE";
+                                }
+
+                                let xmlz = (new DOMParser()).parseFromString(sAllegato1, "application/xml"),
+                                    xmlBase = window.btoa(unescape(unescape(encodeURIComponent((new XMLSerializer()).serializeToString(xmlz))))),
+                                    xmlz2 = (new DOMParser()).parseFromString(sAllegato2, "application/xml"),
+                                    xmlBase2 = window.btoa(unescape(unescape(encodeURIComponent((new XMLSerializer()).serializeToString(xmlz2))))),
+                                    mObj = {
+                                        "Form": forms,
+                                        "Template": templates,
+                                        "xmlData": xmlBase,
+                                        "formType": "Print",
+                                        "formLocale": "it_IT",
+                                        "taggedPdf": "0",
+                                        "embedFont": "0"
+                                    },
+                                    mObj2 = {
+                                        "Form": "ZPRINT_SETTLEMENT_STATEMENT",
+                                        "Template": "ZPRINT_SETTLEMENT_STATEMENT",
+                                        "xmlData": xmlBase2,
+                                        "formType": "Print",
+                                        "formLocale": "it_IT",
+                                        "taggedPdf": "0",
+                                        "embedFont": "0"
+                                    },
+                                    oFinal = {
+                                        Fornitore: oRow.Fornitore,
+                                        Delega: aBolle[0].Delega,
+                                        Allegato1: mObj,
+                                        Allegato2: mObj2
+                                    };
+                                aXML.push(oFinal);
+                            }
+                        }
+                        let oPromisePDF = Promise.resolve(),
+                            oPromisePDF2 = Promise.resolve();
                         aXML.forEach(x => {
-                            oPromiseMail = oPromiseMail.then(() => {
-                                return this.sendEmail(x);
+                            oPromisePDF = oPromisePDF.then(() => {
+                                return this.createPDF(x.Allegato1);
+                            });
+                            oPromisePDF2 = oPromisePDF2.then(() => {
+                                return this.createPDF(x.Allegato2);
                             });
                         });
-                        Promise.all([oPromiseMail]).then(() => {
-                            this.oGlobalBusyDialog.close();
-                        }, oError => {
-                            sap.m.MessageToast.show("Errore nell'invio della mail'");
+                        Promise.all([oPromisePDF, oPromisePDF2]).then(() => {
+                            console.log(aXML);
+                            let oPromiseMail = Promise.resolve();
+                            aXML.forEach(x => {
+                                oPromiseMail = oPromiseMail.then(() => {
+                                    return this.sendEmail(x);
+                                });
+                            });
+                            Promise.all([oPromiseMail]).then(() => {
+                                let oPromiseStorico = Promise.resolve();
+                                aXML.forEach(x => {
+                                    let aBolle = aModel.filter(y => y.Fornitore === x.Fornitore);
+                                    aBolle.forEach(y => {
+                                        let oRow = {
+                                            Ebeln: y.NumeroBolla,
+                                            Ebelp: y.PosizioneBolla,
+                                            Ztiplist: y.TipoListino,
+                                            Zprzbase: y.PrezzoBase,
+                                            Zcosserastc: y.CostoRaccolta,
+                                            Zcossercar: y.CostoCarico,
+                                            Zcosserasstec: y.CostoAssistenza,
+                                            Zcosserdep: y.CostoDeposito,
+                                            Zcossercal: y.CostoCalibrazione,
+                                            Zcosser1: y.CostoExtra1,
+                                            Zcosser2: y.CostoExtra2,
+                                            Zcosser3: y.CostoExtra3,
+                                            Zcosser4: y.CostoExtra4,
+                                            Zcosser5: y.CostoExtra5,
+                                            Zmarkup: y.MarkUp,
+                                            Zprtrasp: y.PrezzoTrasporto,
+                                            Zprzlordo: y.PrezzoLordo,
+                                            Zpercodacc: y.CodicePercentualeAcconto,
+                                            Zperacc: y.PercentualeAcconto,
+                                            Zstatus: "F",
+                                            Idforfettario: "",
+                                            Zimpacconto: "",
+                                            Zfattura: y.NumFattura
+                                        };
+                                        oPromiseStorico = oPromiseStorico.then(() => {
+                                            return this.createStorico(oRow);
+                                        });
+                                    });
+                                });
+                                Promise.all([oPromiseMail]).then(() => {
+                                    sap.m.MessageToast.show("MESSAGGIO DI SUCCESSO E AZIONE");
+                                    this.oGlobalBusyDialog.close();
+                                }, () => {
+                                    sap.m.MessageToast.show("Errore nella scrittura nello storico");
+                                    this.oGlobalBusyDialog.close();
+                                });
+                            }, () => {
+                                sap.m.MessageToast.show("Errore nell'invio della mail");
+                                this.oGlobalBusyDialog.close();
+                            });
+                        }, () => {
+                            sap.m.MessageToast.show("Errore nella generazione del PDF");
                             this.oGlobalBusyDialog.close();
                         });
-                    }, oError => {
-                        sap.m.MessageToast.show("Errore nella generazione del PDF");
+                    }, () => {
+                        sap.m.MessageToast.show("Errore nella creazione del numero protocollo");
                         this.oGlobalBusyDialog.close();
                     });
                 } else {
@@ -242,9 +316,11 @@ sap.ui.define([
             },
             Allegato1: function (xmlClone, aBolle) {
                 let aAggregazione = [],
-                    aFatture = [];
+                    aFatture = [],
+                    bDelega = false;
                 /* Bolle per fornitore */
                 aBolle.forEach(x => {
+                    bDelega = x.Delega;
                     let oAggregazione = {
                         DataFine: x.DataFine,
                         DataInizio: x.DataInizio,
@@ -311,6 +387,11 @@ sap.ui.define([
                         aFatture.push(x.Fattura);
                     }
                 });
+                if (bDelega) {
+                    xmlClone = xmlClone.replace("{Number}", "<Number>" + aBolle[0].NumFattura + "</Number>");
+                } else {
+                    xmlClone = xmlClone.replace("{Number}", "");
+                }
                 xmlClone = xmlClone.replace("{Name}", aBolle[0].NomeFornitore);
                 xmlClone = xmlClone.replace("{Street}", aBolle[0].Street);
                 xmlClone = xmlClone.replace("{House_Num1}", aBolle[0].House_Num1);
@@ -342,7 +423,17 @@ sap.ui.define([
                     nMaggiorazione7 = 0,
                     nMaggiorazione8 = 0,
                     nMaggiorazione9 = 0,
-                    nMaggiorazione10 = 0;
+                    nMaggiorazione10 = 0,
+                    sMaggiorazione1 = "",
+                    sMaggiorazione2 = "",
+                    sMaggiorazione3 = "",
+                    sMaggiorazione4 = "",
+                    sMaggiorazione5 = "",
+                    sMaggiorazione6 = "",
+                    sMaggiorazione7 = "",
+                    sMaggiorazione8 = "",
+                    sMaggiorazione9 = "",
+                    sMaggiorazione10 = "";
                 /* Aggregazione Bolle */
                 aAggregazione.forEach(x => {
                     let xmlAggregazione = Constants.XMLF.PositionData;
@@ -399,6 +490,16 @@ sap.ui.define([
                         nMaggiorazione8 += parseFloat(y.Maggiorazione8);
                         nMaggiorazione9 += parseFloat(y.Maggiorazione9);
                         nMaggiorazione10 += parseFloat(y.Maggiorazione10);
+                        sMaggiorazione1 = y.DescrizioneMaggiorazione1;
+                        sMaggiorazione2 = y.DescrizioneMaggiorazione2;
+                        sMaggiorazione3 = y.DescrizioneMaggiorazione3;
+                        sMaggiorazione4 = y.DescrizioneMaggiorazione4;
+                        sMaggiorazione5 = y.DescrizioneMaggiorazione5;
+                        sMaggiorazione6 = y.DescrizioneMaggiorazione6;
+                        sMaggiorazione7 = y.DescrizioneMaggiorazione7;
+                        sMaggiorazione8 = y.DescrizioneMaggiorazione8;
+                        sMaggiorazione9 = y.DescrizioneMaggiorazione9;
+                        sMaggiorazione10 = y.DescrizioneMaggiorazione10;
                     });
                     sUMAll = sUM;
                     SumAllQuantity += parseFloat(SumQuantity);
@@ -416,8 +517,6 @@ sap.ui.define([
                 let nTotaleMerceConferita = SumAllTotal,
                     sMaggiorazioni = "",
                     sMaggiorazione,
-                    sIntegrazioni = "",
-                    sIntegrazione,
                     sFatture = "",
                     sFattura,
                     sBolle = "",
@@ -426,72 +525,70 @@ sap.ui.define([
                 if (aBolle[0].Societa === "IT04") {
                     /* TODO: Orogel Fresco Constants.XMLF.FrescoOnly */
                     /* sottrarre fresco a nTotaleMerceConferita? */
+                    xmlClone = xmlClone.replace("{FrescoOnly}", "");
                 }
                 xmlClone = xmlClone.replace("{VTotaleMerceConferita}", nTotaleMerceConferita);
                 if (nMaggiorazione1 !== 0) {
                     sMaggiorazione = Constants.XMLF.Maggiorazione;
-                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 1");
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", sMaggiorazione1);
                     sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione1);
                     sMaggiorazioni += sMaggiorazione;
                 }
                 if (nMaggiorazione2 !== 0) {
                     sMaggiorazione = Constants.XMLF.Maggiorazione;
-                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 2");
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", sMaggiorazione2);
                     sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione2);
                     sMaggiorazioni += sMaggiorazione;
                 }
                 if (nMaggiorazione3 !== 0) {
                     sMaggiorazione = Constants.XMLF.Maggiorazione;
-                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 3");
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", sMaggiorazione3);
                     sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione3);
                     sMaggiorazioni += sMaggiorazione;
                 }
                 if (nMaggiorazione4 !== 0) {
                     sMaggiorazione = Constants.XMLF.Maggiorazione;
-                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 4");
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", sMaggiorazione4);
                     sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione4);
                     sMaggiorazioni += sMaggiorazione;
                 }
                 if (nMaggiorazione5 !== 0) {
                     sMaggiorazione = Constants.XMLF.Maggiorazione;
-                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 5");
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", sMaggiorazione5);
                     sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione5);
                     sMaggiorazioni += sMaggiorazione;
                 }
                 if (nMaggiorazione6 !== 0) {
                     sMaggiorazione = Constants.XMLF.Maggiorazione;
-                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 6");
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", sMaggiorazione6);
                     sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione6);
                     sMaggiorazioni += sMaggiorazione;
                 }
                 if (nMaggiorazione7 !== 0) {
                     sMaggiorazione = Constants.XMLF.Maggiorazione;
-                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 7");
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", sMaggiorazione7);
                     sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione7);
                     sMaggiorazioni += sMaggiorazione;
                 }
                 if (nMaggiorazione8 !== 0) {
                     sMaggiorazione = Constants.XMLF.Maggiorazione;
-                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 8");
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", sMaggiorazione8);
                     sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione8);
                     sMaggiorazioni += sMaggiorazione;
                 }
                 if (nMaggiorazione9 !== 0) {
                     sMaggiorazione = Constants.XMLF.Maggiorazione;
-                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 9");
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", sMaggiorazione9);
                     sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione9);
                     sMaggiorazioni += sMaggiorazione;
                 }
                 if (nMaggiorazione10 !== 0) {
                     sMaggiorazione = Constants.XMLF.Maggiorazione;
-                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", "Maggiorazione 10");
+                    sMaggiorazione = sMaggiorazione.replace("{Maggiorazione}", sMaggiorazione10);
                     sMaggiorazione = sMaggiorazione.replace("{VMaggiorazione}", nMaggiorazione10);
                     sMaggiorazioni += sMaggiorazione;
                 }
                 xmlClone = xmlClone.replace("{Maggiorazione}", sMaggiorazioni);
-
-                /* TODO: Codice integrazioni Constants.XMLF.Integrazioni */
-                xmlClone = xmlClone.replace("{Integrazioni}", sIntegrazioni);
 
                 aFatture.forEach(x => {
                     let aBolleFattura = aBolle.filter(y => y.Fattura === x),
@@ -512,10 +609,13 @@ sap.ui.define([
                     sBolla = Constants.XMLF.Bolla;
                     sBolla = sBolla.replace("{DeliveryNoteNumber}", x.NumeroBolla);
                     sBolla = sBolla.replace("{Date1}", x.DataRegistrazioneBolla);
-                    sBolla = sBolla.replace("{MemberDDTNumber}", x.NumeroBolla);
-                    sBolla = sBolla.replace("{Date2}", x.DataRegistrazioneBolla);
+                    //sBolla = sBolla.replace("{MemberDDTNumber}", x.NumeroBolla);
+                    //sBolla = sBolla.replace("{Date2}", x.DataRegistrazioneBolla);
                     sBolle += sBolla;
                 });
+                xmlClone = xmlClone.replace("{Percentage}", this.IVA);
+
+
                 xmlClone = xmlClone.replace("{Bolle}", sBolle);
 
                 xmlClone = xmlClone.replace("{Text3}", this.byId("idFAD1DetailText3").getValue());
@@ -524,8 +624,47 @@ sap.ui.define([
 
                 return xmlClone;
             },
-            Allegato2: function (xmlClone) {
+            Allegato2: function (xmlClone, aBolle) {
+                if (aBolle.length > 0) {
+                    xmlClone = xmlClone.replace("{CompanyName}", aBolle[0].NomeSocieta);
+                    xmlClone = xmlClone.replace("{MemberCode}", aBolle[0].Fornitore);
+                    xmlClone = xmlClone.replace("{PartnerName}", aBolle[0].NomeFornitore);
+                    xmlClone = xmlClone.replace("{Street}", aBolle[0].Street);
+                    xmlClone = xmlClone.replace("{HouseNum}", aBolle[0].House_Num1);
+                    xmlClone = xmlClone.replace("{PostCode}", aBolle[0].Post_Code1);
+                    xmlClone = xmlClone.replace("{City}", aBolle[0].City1);
+                    xmlClone = xmlClone.replace("{Region}", aBolle[0].Region);
+                    xmlClone = xmlClone.replace("{VATNumber}", aBolle[0].PartitaIVA);
+                    xmlClone = xmlClone.replace("{TaxCode}", aBolle[0].CodiceFiscale);
+                }
                 return xmlClone;
+            },
+            createNFattura: function (oRow, aFatture) {
+                var oModel = this.getView().getModel();
+                return new Promise((resolve, reject) => {
+                    oModel.create("/NumeroFatturaSet", oRow, {
+                        success: (oData) => {
+                            aFatture.push(oData);
+                            resolve();
+                        },
+                        error: (oError) => {
+                            reject(oError);
+                        }
+                    });
+                });
+            },
+            createStorico: function (oRow) {
+                var oModel = this.getView().getModel();
+                return new Promise((resolve, reject) => {
+                    oModel.create("/StoricoSet", oRow, {
+                        success: () => {
+                            resolve();
+                        },
+                        error: (oError) => {
+                            reject(oError);
+                        }
+                    });
+                });
             }
         });
     });

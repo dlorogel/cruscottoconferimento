@@ -7,6 +7,7 @@ sap.ui.define([], function () {
                 "<form1>" +
                 "<Page1>" +
                 "<HeaderLeft>" +
+                "{Number}" +
                 "<Name>{Name}</Name>" +
                 "<Street>{Street}</Street>" +
                 "<House_Num1>{House_Num1}</House_Num1>" +
@@ -57,12 +58,12 @@ sap.ui.define([], function () {
                 "<VTotaleMerceConferita>{VTotaleMerceConferita}</VTotaleMerceConferita>" +
                 "</Row1>" +
                 "{Maggiorazione}" +
-                "{Integrazioni}" +
                 "{Acconti}" +
                 "<FooterRow1>" +
                 "<Imponibile>{Imponibile}</Imponibile>" +
                 "</FooterRow1>" +
                 "<FooterRow2>" +
+                "<Percentage>{Percentage}</Percentage>" +
                 "<Iva>{IVA}</Iva>" +
                 "</FooterRow2>" +
                 "<FooterRow3>" +
@@ -138,10 +139,6 @@ sap.ui.define([], function () {
                 "<Maggiorazione>{Maggiorazione}</Maggiorazione>" +
                 "<VMaggiorazione>{VMaggiorazione}</VMaggiorazione>" +
                 "</Row2>",
-            Integrazioni: "<Row3>" +
-                "<Intergrazione>{Intergrazione}</Intergrazione>" +
-                "<VIntergrazione>{VIntergrazione}</VIntergrazione>" +
-                "</Row3>",
             Acconto: "<Row4>" +
                 "<Acconto>Acconto {Acconto}</Acconto>" +
                 "<VAcconto>{VAcconto}</VAcconto>" +
@@ -158,23 +155,23 @@ sap.ui.define([], function () {
                 "<form1>" +
                 "<Page1>" +
                 "<Header>" +
-                "<CompanyName>ARPOR SOC. COOP. AGRICOL</CompanyName>" +
-                "<MemberCode>403012677</MemberCode>" +
-                "<PartnerName>FUINA DONATO</PartnerName>" +
-                "<Street>C.DA SCANNATURCHI</Street>" +
-                "<HouseNum>17</HouseNum>" +
-                "<PostCode>75015</PostCode>" +
-                "<City>PISTICCI</City>" +
-                "<Region>(MT)</Region>" +
-                "<VATNumber>Vale</VATNumber>" +
-                "<TaxCode>Ego ille</TaxCode>" +
+                "<CompanyName>{CompanyName}</CompanyName>" +
+                "<MemberCode>{MemberCode}</MemberCode>" +
+                "<PartnerName>{PartnerName}</PartnerName>" +
+                "<Street>{Street}</Street>" +
+                "<HouseNum>{HouseNum}</HouseNum>" +
+                "<PostCode>{PostCode}</PostCode>" +
+                "<City>{City}</City>" +
+                "<Region>{Region}</Region>" +
+                "<VATNumber>{VATNumber}</VATNumber>" +
+                "<TaxCode>{TaxCode}</TaxCode>" +
                 "</Header>" +
                 "<Spacer/>" +
                 "<PositionData>" +
                 "<Table1>" +
                 "<HeaderRow/>" +
                 "<Row1>" +
-                "<TotalGoods>374.796,66</TotalGoods>" +
+                "<TotalGoods>{TotalGoods}</TotalGoods>" +
                 "</Row1>" +
                 "<Row2>" +
                 "<DeductionDescription>Fattura vendita MF/4</DeductionDescription>" +
@@ -189,7 +186,7 @@ sap.ui.define([], function () {
                 "<Avere></Avere>" +
                 "</Row2>" +
                 "<FooterRow>" +
-                "<Balance>312279,3</Balance>" +
+                "<Balance>{Balance}</Balance>" +
                 "</FooterRow>" +
                 "</Table1>" +
                 "</PositionData>" +
