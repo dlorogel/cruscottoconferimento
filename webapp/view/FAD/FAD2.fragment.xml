@@ -17,28 +17,26 @@
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="specie" label="Specie">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterSpecieFAD2" mandatory="false" entitySet="FAD2Set" value="{path: 'Specie', mode:'OneWay'}"/>
+                    <smartField:SmartField id="idFilterSpecieFAD2" value="{path: 'Specie', mode:'OneWay'}" mandatory="false" entitySet="FAD2Set" />
                 </fb:control>
             </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="stagionalita" label="Stagionalità">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterStagionalitaFAD2" mandatory="false" entitySet="FAD2Set" value="{path: 'Stagionalita', mode:'OneWay'}"/>
-                </fb:control>
-            </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="considerareacconti" label="Considerare acconti">
-                <fb:control>
-                    <CheckBox id="idFilterConsiderareAccontiFAD2" selected="true" />
-                </fb:control>
-            </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="eserciziocompetenza" label="Esercizio Competenza">
-                <fb:control>
-                    <Input id="idFilterEsercizioCompetenzaFAD2" maxLength="4" />
+                    <smartField:SmartField id="idFilterStagionalitaFAD2" value="{path: 'Stagionalita', mode:'OneWay'}" mandatory="false" entitySet="FAD2Set" />
                 </fb:control>
             </fb:FilterGroupItem>
         </fb:filterGroupItems>
     </fb:FilterBar>
-    <OverflowToolbar style="Clear">
+    <OverflowToolbar id="idSimulaFatturaFAD2" style="Clear" visible="false">
+        <Label text="Esercizio competenza" />
+        <Input id="idEsercizioCompetenza2" value="" width="3rem" required="true" maxLength="4"/>
+        <Label text="Data documento" />
+        <DatePicker id="idDataDocumento2" value="" width="8rem" valueFormat="yyyyMMdd" displayFormat="short" required="true"/>
+        <Label text="Importo Acconto" />
+        <Input id="idImportoAcconto2" value="" width="10rem" required="true" maxLength="23"/>
+        <Label text="Codice IVA" />
+        <smartField:SmartField id="idCodiceIVA2" width="3rem" value="{path: 'Mwskz', mode:'OneWay'}" entitySet="CodiceIVASet" mandatory="true" />
         <ToolbarSpacer/>
-        <Button id="idSimulaFatturaFAD2" visible="false" text="Simula fattura" press="onSimulaFatturaFAD2" />
+        <Button text="Simula fattura" width="8rem" press="onSimulaFatturaFAD2" />
     </OverflowToolbar>
 </core:FragmentDefinition>

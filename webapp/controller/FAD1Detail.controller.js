@@ -246,8 +246,8 @@ sap.ui.define([
                                             Zprtrasp: y.PrezzoTrasporto,
                                             Zprzlordo: y.PrezzoLordo,
                                             Zpercodacc: y.CodicePercentualeAcconto,
-                                            Zperacc: y.PercentualeAcconto,
-                                            Zstatus: "F"
+                                            Zperacc: y.PercentualeAcconto
+                                            //Zstatus: "P"
                                             //Idforfettario: "",
                                             //Zimpacconto: ""
                                         };
@@ -592,7 +592,7 @@ sap.ui.define([
                     sMaggiorazioni += sMaggiorazione;
                 }
                 xmlClone = xmlClone.replace("{Maggiorazione}", sMaggiorazioni);
-
+                let nSommeAcconti = 0;
                 aFatture.forEach(x => {
                     let aBolleFattura = aBolle.filter(y => y.Fattura === x),
                         nSommaFattura = 0;
@@ -604,9 +604,21 @@ sap.ui.define([
                         sFattura = sFattura.replace("{Acconto}", x);
                         sFattura = sFattura.replace("{VAcconto}", nSommaFattura);
                         sFattura += sFattura;
+                        nSommeAcconti += parseFloat(nSommaFattura);
                     }
                 });
                 xmlClone = xmlClone.replace("{Acconti}", sFatture);
+
+                let nImponibile = nTotaleMerceConferita + nMaggiorazione1 + nMaggiorazione2 +
+                    nMaggiorazione3 + nMaggiorazione4 + nMaggiorazione5 + nMaggiorazione6 +
+                    nMaggiorazione7 + nMaggiorazione8 + nMaggiorazione9 + nMaggiorazione10 -
+                    nSommeAcconti,
+                    nIVA = nImponibile * this.IVA / 100;
+
+                xmlClone = xmlClone.replace("{Imponibile}", nImponibile);
+                xmlClone = xmlClone.replace("{Percentage}", this.IVA);
+                xmlClone = xmlClone.replace("{IVA}", nIVA);
+                xmlClone = xmlClone.replace("{TotaleDocumento}", nImponibile + nIVA);
 
                 aBolle.forEach(x => {
                     sBolla = Constants.XMLF.Bolla;
@@ -616,9 +628,6 @@ sap.ui.define([
                     //sBolla = sBolla.replace("{Date2}", x.DataRegistrazioneBolla);
                     sBolle += sBolla;
                 });
-                xmlClone = xmlClone.replace("{Percentage}", this.IVA);
-
-
                 xmlClone = xmlClone.replace("{Bolle}", sBolle);
 
                 xmlClone = xmlClone.replace("{Text3}", this.byId("idFAD1DetailText3").getValue());

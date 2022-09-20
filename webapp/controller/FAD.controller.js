@@ -195,7 +195,6 @@ sap.ui.define([
                 if (fMultifilter) {
                     aFilter.push(fMultifilter);
                 }
-                aFilter.push(new Filter("ConsiderareAcconti", FilterOperator.EQ, this.byId("idFilterConsiderareAccontiFAD1").getSelected()));
                 if (this.byId("idFilterEsercizioCompetenzaFAD1").getValue()) {
                     aFilter.push(new Filter("EsercizioCompetenza", FilterOperator.EQ, this.byId("idFilterEsercizioCompetenzaFAD1").getValue()));
                 }
@@ -260,24 +259,148 @@ sap.ui.define([
                     sap.m.MessageToast.show("Selezionare almeno una riga");
                 }
             },
-            onSimulaFatturaFAD2: function () {
-                let aSelected = [],
+            onSalvaFatturaFAD1: function () {
+                let gettingInternalTable = this.byId("idTableFAD1"),
+                    oSelIndices = gettingInternalTable.getSelectedIndices(),
+                    aSelected = [],
                     oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-
-                this.byId("idFilterFornitoreFAD2").getValue().forEach(x => {
-                    let oRow = {
-                        Societa: this.getView().byId("idFilterSocietaFAD2").getValue(),
-                        Fornitore: x.getKey().padStart(10, "0"),
-                        Specie: this.byId("idFilterSpecieFAD2").getValue().join(","),
-                        Stagionalita: this.byId("idFilterStagionalitaFAD2").getValue().join(","),
-                        ConsiderareAcconti: this.byId("idFilterConsiderareAccontiFAD2").getSelected(),
-                        EsercizioCompetenza: this.byId("idFilterEsercizioCompetenzaFAD2").getValue()
-                    };
-                    aSelected.push(oRow);
+                if (this.byId("idEsercizioCompetenza").getValue() && this.byId("idDataDocumento").getValue()) {
+                    if (oSelIndices !== undefined && oSelIndices.length > 0) {
+                        this.oGlobalBusyDialog.open();
+                        for (let i of oSelIndices) {
+                            let oRow = gettingInternalTable.getContextByIndex(i).getObject();
+                            aSelected.push(oRow);
+                        }
+                        /*
+                        this.getView().getModel().read("/PercentualeIVASet('" + this.byId("idCodiceIVA").getValue() + "')", {
+                            success: (oDataIVA) => {
+                                let oPromiseNFattura = Promise.resolve();
+                                aSelected.forEach(x => {
+                                    if (x.Delega) {
+                                        let oRow = {
+                                            Fornitore: x.Fornitore,
+                                            Esercizio: this.byId("idEsercizioCompetenza").getValue(),
+                                            TipoMateriale: x.TipoMateriale,
+                                            Societa: x.Societa,
+                                            NumFattura: ""
+                                        };
+                                        oPromiseNFattura = oPromiseNFattura.then(() => {
+                                            return this.createNFattura(oRow, x);
+                                        });
+                                    }
+                                });
+                                Promise.all([oPromiseNFattura]).then(() => {
+                                    //this.IVA = oDataIVA.Kbetr;
+                                    */
+                        let oPromiseStorico = Promise.resolve();
+                        aSelected.forEach(x => {
+                            debugger;
+                            let oRow = {
+                                CodicePercentualeAcconto: x.CodicePercentualeAcconto,
+                                CostoAssistenza: x.CostoAssistenza,
+                                CostoCalibrazione: x.CostoCalibrazione,
+                                CostoCarico: x.CostoCarico,
+                                CostoDeposito: x.CostoDeposito,
+                                CostoExtra1: x.CostoExtra1,
+                                CostoExtra2: x.CostoExtra2,
+                                CostoExtra3: x.CostoExtra3,
+                                CostoExtra4: x.CostoExtra4,
+                                CostoExtra5: x.CostoExtra5,
+                                CostoRaccolta: x.CostoRaccolta,
+                                Fornitore: x.Fornitore,
+                                Maggiorazione1: x.Maggiorazione1,
+                                Maggiorazione10: x.Maggiorazione10,
+                                Maggiorazione2: x.Maggiorazione2,
+                                Maggiorazione3: x.Maggiorazione3,
+                                Maggiorazione4: x.Maggiorazione4,
+                                Maggiorazione5: x.Maggiorazione5,
+                                Maggiorazione6: x.Maggiorazione6,
+                                Maggiorazione7: x.Maggiorazione7,
+                                Maggiorazione8: x.Maggiorazione8,
+                                Maggiorazione9: x.Maggiorazione9,
+                                MarkUp: x.MarkUp,
+                                NumeroBolla: x.NumeroBolla,
+                                PercentualeAcconto: x.PercentualeAcconto,
+                                PosizioneBolla: x.PosizioneBolla,
+                                PrezzoBase: x.PrezzoBase,
+                                PrezzoLordo: x.PrezzoLordo,
+                                PrezzoTrasporto: x.PrezzoTrasporto,
+                                Societa: x.Societa,
+                                Specie: x.Specie,
+                                Stagionalita: x.Stagionalita,
+                                TipoListino: x.TipoListino,
+                                EsercizioCompetenza: this.byId("idEsercizioCompetenza").getValue(),
+                                DataDocumento: this.byId("idDataDocumento").getValue(),
+                                IVA: x.IVA
+                            };
+                            /* if (x.Delega) {
+                                 oRow.Zfattura = x.NumFattura;
+                             } */
+                            debugger;
+                            oPromiseStorico = oPromiseStorico.then(() => {
+                                return this.createStorico(oRow);
+                            });
+                        });
+                        Promise.all([oPromiseStorico]).then(() => {
+                            //oRouter.navTo("FAD1Detail");
+                            sap.m.MessageToast.show("MESSAGGIO DI SUCCESSO E AZIONE");
+                            this.oGlobalBusyDialog.close();
+                        }, () => {
+                            sap.m.MessageToast.show("Errore nella scrittura nello storico");
+                            this.oGlobalBusyDialog.close();
+                        });
+                        /*
+                    }, () => {
+                        sap.m.MessageToast.show("Errore nella creazione del numero protocollo");
+                        this.oGlobalBusyDialog.close();
+                    });
+                   
+                    },
+                    error: () => {
+                        this.oGlobalBusyDialog.close();
+                        sap.m.MessageToast.show("Errore di connessione");
+                    }
                 });
+                 */
+                    } else {
+                        sap.m.MessageToast.show("Selezionare almeno una riga");
+                    }
+                } else {
+                    sap.m.MessageToast.show("Compilare Esercizio Competenza e Data Documento");
+                }
+            },
+            onSimulaFatturaFAD2: function () {
+                let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                this.oGlobalBusyDialog.open();
+                if (this.byId("idEsercizioCompetenza2").getValue() && this.byId("idDataDocumento2").getValue() && this.byId("idCodiceIVA2").getValue() && this.byId("idImportoAcconto2").getValue()) {
+                    let oPromiseStorico = Promise.resolve();
+                    this.byId("idFilterFornitoreFAD2").getValue().forEach(x => {
+                        let oRow = {
+                            Societa: this.getView().byId("idFilterSocietaFAD2").getValue(),
+                            Fornitore: x.getKey().padStart(10, "0"),
+                            Specie: this.byId("idFilterSpecieFAD2").getValue(),
+                            Stagionalita: this.byId("idFilterStagionalitaFAD2").getValue(),
+                            EsercizioCompetenza: this.byId("idEsercizioCompetenza2").getValue(),
+                            DataDocumento: this.byId("idDataDocumento2").getDateValue(),
+                            ImportoAcconto: this.byId("idImportoAcconto2").getValue(),
+                            CodiceIVA: this.byId("idCodiceIVA2").getValue()
+                        };
+                        oPromiseStorico = oPromiseStorico.then(() => {
+                            return this.createStoricoFAD2(oRow);
+                        });
+                    });
 
-                this.getOwnerComponent().setNavigation(aSelected);
-                oRouter.navTo("FAD2Detail");
+                    Promise.all([oPromiseStorico]).then(() => {
+                        //oRouter.navTo("FAD2Detail");
+                        sap.m.MessageToast.show("MESSAGGIO DI SUCCESSO E AZIONE");
+                        this.oGlobalBusyDialog.close();
+                    }, () => {
+                        sap.m.MessageToast.show("Errore nella scrittura nello storico");
+                        this.oGlobalBusyDialog.close();
+                    });
+                } else {
+                    sap.m.MessageToast.show("Compilare Esercizio Competenza, Data Documento, Importo Acconto e Codice IVA");
+                }
             },
             multiFilter: function (idField, sField) {
                 if (this.byId(idField).getValue() && this.byId(idField).getValue().length > 0) {
@@ -292,6 +415,45 @@ sap.ui.define([
                 } else {
                     return null;
                 }
+            },
+            createNFattura: function (oRow, oSelezionato) {
+                var oModel = this.getView().getModel();
+                return new Promise((resolve, reject) => {
+                    oModel.create("/NumeroFatturaSet", oRow, {
+                        success: (oData) => {
+                            oSelezionato.NumFattura = oData.NumFattura;
+                            resolve();
+                        },
+                        error: (oError) => {
+                            reject(oError);
+                        }
+                    });
+                });
+            },
+            createStorico: function (oRow) {
+                var oModel = this.getView().getModel();
+                return new Promise((resolve, reject) => {
+                    oModel.create("/FADBolleConferimentoSet", oRow, {
+                        success: () => {
+                            resolve();
+                        },
+                        error: (oError) => {
+                            reject(oError);
+                        }
+                    });
+                });
+            },
+            createStoricoFAD2: function (oRow) {
+                return new Promise((resolve, reject) => {
+                    this.getView().getModel().create("/FAD2Set", oRow, {
+                        success: () => {
+                            resolve();
+                        },
+                        error: (oError) => {
+                            reject(oError);
+                        }
+                    });
+                });
             }
         });
     });

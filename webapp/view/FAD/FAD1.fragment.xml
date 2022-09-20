@@ -200,11 +200,6 @@
                     <smartField:SmartField id="idFilterCodicePercentualeFAD1" value="{path: 'CodicePercentualeAcconto', mode:'OneWay'}" mandatory="true" entitySet="FADBolleConferimentoSet" />
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="considerareacconti" label="Considerare acconti">
-                <fb:control>
-                    <CheckBox id="idFilterConsiderareAccontiFAD1" selected="true" />
-                </fb:control>
-            </fb:FilterGroupItem>
             <fb:FilterGroupItem groupName="__$INTERNAL$" name="eserciziocompetenza" label="Esercizio Competenza">
                 <fb:control>
                     <Input id="idFilterEsercizioCompetenzaFAD1" maxLength="4" />
@@ -215,8 +210,16 @@
     <t:Table id="idTableFAD1" rows="{FAD1Model>/}" selectionMode="Multi" fixedColumnCount="7">
         <t:extension>
             <OverflowToolbar style="Clear">
+                <Label text="Esercizio competenza" />
+                <Input id="idEsercizioCompetenza" value="" width="5%" required="true" maxLength="4"/>
+                <Label text="Data documento" />
+                <DatePicker id="idDataDocumento" value="" width="15%" valueFormat="yyyyMMdd" displayFormat="short" required="true" />
+                <!-- class="sapUiSmallMarginBottom" -->
+                <!--<Label text="Codice IVA" />
+                <smartField:SmartField id="idCodiceIVA" width="5%" value="{path: 'Mwskz', mode:'OneWay'}" entitySet="CodiceIVASet" mandatory="true" /> -->
                 <ToolbarSpacer/>
-                <Button text="Simula fattura" press="onSimulaFatturaFAD1" />
+                <!--<Button text="Simula fattura" press="onSimulaFatturaFAD1" />-->
+                <Button text="Calcola e salva" press="onSalvaFatturaFAD1" />
             </OverflowToolbar>
         </t:extension>
         <t:columns>
