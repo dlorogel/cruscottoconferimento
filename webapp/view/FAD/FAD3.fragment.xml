@@ -1,5 +1,551 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core"
     xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:smartMultiInput="sap.ui.comp.smartmultiinput"
     xmlns:smartField="sap.ui.comp.smartfield">
-    <Text text="Prova" />
+    <fb:FilterBar id="_IDGenFilterBar3" reset="onReset3" search="onFilterSearchFAD3" showRestoreButton="true">
+        <fb:filterGroupItems>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="C18" label="Società" mandatory="true" visibleInFilterBar="true">
+                <fb:control>
+                    <Input id="iBUKRSM3" type="Text" value="{filterModel3>/BUKRS}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel3',$event,'BUKRS')" suggest=".onValueHelpRequestConferimento('dynamicModel3',$event,'BUKRS')"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem553" groupName="__$INTERNAL$" name="C1" label="{i18n>LIFNR}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iLIFNRM3" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel3',$event,'LIFNR')" suggest=".onValueHelpRequestConferimento('dynamicModel3',$event,'LIFNR')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A89" label="Produttore" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iLIFN2M3" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel3',$event,'LIFN2')" suggest=".onValueHelpRequestConferimento('dynamicModel3',$event,'LIFN2')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem13333" groupName="__$INTERNAL$" name="A" label="{i18n>EKORG}" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iEKORGM3" valueHelpRequest=".onValueHelpRequest($event,'EKORG')" suggest=".onValueHelpRequest($event,'EKORG')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                    <!--<Input id="_IDGenInput2" type="Text" value="{filterModel3>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A01" label="Numero DDT" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iUNSEZM3" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel3',$event,'UNSEZ')" suggest=".onValueHelpRequestConferimento('dynamicModel3',$event,'UNSEZ')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                    <!--<Input id="_IDGenInput2" type="Text" value="{filterModel3>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A02" label="Numero bolla WMS" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iIHREZM3" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel3',$event,'IHREZ')" suggest=".onValueHelpRequestConferimento('dynamicModel3',$event,'IHREZ')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                    <!--<Input id="_IDGenInput2" type="Text" value="{filterModel3>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A03" label="Data documento acquisto" visibleInFilterBar="true">
+                <fb:control>
+                    <DateRangeSelection id="iBEDATM3" delimiter="-" dateValue="{filterModel3>/DataDocumentoFrom}" secondDateValue="{filterModel3>/DataDocumentoTo}" displayFormat="short"/>
+                    <!--<MultiInput id="iBEDAT" valueHelpRequest=".onValueHelpRequest($event,'IHREZ')" suggest=".onValueHelpRequest($event,'IHREZ')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>-->
+                    <!--<Input id="_IDGenInput2" type="Text" value="{filterModel3>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A04" label="Tipo materiale" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iMTARTM3" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel3',$event,'MTART')" suggest=".onValueHelpRequestConferimento('dynamicModel3',$event,'MTART')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                    <!--<Input id="_IDGenInput2" type="Text" value="{filterModel3>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem53" groupName="__$INTERNAL$" name="C" label="{i18n>ZSPECIE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSPECIEM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SPECIE')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SPECIE')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem63" groupName="__$INTERNAL$" name="D" label="{i18n>ZSTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSTAGM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'STAGIONALITA')" suggest=".onValueHelpRequest('dynamicModel3',$event,'STAGIONALITA')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem73" groupName="__$INTERNAL$" name="F" label="{i18n>ZVARIETA}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iVARIETAM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'VARIETA')" suggest=".onValueHelpRequest('dynamicModel3',$event,'VARIETA')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem93" groupName="__$INTERNAL$" name="H" label="{i18n>ZCERTAZ}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iCERTAZM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'CERTIFICAZIONE_AZIENDALE')" suggest=".onValueHelpRequest('dynamicModel3',$event,'CERTIFICAZIONE_AZIENDALE')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem103" groupName="__$INTERNAL$" name="I" label="{i18n>ZCERTPROD}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iCERTPRODM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'CERTIFICAZIONE_PRODOTTO')" suggest=".onValueHelpRequest('dynamicModel3',$event,'CERTIFICAZIONE_PRODOTTO')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem113" groupName="__$INTERNAL$" name="L" label="{i18n>ZRESIDUO}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iRESIDUOM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'RESIDUO')" suggest=".onValueHelpRequest('dynamicModel3',$event,'RESIDUO')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem123" groupName="__$INTERNAL$" name="M" label="{i18n>ZCERTIFCOM}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iCERTIFCOMMM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'CERTIFICAZIONE_COMMERCIALE')" suggest=".onValueHelpRequest('dynamicModel3',$event,'CERTIFICAZIONE_COMMERCIALE')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem153" groupName="__$INTERNAL$" name="P" label="{i18n>ZSPECIFICA}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSPECIFICAM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SPECIFICA')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SPECIFICA')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem143" groupName="__$INTERNAL$" name="O" label="{i18n>ZLAVORAZIONE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iLAVORAZIONEM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'LAVORAZIONE')" suggest=".onValueHelpRequest('dynamicModel3',$event,'LAVORAZIONE')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem1333" groupName="__$INTERNAL$" name="O1" label="{i18n>ZORIGINE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iORIGINEM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'ORIGINE')" suggest=".onValueHelpRequest('dynamicModel3',$event,'ORIGINE')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem163" groupName="__$INTERNAL$" name="Q" label="{i18n>ZQUALITA}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iQUALITAM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'QUALITA')" suggest=".onValueHelpRequest('dynamicModel3',$event,'QUALITA')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem173" groupName="__$INTERNAL$" name="R" label="{i18n>ZCALIBRAZIONE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iCALIBRAZIONEM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'CALIBRAZIONE')" suggest=".onValueHelpRequest('dynamicModel3',$event,'CALIBRAZIONE')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem193" groupName="__$INTERNAL$" name="T" label="{i18n>ZEVCOLT}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iEVENTIM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'EVENTI')" suggest=".onValueHelpRequest('dynamicModel3',$event,'EVENTI')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="T1" label="{i18n>ZRACTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iCAR_RACTAGM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'CAR_RACTAG')" suggest=".onValueHelpRequest('dynamicModel3',$event,'CAR_RACTAG')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem203" groupName="__$INTERNAL$" name="U1" label="{i18n>ZSERRACTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSERVIZIO1M3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIO1')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIO1')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U" label="{i18n>ZSERCAR}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSERVIZIO3M3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIO3')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIO3')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U4" label="{i18n>ZSERASTC}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSERVIZIO2M3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIO2')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIO2')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U5" label="{i18n>ZSERDEP}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSERVIZIO4M3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIO4')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIO4')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U6" label="{i18n>ZSERCAL}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSERVIZIO5M3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIO5')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIO5')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X1" label="{i18n>ZSER1}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSERVIZIOEXTRA1M3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIOEXTRA1')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIOEXTRA1')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X2" label="{i18n>ZSER2}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSERVIZIOEXTRA2M3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIOEXTRA2')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIOEXTRA2')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X3" label="{i18n>ZSER3}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSERVIZIOEXTRA3M3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIOEXTRA3')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIOEXTRA3')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X4" label="{i18n>ZSER4}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSERVIZIOEXTRA4M3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIOEXTRA4')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIOEXTRA4')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X5" label="{i18n>ZSER5}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iSERVIZIOEXTRA5M3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIOEXTRA5')" suggest=".onValueHelpRequest('dynamicModel3',$event,'SERVIZIOEXTRA5')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X51" label="Raggruppamento di liquidazione" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iRAGGLIQM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'RAGGLIQ')" suggest=".onValueHelpRequest('dynamicModel3',$event,'RAGGLIQ')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X52" label="Zona di trasporto" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iZONATRASM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'TRATTA')" suggest=".onValueHelpRequest('dynamicModel3',$event,'TRATTA')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X53" label="Campo Politiche OP" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iPOLITICHEOPM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'POLITICHEOP')" suggest=".onValueHelpRequest('dynamicModel3',$event,'POLITICHEOP')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X54" label="Incoterm (Trasporto)" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiComboBox selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="350px" items="{
+				path: 'incoterModel3>/',
+				sorter: { path: 'key' }
+			}">
+                        <core:Item key="{incoterModel3>key}" text="{incoterModel3>text}"/>
+                    </MultiComboBox>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X55" label="Magazzino" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iLGORTM3" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel3',$event,'LGORT')" suggest=".onValueHelpRequestConferimento('dynamicModel3',$event,'LGORT')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X56" label="Data acconto" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <DateRangeSelection id="iDATACCM3" delimiter="-" dateValue="{filterModel3>/DataAccontoFrom}" secondDateValue="{filterModel3>/DataAccontoTo}" displayFormat="short"/>
+                    <!--<DatePicker value="{filterModel3>/ZDATACCDA}"></DatePicker>-->
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <!--<fb:FilterGroupItem groupName="__$INTERNAL$" name="X57" label="Data acconto a" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <DatePicker value="{filterModel3>/ZDATACCA}"></DatePicker>
+                </fb:control>
+            </fb:FilterGroupItem>-->
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X58" label="Causale" visibleInFilterBar="true">
+                <fb:control>
+                    <Input id="iZCAUSALEM3" type="Text" value="{filterModel3>/ZCAUSALE}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'ZCAUSALE')" suggest=".onValueHelpRequest('dynamicModel3',$event,'ZCAUSALE')"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X59" label="Stato" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iZSTATOM3" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'ZSTATO')" suggest=".onValueHelpRequest('dynamicModel3',$event,'ZSTATO')">
+                        <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+        </fb:filterGroupItems>
+
+    </fb:FilterBar>
+
+    <FlexBox height="3rem" alignItems="Start" justifyContent="Start" visible="{appModel>/TableStoricoRecapVisible}">
+        <Button text="{i18n>lbl.VistaDettagliata}" type="Emphasized" press="onVistaDettagliata" class="sapUiLargeMarginBeginEnd" />
+        <!--<ToolbarSpacer width="35rem"></ToolbarSpacer>-->
+        <Button text="{i18n>lbl.InvioMail}" type="Emphasized" press="onInvioMail" class="sapUiLargeMarginBeginEnd" />
+        <Button text="{i18n>lbl.InvioXML}" type="Emphasized" press="onInvioXML" class="sapUiLargeMarginBeginEnd" />
+        <Button text="{i18n>lbl.ModificaStato}" type="Emphasized" press="onModificaStato" class="sapUiLargeMarginBeginEnd" />
+        <Button text="{i18n>lbl.CreaNotaCredito}" type="Emphasized" press="onCreaNotaCredito" class="sapUiLargeMarginBeginEnd" />
+    </FlexBox>
+
+    <FlexBox height="3rem" alignItems="Start" justifyContent="Start" visible="{appModel>/TableStoricoPosVisible}">
+        <ToolbarSpacer width="60rem"></ToolbarSpacer>
+        <Button text="{i18n>lbl.VistaRecap}" type="Emphasized" press="onVistaRecap" class="sapUiLargeMarginBeginEnd"/>
+    </FlexBox>
+
+    <t:Table id="TableStoricoRecap" rows="{appModel>/rowsStoricoRecap}" selectionMode="Single" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" visible="{appModel>/TableStoricoRecapVisible}">
+        <t:columns>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zidstorico" sortProperty="Zidstorico" width="10em">
+                <Label text="{i18n>lbl.Zidstorico}"/>
+                <t:template>
+                    <Text text="{Zidstorico}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zprogsdi" sortProperty="Zprogsdi" width="10em">
+                <Label text="{i18n>lbl.Zprogsdi}"/>
+                <t:template>
+                    <Text text="{Zprogsdi}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Znumprot" sortProperty="Znumprot" width="10em">
+                <Label text="{i18n>lbl.Znumprot}"/>
+                <t:template>
+                    <Text text="{Znumprot}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zdatadocumento" sortProperty="Zdatadocumento" width="10em">
+                <Label text="{i18n>lbl.Zdatadocumento}"/>
+                <t:template>
+                    <Text text="{Zdatadocumento}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zstatus" sortProperty="Zstatus" width="10em">
+                <Label text="{i18n>lbl.Zstatus}"/>
+                <t:template>
+                    <Text text="{Zstatus}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zcausale" sortProperty="Zcausale" width="10em">
+                <Label text="{i18n>lbl.Zcausale}"/>
+                <t:template>
+                    <Text text="{Zcausale}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bukrs" sortProperty="Bukrs" width="10em">
+                <Label text="{i18n>lbl.Bukrs}"/>
+                <t:template>
+                    <Text text="{Bukrs}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Lifnr" sortProperty="Lifnr" width="10em">
+                <Label text="{i18n>lbl.Lifnr}"/>
+                <t:template>
+                    <Text text="{Lifnr}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ziva" sortProperty="Ziva" width="10em">
+                <Label text="{i18n>lbl.Ziva}"/>
+                <t:template>
+                    <Text text="{Ziva}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotacconti" sortProperty="Ztotacconti" width="10em">
+                <Label text="{i18n>lbl.Ztotacconti}"/>
+                <t:template>
+                    <Text text="{Ztotacconti}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zimponibile" sortProperty="Zimponibile" width="10em">
+                <Label text="{i18n>lbl.Zimponibile}"/>
+                <t:template>
+                    <Text text="{Zimponibile}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotiva" sortProperty="Ztotiva" width="10em">
+                <Label text="{i18n>lbl.Ztotiva}"/>
+                <t:template>
+                    <Text text="{Ztotiva}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotdoc" sortProperty="Ztotdoc" width="10em">
+                <Label text="{i18n>lbl.Ztotdoc}"/>
+                <t:template>
+                    <Text text="{Ztotdoc}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZRilCont" sortProperty="ZRilCont" width="10em">
+                <Label text="{i18n>lbl.ZRilCont}"/>
+                <t:template>
+                    <CheckBox selected="{ZRilCont}" enabled="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZTipReg" sortProperty="ZTipReg" width="10em">
+                <Label text="{i18n>lbl.ZTipReg}"/>
+                <t:template>
+                    <Text text="{=${Ztotdoc} > 0 ? 'FT' : 'NC'}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filtered="false" width="10em">
+                <Label text="Stampa Fattura"/>
+                <t:template>
+                    <Button text="Stampa Fattura"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filtered="false" width="10em">
+                <Label text="Estratto Conto di Liquidazione"/>
+                <t:template>
+                    <Button text="Estratto Conto di Liquidazione"/>
+                </t:template>
+            </t:Column>
+        </t:columns>
+    </t:Table>
+    <t:Table id="TableStoricoPos" rows="{appModel>/rowsStoricoPos}" selectionMode="None" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" visible="{appModel>/TableStoricoPosVisible}">
+        <t:columns>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zidstorico" sortProperty="Zidstorico" width="10em">
+                <Label text="{i18n>lbl.Zidstorico}"/>
+                <t:template>
+                    <Text text="{Zidstorico}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zprogsdi" sortProperty="Zprogsdi" width="10em">
+                <Label text="{i18n>lbl.Zprogsdi}"/>
+                <t:template>
+                    <Text text="{Zprogsdi}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Znumprot" sortProperty="Znumprot" width="10em">
+                <Label text="{i18n>lbl.Znumprot}"/>
+                <t:template>
+                    <Text text="{Znumprot}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zdatadocumento" sortProperty="Zdatadocumento" width="10em">
+                <Label text="{i18n>lbl.Zdatadocumento}"/>
+                <t:template>
+                    <Text text="{Zdatadocumento}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zcausale" sortProperty="Zcausale" width="10em">
+                <Label text="{i18n>lbl.Zcausale}"/>
+                <t:template>
+                    <Text text="{Zcausale}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bukrs" sortProperty="Bukrs" width="10em">
+                <Label text="{i18n>lbl.Bukrs}"/>
+                <t:template>
+                    <Text text="{Bukrs}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bedat" sortProperty="Bedat" width="10em">
+                <Label text="{i18n>lbl.Bedat}"/>
+                <t:template>
+                    <Text text="{Bedat}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ebeln" sortProperty="Ebeln" width="10em">
+                <Label text="{i18n>lbl.Ebeln}"/>
+                <t:template>
+                    <Text text="{Ebeln}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ebelp" sortProperty="Ebelp" width="10em">
+                <Label text="{i18n>lbl.Ebelp}"/>
+                <t:template>
+                    <Text text="{Ebelp}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Lifnr" sortProperty="Lifnr" width="10em">
+                <Label text="{i18n>lbl.Lifnr}"/>
+                <t:template>
+                    <Text text="{Lifnr}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Specie" sortProperty="Specie" width="10em">
+                <Label text="{i18n>lbl.Specie}"/>
+                <t:template>
+                    <Text text="{Specie}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Stag" sortProperty="Stag" width="10em">
+                <Label text="{i18n>lbl.Stag}"/>
+                <t:template>
+                    <Text text="{Stag}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Menge" sortProperty="Menge" width="10em">
+                <Label text="{i18n>lbl.Menge}"/>
+                <t:template>
+                    <Text text="{Menge}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZPrezLordo" sortProperty="ZPrezLordo" width="10em">
+                <Label text="{i18n>lbl.ZPrezLordo}"/>
+                <t:template>
+                    <Text text="{ZPrezLordo}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZTotErogParz" sortProperty="ZTotErogParz" width="10em">
+                <Label text="{i18n>lbl.ZTotErogParz}"/>
+                <t:template>
+                    <Text text="{ZTotErogParz}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZCodIva" sortProperty="ZCodIva" width="10em">
+                <Label text="{i18n>lbl.ZCodIva}"/>
+                <t:template>
+                    <Text text="{ZCodIva}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZMaggioraz" sortProperty="ZMaggioraz" width="10em">
+                <Label text="{i18n>lbl.ZMaggioraz}"/>
+                <t:template>
+                    <Text text="{ZMaggioraz}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZP01" sortProperty="ZP01" width="10em">
+                <Label text="{i18n>lbl.ZP01}"/>
+                <t:template>
+                    <Text text="{ZP01}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZV01" sortProperty="ZV01" width="10em">
+                <Label text="{i18n>lbl.ZV01}"/>
+                <t:template>
+                    <Text text="{ZV01}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZD01" sortProperty="ZD01" width="10em">
+                <Label text="{i18n>lbl.ZD01}"/>
+                <t:template>
+                    <Text text="{ZD01}" wrapping="false"/>
+                </t:template>
+            </t:Column>
+
+        </t:columns>
+    </t:Table>
 </core:FragmentDefinition>

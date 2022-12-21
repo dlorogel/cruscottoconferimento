@@ -254,7 +254,6 @@ sap.ui.define([
                                         if (y.Delega) {
                                             oRow.Zfattura = y.NumFattura;
                                         }
-                                        debugger;
                                         oPromiseStorico = oPromiseStorico.then(() => {
                                             return this.createStorico(oRow);
                                         });

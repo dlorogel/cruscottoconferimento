@@ -32,6 +32,42 @@
                     "localUri": "localService/metadata.xml",
                     "odataVersion": "2.0"
                 }
+            },
+            "ekorg": {
+                "uri": "/sap/opu/odata/sap/CMD_QLTY_BP_SUPLR_PURG_ALP_SRV",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "lifnr": {
+                "uri": "/sap/opu/odata/sap/API_BUSINESS_PARTNER",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "attrData": {
+                "uri": "/sap/opu/odata/sap/ZATTRIBUTIANAGRAFICI_SRV",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "causaleData": {
+                "uri": "/sap/opu/odata/sap/ZZ1_CONFCAUSALE_CDS",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
             }
         },
         "crossNavigation": {
@@ -69,7 +105,7 @@
     "sap.ui5": {
         "flexEnabled": false,
         "dependencies": {
-            "minUI5Version": "1.84.7",
+            "minUI5Version": "1.84.30",
             "libs": {
                 "sap.m": {},
                 "sap.ui.core": {},
@@ -109,6 +145,31 @@
                     "defaultCountMode": "Inline",
                     "refreshAfterChange": true
                 }
+            },
+            "ekorgModel": {
+                "dataSource": "ekorg",
+                "preload": true,
+                "settings": {}
+            },
+            "lifnrModel": {
+                "dataSource": "lifnr",
+                "preload": true,
+                "settings": {}
+            },
+            "atributiModel": {
+                "dataSource": "attrData",
+                "preload": true,
+                "settings": {}
+            },
+            "causaleModel": {
+                "dataSource": "causaleData",
+                "preload": true,
+                "settings": {}
+            },
+            "appModel": {
+                "type": "sap.ui.model.json.JSONModel",
+                "settings": {},
+                "preload": false
             }
         },
         "resources": {
@@ -163,6 +224,13 @@
                     "target": [
                         "TargetFAD2Detail"
                     ]
+                },
+                {
+                    "name": "Compensazione",
+                    "pattern": "Compensazione",
+                    "target": [
+                        "TargetCompensazione"
+                    ]
                 }
             ],
             "targets": {
@@ -193,6 +261,13 @@
                     "clearControlAggregation": false,
                     "viewId": "FAD2Detail",
                     "viewName": "FAD2Detail"
+                },
+                "TargetCompensazione": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "Compensazione",
+                    "viewName": "Compensazione"
                 }
             }
         },

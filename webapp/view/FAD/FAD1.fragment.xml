@@ -4,657 +4,374 @@
     xmlns:fb="sap.ui.comp.filterbar"
     xmlns:smartMultiInput="sap.ui.comp.smartmultiinput"
     xmlns:smartField="sap.ui.comp.smartfield">
-    <fb:FilterBar search="onSearchFAD1" showRestoreButton="true">
+    <fb:FilterBar id="_IDGenFilterBar1" reset="onReset" search="onFilterSearchFAD1" showRestoreButton="true">
         <fb:filterGroupItems>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="societa" label="Società" partOfCurrentVariant="true" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="C18" label="Società" mandatory="true" visibleInFilterBar="true">
                 <fb:control>
-                    <smartField:SmartField id="idFilterSocietaFAD1" value="{path: 'Societa', mode:'OneWay'}" mandatory="true" entitySet="FAD1FiltriSet" change="onSocieta" />
+                    <Input id="iBUKRS" type="Text" value="{filterModel>/BUKRS}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'BUKRS')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'BUKRS')"/>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="fornitore" label="Fornitore" partOfCurrentVariant="true" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem55" groupName="__$INTERNAL$" name="C1" label="{i18n>LIFNR}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterFornitoreFAD1" mandatory="true" entitySet="FAD1FiltriSet" value="{path: 'Fornitore', mode:'OneWay'}"/>
+                    <MultiInput id="iLIFNR" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFNR')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFNR')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="produttore" label="Produttore">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A89" label="Produttore" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterProduttoreFAD1" entitySet="FAD1FiltriSet" value="{path: 'Produttore', mode:'OneWay'}" mandatory="false"/>
+                    <MultiInput id="iLIFN2" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFN2')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFN2')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <!-- <fb:FilterGroupItem groupName="__$INTERNAL$" name="orgacquisti" label="Org. Acquisti">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem1" groupName="__$INTERNAL$" name="A" label="{i18n>EKORG}" visibleInFilterBar="true">
                 <fb:control>
-                    <smartField:SmartField id="idFilterOrgAcquistiFAD1" value="{path: 'OrgAcquisti', mode:'OneWay'}" entitySet="FAD1FiltriSet" mandatory="false">
-                        <smartField:configuration>
-                            <smartField:Configuration controlType="dropDownList" displayBehaviour="idAndDescription" />
-                        </smartField:configuration>
-                    </smartField:SmartField>
-                </fb:control>
-            </fb:FilterGroupItem> -->
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="orgacquisti" label="Org. Acquisti">
-                <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterOrgAcquistiFAD1" entitySet="FAD1FiltriSet" value="{path: 'OrgAcquisti', mode:'OneWay'}" mandatory="false"/>
+                    <MultiInput id="iEKORG" valueHelpRequest=".onValueHelpRequest($event,'EKORG')" suggest=".onValueHelpRequest($event,'EKORG')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
+                    <!--<Input id="_IDGenInput2" type="Text" value="{filterModel>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="numerobolla" label="Numero Bolla di conferimento (OdA)">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A01" label="Numero DDT" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterNumeroBollaFAD1" entitySet="FAD1FiltriSet" value="{path: 'NumeroBolla', mode:'OneWay'}" mandatory="false"/>
+                    <MultiInput id="iUNSEZ" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'UNSEZ')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'UNSEZ')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
+                    <!--<Input id="_IDGenInput2" type="Text" value="{filterModel>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="dataregistrazione" label="Data registrazione bolla di conferimento" partOfCurrentVariant="true" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A02" label="Numero bolla WMS" visibleInFilterBar="true">
                 <fb:control>
-                    <DateRangeSelection required="true" id="idFilterDataRegistrazioneBollaFAD1" delimiter="-" dateValue="" secondDateValue="" displayFormat="short"/>
+                    <MultiInput id="iIHREZ" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'IHREZ')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'IHREZ')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
+                    <!--<Input id="_IDGenInput2" type="Text" value="{filterModel>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="tipomateriale" label="Tipo Materiale">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A03" label="Data accettazione" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterTipoMaterialeFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'TipoMateriale', mode:'OneWay'}"/>
+                    <DateRangeSelection required="true" id="iBEDAT" delimiter="-" dateValue="{filterModel>/DataDocumentoFrom}" secondDateValue="{filterModel>/DataDocumentoTo}" displayFormat="short"/>
+                    <!--<MultiInput id="iBEDAT" valueHelpRequest=".onValueHelpRequest($event,'IHREZ')" suggest=".onValueHelpRequest($event,'IHREZ')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>-->
+                    <!--<Input id="_IDGenInput2" type="Text" value="{filterModel>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="specie" label="Specie">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A04" label="Tipo materiale" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterSpecieFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Specie', mode:'OneWay'}"/>
+                    <MultiInput id="iMTART" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'MTART')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'MTART')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
+                    <!--<Input id="_IDGenInput2" type="Text" value="{filterModel>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="stagionalita" label="Stagionalità">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem5" groupName="__$INTERNAL$" name="C" label="{i18n>ZSPECIE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterStagionalitaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Stagionalita', mode:'OneWay'}"/>
+                    <MultiInput id="iSPECIE" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SPECIE')" suggest=".onValueHelpRequest('dynamicModel',$event,'SPECIE')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="varieta" label="Varietà">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem6" groupName="__$INTERNAL$" name="D" label="{i18n>ZSTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterVarietaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Varieta', mode:'OneWay'}"/>
+                    <MultiInput id="iSTAG" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'STAGIONALITA')" suggest=".onValueHelpRequest('dynamicModel',$event,'STAGIONALITA')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="certificazioneaziendale" label="Certificazione Aziendale">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem7" groupName="__$INTERNAL$" name="F" label="{i18n>ZVARIETA}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterCertificazioneAziendaleFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CertificazioneAziendale', mode:'OneWay'}"/>
+                    <MultiInput id="iVARIETA" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'VARIETA')" suggest=".onValueHelpRequest('dynamicModel',$event,'VARIETA')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="certificazioneprodotto" label="Certificazione Prodotto">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem9" groupName="__$INTERNAL$" name="H" label="{i18n>ZCERTAZ}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterCertificazioneProdottoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CertificazioneProdotto', mode:'OneWay'}"/>
+                    <MultiInput id="iCERTAZ" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_AZIENDALE')" suggest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_AZIENDALE')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="residuo" label="Residuo">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem10" groupName="__$INTERNAL$" name="I" label="{i18n>ZCERTPROD}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterResiduoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Residuo', mode:'OneWay'}"/>
+                    <MultiInput id="iCERTPROD" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_PRODOTTO')" suggest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_PRODOTTO')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="certificazionecommerciale" label="Certificazione Commerciale">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem11" groupName="__$INTERNAL$" name="L" label="{i18n>ZRESIDUO}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterCertificazioneCommercialeFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CertificazioneCommerciale', mode:'OneWay'}"/>
+                    <MultiInput id="iRESIDUO" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'RESIDUO')" suggest=".onValueHelpRequest('dynamicModel',$event,'RESIDUO')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="specifica" label="Specifica">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem12" groupName="__$INTERNAL$" name="M" label="{i18n>ZCERTIFCOM}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterSpecificaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Specifica', mode:'OneWay'}"/>
+                    <MultiInput id="iCERTIFCOMM" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_COMMERCIALE')" suggest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_COMMERCIALE')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="lavorazione" label="Lavorazione">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem15" groupName="__$INTERNAL$" name="P" label="{i18n>ZSPECIFICA}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterLavorazioneFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Lavorazione', mode:'OneWay'}"/>
+                    <MultiInput id="iSPECIFICA" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SPECIFICA')" suggest=".onValueHelpRequest('dynamicModel',$event,'SPECIFICA')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="origine" label="Origine">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem14" groupName="__$INTERNAL$" name="O" label="{i18n>ZLAVORAZIONE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterOrigineFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Origine', mode:'OneWay'}"/>
+                    <MultiInput id="iLAVORAZIONE" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'LAVORAZIONE')" suggest=".onValueHelpRequest('dynamicModel',$event,'LAVORAZIONE')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="qualita" label="Qualità">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem13" groupName="__$INTERNAL$" name="O1" label="{i18n>ZORIGINE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterQualitaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Qualita', mode:'OneWay'}"/>
+                    <MultiInput id="iORIGINE" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'ORIGINE')" suggest=".onValueHelpRequest('dynamicModel',$event,'ORIGINE')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="calibrazione" label="Calibrazione">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem16" groupName="__$INTERNAL$" name="Q" label="{i18n>ZQUALITA}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterCalibrazioneFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Calibrazione', mode:'OneWay'}"/>
+                    <MultiInput id="iQUALITA" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'QUALITA')" suggest=".onValueHelpRequest('dynamicModel',$event,'QUALITA')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="eventicoltivazione" label="Eventi Coltivazione">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem17" groupName="__$INTERNAL$" name="R" label="{i18n>ZCALIBRAZIONE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterEventiColtivazioneFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'EventiColtivazione', mode:'OneWay'}"/>
+                    <MultiInput id="iCALIBRAZIONE" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'CALIBRAZIONE')" suggest=".onValueHelpRequest('dynamicModel',$event,'CALIBRAZIONE')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="caratteristicart" label="Caratteristica di raccolta e taglio">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem19" groupName="__$INTERNAL$" name="T" label="{i18n>ZEVCOLT}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterCaratteristicaRaccoltaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CaratteristicaRaccolta', mode:'OneWay'}"/>
+                    <MultiInput id="iEVENTI" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'EVENTI')" suggest=".onValueHelpRequest('dynamicModel',$event,'EVENTI')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="serviziort" label="Servizio di raccolta e taglio">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="T1" label="{i18n>ZRACTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterServizioRaccoltaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioRaccolta', mode:'OneWay'}"/>
+                    <MultiInput id="iCAR_RACTAG" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'CAR_RACTAG')" suggest=".onValueHelpRequest('dynamicModel',$event,'CAR_RACTAG')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioca" label="Servizio carico automezzo">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem20" groupName="__$INTERNAL$" name="U1" label="{i18n>ZSERRACTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterServizioCaricoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioCarico', mode:'OneWay'}"/>
+                    <MultiInput id="iSERVIZIO1" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO1')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO1')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioassistenzat" label="Servizio assistenza tecnica">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U" label="{i18n>ZSERCAR}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterServizioAssistenzaFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioAssistenza', mode:'OneWay'}"/>
+                    <MultiInput id="iSERVIZIO3" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO3')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO3')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="serviziodeposito" label="Servizio deposito">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U4" label="{i18n>ZSERASTC}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterServizioDepositoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioDeposito', mode:'OneWay'}"/>
+                    <MultiInput id="iSERVIZIO2" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO2')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO2')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="serviziocalibrazione" label="Servizio calibrazione">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U5" label="{i18n>ZSERDEP}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterServizioCalibrazioneFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioCalibrazione', mode:'OneWay'}"/>
+                    <MultiInput id="iSERVIZIO4" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO4')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO4')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioextra1" label="Servizio extra 1">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U6" label="{i18n>ZSERCAL}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterServizioExtra1FAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioExtra1', mode:'OneWay'}"/>
+                    <MultiInput id="iSERVIZIO5" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO5')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO5')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioextra2" label="Servizio extra 2">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X1" label="{i18n>ZSER1}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterServizioExtra2FAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioExtra2', mode:'OneWay'}"/>
+                    <MultiInput id="iSERVIZIOEXTRA1" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA1')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA1')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioextra3" label="Servizio extra 3">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X2" label="{i18n>ZSER2}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterServizioExtra3FAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioExtra3', mode:'OneWay'}"/>
+                    <MultiInput id="iSERVIZIOEXTRA2" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA2')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA2')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioextra4" label="Servizio extra 4">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X3" label="{i18n>ZSER3}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterServizioExtra4FAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioExtra4', mode:'OneWay'}"/>
+                    <MultiInput id="iSERVIZIOEXTRA3" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA3')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA3')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="servizioextra5" label="Servizio extra 5">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X4" label="{i18n>ZSER4}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterServizioExtra5FAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ServizioExtra5', mode:'OneWay'}"/>
+                    <MultiInput id="iSERVIZIOEXTRA4" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA4')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA4')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="raggruppamentoliquidazione" label="Raggruppamento Liquidazione">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X5" label="{i18n>ZSER5}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterRaggruppamentoLiquidazioneFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'RaggruppamentoLiquidazione', mode:'OneWay'}"/>
+                    <MultiInput id="iSERVIZIOEXTRA5" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA5')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA5')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="campopoliticheop" label="Campo Politiche OP">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X51" label="Raggruppamento di liquidazione" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterCampoPoliticheOPFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'CampoPoliticheOP', mode:'OneWay'}"/>
+                    <MultiInput id="iRAGGLIQ" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'RAGGLIQ')" suggest=".onValueHelpRequest('dynamicModel',$event,'RAGGLIQ')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="incoterm" label="Incoterm">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X52" label="Zona di trasporto" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterIncotermFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Incoterm', mode:'OneWay'}"/>
+                    <MultiInput id="iZONATRAS" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'TRATTA')" suggest=".onValueHelpRequest('dynamicModel',$event,'TRATTA')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="zonatrasporto" label="Zona trasporto">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X53" label="Campo Politiche OP" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterZonaTrasportoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'ZonaTrasporto', mode:'OneWay'}"/>
+                    <MultiInput id="iPOLITICHEOP" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'POLITICHEOP')" suggest=".onValueHelpRequest('dynamicModel',$event,'POLITICHEOP')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="magazzino" label="Magazzino">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X54" label="Incoterm (Trasporto)" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterMagazzinoFAD1" mandatory="false" entitySet="FADBolleConferimentoSet" value="{path: 'Magazzino', mode:'OneWay'}" />
+                    <MultiComboBox selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="350px" items="{
+				path: 'incoterModel>/',
+				sorter: { path: 'key' }
+			}">
+                        <core:Item key="{incoterModel>key}" text="{incoterModel>text}"/>
+                    </MultiComboBox>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="codicepercentuale" label="Codice Percentuale" partOfCurrentVariant="true" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X55" label="Magazzino" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartField:SmartField id="idFilterCodicePercentualeFAD1" value="{path: 'CodicePercentualeAcconto', mode:'OneWay'}" mandatory="true" entitySet="FADBolleConferimentoSet" />
+                    <MultiInput id="iLGORT" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'LGORT')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'LGORT')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="eserciziocompetenza" label="Esercizio Competenza">
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X56" label="Data acconto" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <Input id="idFilterEsercizioCompetenzaFAD1" maxLength="4" />
+                    <DateRangeSelection id="iDATACC" delimiter="-" dateValue="{filterModel>/DataAccontoFrom}" secondDateValue="{filterModel>/DataAccontoTo}" displayFormat="short"/>
+                    <!--<DatePicker value="{filterModel>/ZDATACCDA}"></DatePicker>-->
                 </fb:control>
             </fb:FilterGroupItem>
+
+            <!--<fb:FilterGroupItem groupName="__$INTERNAL$" name="X57" label="Data acconto a" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <DatePicker value="{filterModel>/ZDATACCA}"></DatePicker>
+                </fb:control>
+            </fb:FilterGroupItem>-->
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X58" label="Causale Acconti" visibleInFilterBar="true">
+                <fb:control>
+                    <Input id="iZCAUSALE" type="Text" value="{filterModel>/ZCAUSALE}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE')" suggest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE')"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X59" label="Codice Acconto" mandatory="true" visibleInFilterBar="true">
+                <fb:control>
+                    <ComboBox id="iZCODACC" items="{
+					path: 'codAccModel>/',
+					sorter: { path: 'text' }
+				}" value="{filterModel>/ZCODACC}">
+                        <core:Item key="{codAccModel>key}" text="{codAccModel>text}" />
+                    </ComboBox>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X60" label="Data documento" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <!--<DateRangeSelection required="true" id="iDATADOC" delimiter="-" dateValue="{filterModel>/DataDocumentoIFrom}" secondDateValue="{filterModel>/DataDocumentoITo}" displayFormat="short"/>-->
+                    <DatePicker id="iDATADOC" dateValue="{filterModel>/DataDocumentoI}" displayFormat="short" required="true"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X61" label="Causale" mandatory="true" visibleInFilterBar="true">
+                <fb:control>
+                    <Input id="iZCAUSALE2" type="Text" value="{filterModel>/ZCAUSALE2}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE2')" suggest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE2')"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+
         </fb:filterGroupItems>
+
     </fb:FilterBar>
-    <t:Table id="idTableFAD1" rows="{FAD1Model>/}" selectionMode="Multi" fixedColumnCount="7">
-        <t:extension>
-            <OverflowToolbar style="Clear">
-                <Label text="Esercizio competenza" />
-                <Input id="idEsercizioCompetenza" value="" width="5%" required="true" maxLength="4"/>
-                <Label text="Data documento" />
-                <DatePicker id="idDataDocumento" value="" width="15%" valueFormat="yyyyMMdd" displayFormat="short" required="true" />
-                <!-- class="sapUiSmallMarginBottom" -->
-                <!--<Label text="Codice IVA" />
-                <smartField:SmartField id="idCodiceIVA" width="5%" value="{path: 'Mwskz', mode:'OneWay'}" entitySet="CodiceIVASet" mandatory="true" /> -->
-                <ToolbarSpacer/>
-                <!--<Button text="Simula fattura" press="onSimulaFatturaFAD1" />-->
-                <Button text="Calcola e salva" press="onSalvaFatturaFAD1" />
-            </OverflowToolbar>
-        </t:extension>
+    <t:Table id="TableError" rows="{appModel>/rowsErrorRecap}" selectionMode="None" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" visible="{appModel>/Table3Visible}">
         <t:columns>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Società"/>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bukrs" sortProperty="Bukrs" width="10em">
+                <Label text="{i18n>lbl.Bukrs}"/>
                 <t:template>
-                    <Text text="{FAD1Model>Societa}" wrapping="false"/>
+                    <Text text="{Bukrs}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Fornitore"/>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Lifnr" sortProperty="Lifnr" width="10em">
+                <Label text="{i18n>lbl.Lifnr}"/>
                 <t:template>
-                    <Text text="{FAD1Model>Fornitore}" wrapping="false"/>
+                    <Text text="{Lifnr}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Nome fornitore"/>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ziva" sortProperty="Ziva" width="10em">
+                <Label text="{i18n>lbl.Ziva}"/>
                 <t:template>
-                    <Text text="{FAD1Model>NomeFornitore}" wrapping="false"/>
+                    <Text text="{Ziva}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Produttore"/>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotacconti" sortProperty="Ztotacconti" width="10em">
+                <Label text="{i18n>lbl.Ztotacconti}"/>
                 <t:template>
-                    <Text text="{FAD1Model>Produttore}" wrapping="false"/>
+                    <Text text="{Ztotacconti}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Org. Acquisti"/>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zimponibile" sortProperty="Zimponibile" width="10em">
+                <Label text="{i18n>lbl.Zimponibile}"/>
                 <t:template>
-                    <Text text="{FAD1Model>OrgAcquisti}" wrapping="false"/>
+                    <Text text="{Zimponibile}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Bolla di conferimento"/>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotiva" sortProperty="Ztotiva" width="10em">
+                <Label text="{i18n>lbl.Ztotiva}"/>
                 <t:template>
-                    <Text text="{FAD1Model>NumeroBolla}" wrapping="false"/>
+                    <Text text="{Ztotiva}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Posizione Bolla"/>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotdoc" sortProperty="Ztotdoc" width="10em">
+                <Label text="{i18n>lbl.Ztotdoc}"/>
                 <t:template>
-                    <Text text="{FAD1Model>PosizioneBolla}" wrapping="false"/>
+                    <Text text="{Ztotdoc}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Data registrazione bolla"/>
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Elaborazione" sortProperty="Elaborazione" width="10em">
+                <Label text="{i18n>lbl.Elaborazione}"/>
                 <t:template>
-                    <Text text="{FAD1Model>DataRegistrazioneBolla}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Ricevimento (EM)"/>
-                <t:template>
-                    <Text text="{FAD1Model>Ricevimento}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Codice materiale"/>
-                <t:template>
-                    <Text text="{FAD1Model>Materiale}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Tipo materiale"/>
-                <t:template>
-                    <Text text="{FAD1Model>TipoMateriale}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Quantità"/>
-                <t:template>
-                    <Text text="{path: 'FAD1Model>Quantita', type: 'sap.ui.model.type.Float', formatOptions: {maxFractionDigits: 2, groupingEnabled: true, groupingSeparator: '.', decimalSeparator: ','}}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="UM"/>
-                <t:template>
-                    <Text text="{FAD1Model>UM}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Specie"/>
-                <t:template>
-                    <Text text="{FAD1Model>Specie}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Stagionalità"/>
-                <t:template>
-                    <Text text="{FAD1Model>Stagionalita}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Varietà"/>
-                <t:template>
-                    <Text text="{FAD1Model>Varieta}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Certificazione Aziendale"/>
-                <t:template>
-                    <Text text="{FAD1Model>CertificazioneAziendale}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Certificazione Prodotto"/>
-                <t:template>
-                    <Text text="{FAD1Model>CertificazioneProdotto}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Residuo"/>
-                <t:template>
-                    <Text text="{FAD1Model>Residuo}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Certificazione commerciale"/>
-                <t:template>
-                    <Text text="{FAD1Model>CertificazioneCommerciale}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Specifica"/>
-                <t:template>
-                    <Text text="{FAD1Model>Specifica}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Lavorazione"/>
-                <t:template>
-                    <Text text="{FAD1Model>Lavorazione}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Origine"/>
-                <t:template>
-                    <Text text="{FAD1Model>Origine}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Qualità"/>
-                <t:template>
-                    <Text text="{FAD1Model>Qualita}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Calibrazione"/>
-                <t:template>
-                    <Text text="{FAD1Model>Calibrazione}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Eventi Coltivazione"/>
-                <t:template>
-                    <Text text="{FAD1Model>EventiColtivazione}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Caratteristica di raccolta e taglio"/>
-                <t:template>
-                    <Text text="{FAD1Model>CaratteristicaRaccolta}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Servizio di raccolta/taglio"/>
-                <t:template>
-                    <Text text="{FAD1Model>ServizioRaccolta}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Servizio carico automezzo"/>
-                <t:template>
-                    <Text text="{FAD1Model>ServizioCarico}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Servizio di assistenza tecnica"/>
-                <t:template>
-                    <Text text="{FAD1Model>ServizioAssistenza}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Servizio di deposito"/>
-                <t:template>
-                    <Text text="{FAD1Model>ServizioDeposito}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Servizio di calibrazione"/>
-                <t:template>
-                    <Text text="{FAD1Model>ServizioCalibrazione}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Servizio extra 1"/>
-                <t:template>
-                    <Text text="{FAD1Model>ServizioExtra1}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Servizio extra 2"/>
-                <t:template>
-                    <Text text="{FAD1Model>ServizioExtra2}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Servizio extra 3"/>
-                <t:template>
-                    <Text text="{FAD1Model>ServizioExtra3}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Servizio extra 4"/>
-                <t:template>
-                    <Text text="{FAD1Model>ServizioExtra4}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Servizio extra 5"/>
-                <t:template>
-                    <Text text="{FAD1Model>ServizioExtra5}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Raggruppamento di liquidazione"/>
-                <t:template>
-                    <Text text="{FAD1Model>RaggruppamentoLiquidazione}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Campo politiche OP"/>
-                <t:template>
-                    <Text text="{FAD1Model>CampoPoliticheOP}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Zona di trasporto"/>
-                <t:template>
-                    <Text text="{FAD1Model>ZonaTrasporto}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Magazzino di ricezione"/>
-                <t:template>
-                    <Text text="{FAD1Model>Magazzino}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Incoterm"/>
-                <t:template>
-                    <Text text="{FAD1Model>Incoterm}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Tipo Listino"/>
-                <t:template>
-                    <Text text="{FAD1Model>TipoListino}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Prezzo base"/>
-                <t:template>
-                    <Text text="{FAD1Model>PrezzoBase}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Costo Servizio di raccolta/taglio"/>
-                <t:template>
-                    <Text text="{FAD1Model>CostoRaccolta}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Costo Servizio carico automezzo"/>
-                <t:template>
-                    <Text text="{FAD1Model>CostoCarico}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Costo Servizio di assistenza tecnica"/>
-                <t:template>
-                    <Text text="{FAD1Model>CostoAssistenza}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Costo Servizio di desposito"/>
-                <t:template>
-                    <Text text="{FAD1Model>CostoDeposito}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Costo servizio di calibrazione"/>
-                <t:template>
-                    <Text text="{FAD1Model>CostoCalibrazione}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Costo Servizio extra 1"/>
-                <t:template>
-                    <Text text="{FAD1Model>CostoExtra1}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Costo Servizio extra 2"/>
-                <t:template>
-                    <Text text="{FAD1Model>CostoExtra2}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Costo Servizio extra 3"/>
-                <t:template>
-                    <Text text="{FAD1Model>CostoExtra3}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Costo Servizio extra 4"/>
-                <t:template>
-                    <Text text="{FAD1Model>CostoExtra4}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Costo Servizio extra 5"/>
-                <t:template>
-                    <Text text="{FAD1Model>CostoExtra5}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Mark Up"/>
-                <t:template>
-                    <Text text="{FAD1Model>MarkUp}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Prezzo trasporto"/>
-                <t:template>
-                    <Text text="{FAD1Model>PrezzoTrasporto}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Codice Percentuale Acconto"/>
-                <t:template>
-                    <Text text="{FAD1Model>CodicePercentualeAcconto}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Percentuale Acconto"/>
-                <t:template>
-                    <Text text="{FAD1Model>PercentualeAcconto}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Prezzo acconto"/>
-                <t:template>
-                    <Text text="{FAD1Model>PrezzoAcconto}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Totale merce"/>
-                <t:template>
-                    <Text text="{FAD1Model>TotaleMerce}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Maggiorazione 1"/>
-                <t:template>
-                    <Text text="{FAD1Model>Maggiorazione1}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Maggiorazione 2"/>
-                <t:template>
-                    <Text text="{FAD1Model>Maggiorazione2}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Maggiorazione 3"/>
-                <t:template>
-                    <Text text="{FAD1Model>Maggiorazione3}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Maggiorazione 4"/>
-                <t:template>
-                    <Text text="{FAD1Model>Maggiorazione4}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Maggiorazione 5"/>
-                <t:template>
-                    <Text text="{FAD1Model>Maggiorazione5}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Maggiorazione 6"/>
-                <t:template>
-                    <Text text="{FAD1Model>Maggiorazione6}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Maggiorazione 7"/>
-                <t:template>
-                    <Text text="{FAD1Model>Maggiorazione7}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Maggiorazione 8"/>
-                <t:template>
-                    <Text text="{FAD1Model>Maggiorazione8}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Maggiorazione 9"/>
-                <t:template>
-                    <Text text="{FAD1Model>Maggiorazione9}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Maggiorazione 10"/>
-                <t:template>
-                    <Text text="{FAD1Model>Maggiorazione10}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Importo Totale"/>
-                <t:template>
-                    <Text text="{FAD1Model>ImportoTotale}" wrapping="false"/>
-                </t:template>
-            </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true">
-                <Label text="Stato"/>
-                <t:template>
-                    <Text text="{FAD1Model>Stato}" wrapping="false"/>
+                    <CheckBox selected="{Elaborazione}" enabled="{Enabled}"/>
                 </t:template>
             </t:Column>
         </t:columns>
     </t:Table>
+    <FlexBox height="3rem" alignItems="Start" justifyContent="End" visible="{appModel>/Table3Visible}">
+        <Button text="{i18n>lbl.Esegui}" type="Emphasized" press="onEsegui" class="sapUiLargeMarginBeginEnd" />
+    </FlexBox>
 </core:FragmentDefinition>

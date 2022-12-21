@@ -32,8 +32,8 @@ server:
         backend:
           - path: /sap
             url: http://orogeldev:44333
-            client: '100'
-            destination: S4HANA
+            client: '200'
+            destination: S4HANA_200
     - name: sap-fe-mockserver
       beforeMiddleware: csp
       configuration:

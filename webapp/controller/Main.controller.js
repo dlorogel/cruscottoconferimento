@@ -4,11 +4,12 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller) {
+    function (Controller, JSONModel) {
         "use strict";
 
         return Controller.extend("it.orogel.cruscottoconferimento.controller.Main", {
             onInit: function () {
+              
             },
             onPressFAD: function (oEvent) {
                 let oRouter = sap.ui.core.UIComponent.getRouterFor(this);

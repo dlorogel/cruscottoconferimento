@@ -30,6 +30,9 @@ sap.ui.define([
             setNavigation: function (oNavigation) {
                 this.oNavigation = oNavigation;
             },
+            i18n: function () {
+                return this.getModel("i18n").getResourceBundle();
+            },
             getNavigation: function () {
                 return this.oNavigation;
             }

@@ -1,0 +1,157 @@
+<core:FragmentDefinition controllerName="it.orogel.cruscottoconferimento.controller.Compensazione"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:t="sap.ui.table">
+    <m:Dialog title="{i18n>lbl.DettaglioPartite}" contentHeight="80%" contentWidth="80%">
+        <m:content>
+            <m:IconTabBar id="idIconTabBarMulti" class="sapUiResponsiveContentPadding">
+                <m:items>
+                    <m:IconTabFilter icon="sap-icon://multiselect-all" key="table1" text="Clienti">
+                        <t:Table id="TableDettaglioPartite1" rows="{appModel>/rowsTabellaDettaglioPartite1}" selectionMode="None" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" rowSelectionChange="onChangeRowRiassuntoPartite" enableSelectAll="false">
+                            <t:columns>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Selected" sortProperty="Selected" width="3em">
+                                    <t:template>
+                                        <m:CheckBox selected="{Selezionato}" />
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Rbukrs" sortProperty="Rbukrs">
+                                    <m:Label text="{i18n>lbl.Rbukrs}"/>
+                                    <t:template>
+                                        <m:Text text="{Rbukrs}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Gjahr" sortProperty="Gjahr">
+                                    <m:Label text="{i18n>lbl.Gjahr}"/>
+                                    <t:template>
+                                        <m:Text text="{Gjahr}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Belnr" sortProperty="Belnr">
+                                    <m:Label text="{i18n>lbl.Belnr}"/>
+                                    <t:template>
+                                        <m:Text text="{Belnr}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bldat" sortProperty="Bldat">
+                                    <m:Label text="{i18n>lbl.Bldat}"/>
+                                    <t:template>
+                                        <m:Text text="{Bldat}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Tsl" sortProperty="Tsl">
+                                    <m:Label text="{i18n>lbl.Tsl}"/>
+                                    <t:template>
+                                        <m:Text text="{Tsl}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Kunnr" sortProperty="Kunnr">
+                                    <m:Label text="{i18n>lbl.Kunnr}"/>
+                                    <t:template>
+                                        <m:Text text="{Kunnr}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                            </t:columns>
+                        </t:Table>
+                    </m:IconTabFilter>
+                    <m:IconTabFilter icon="sap-icon://multiselect-all" key="table2" text="Fornitori">
+                        <t:Table id="TableDettaglioPartite2" rows="{appModel>/rowsTabellaDettaglioPartite2}" selectionMode="None" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" rowSelectionChange="onChangeRowRiassuntoPartite" enableSelectAll="false">
+                            <t:columns>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Selected" sortProperty="Selected" width="3em">
+                                    <t:template>
+                                        <m:CheckBox selected="{Selezionato}"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Rbukrs" sortProperty="Rbukrs">
+                                    <m:Label text="{i18n>lbl.Rbukrs}"/>
+                                    <t:template>
+                                        <m:Text text="{Rbukrs}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Gjahr" sortProperty="Gjahr">
+                                    <m:Label text="{i18n>lbl.Gjahr}"/>
+                                    <t:template>
+                                        <m:Text text="{Gjahr}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Belnr" sortProperty="Belnr">
+                                    <m:Label text="{i18n>lbl.Belnr}"/>
+                                    <t:template>
+                                        <m:Text text="{Belnr}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bldat" sortProperty="Bldat">
+                                    <m:Label text="{i18n>lbl.Bldat}"/>
+                                    <t:template>
+                                        <m:Text text="{Bldat}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Tsl" sortProperty="Tsl">
+                                    <m:Label text="{i18n>lbl.Tsl}"/>
+                                    <t:template>
+                                        <m:Text text="{Tsl}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Lifnr" sortProperty="Lifnr">
+                                    <m:Label text="{i18n>lbl.Lifnr}"/>
+                                    <t:template>
+                                        <m:Text text="{Lifnr}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                            </t:columns>
+                        </t:Table>
+                    </m:IconTabFilter>
+                    <m:IconTabFilter icon="sap-icon://multiselect-all" key="table3" text="Capitale Sociale">
+                        <t:Table id="TableDettaglioPartite3" rows="{appModel>/rowsTabellaDettaglioPartite3}" selectionMode="None" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" rowSelectionChange="onChangeRowRiassuntoPartite" enableSelectAll="false">
+                            <t:columns>
+                                <!--<t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Selected" sortProperty="Selected" width="3em">
+                                    <t:template>
+                                        <m:CheckBox selected="{Selezionato}" />
+                                    </t:template>
+                                </t:Column>-->
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Rbukrs" sortProperty="Rbukrs">
+                                    <m:Label text="{i18n>lbl.Rbukrs}"/>
+                                    <t:template>
+                                        <m:Text text="{Rbukrs}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Gjahr" sortProperty="Gjahr">
+                                    <m:Label text="{i18n>lbl.Gjahr}"/>
+                                    <t:template>
+                                        <m:Text text="{Gjahr}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Belnr" sortProperty="Belnr">
+                                    <m:Label text="{i18n>lbl.Belnr}"/>
+                                    <t:template>
+                                        <m:Text text="{Belnr}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bldat" sortProperty="Bldat">
+                                    <m:Label text="{i18n>lbl.Bldat}"/>
+                                    <t:template>
+                                        <m:Text text="{Bldat}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Tsl" sortProperty="Tsl">
+                                    <m:Label text="{i18n>lbl.Tsl}"/>
+                                    <t:template>
+                                        <m:Text text="{Tsl}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                                <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Lifnr" sortProperty="Lifnr">
+                                    <m:Label text="{i18n>lbl.Lifnr}"/>
+                                    <t:template>
+                                        <m:Text text="{Lifnr}" wrapping="false"/>
+                                    </t:template>
+                                </t:Column>
+                            </t:columns>
+                        </t:Table>
+                    </m:IconTabFilter>
+                </m:items>
+            </m:IconTabBar>
+        </m:content>
+        <m:buttons>
+            <m:Button text="{i18n>lbl.RiassuntoPartite}" type="Back" width="16em" press="onCloseDialogDettaglioPartite"/>
+        </m:buttons>
+    </m:Dialog>
+</core:FragmentDefinition>

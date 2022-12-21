@@ -2,6 +2,47 @@ sap.ui.define([], function () {
     "use strict";
 
     return {
+        PDF: {
+            ENTITY: "/PDFSet"
+        },
+        LIQUIDAZIONE: {
+            XML: '<?xml version="1.0" encoding="UTF-8"?>' +
+                "<form1>" +
+                "<Page1>" +
+                "<Subform1>" +
+                "<Table1>" +
+                "<HeaderRow/>" +
+                "{NewRow}" +
+                "<FooterRow>" +
+                "<STotaleMerce>{STotaleMerce}</STotaleMerce>" +
+                "<STotaleTransporto>{STotaleTransporto}</STotaleTransporto>" +
+                "<STotaleAcconto>{STotaleAcconto}</STotaleAcconto>" +
+                "<STotaleFattura>{STotaleFattura}</STotaleFattura>" +
+                "<STotalePartiteCl>{STotalePartiteCl}</STotalePartiteCl>" +
+                "<STotalePartiteFo>{STotalePartiteFo}</STotalePartiteFo>" +
+                "<STotaleCapitale>{STotaleCapitale}</STotaleCapitale>" +
+                "<SSaldo>{SSaldo}</SSaldo>" +
+                "</FooterRow>" +
+                "</Table1>" +
+                "</Subform1>" +
+                "</Page1>" +
+                "<CompName>{CompName}</CompName>" +
+                "<Date>{Date}</Date>" +
+                "</form1>",
+            ROW: "<Row1>" +
+                "<CodiceBP>{CodiceBP}</CodiceBP>" +
+                "<RegioneSocForn>{RegioneSocForn}</RegioneSocForn>" +
+                "<TotaleMerce>{TotaleMerce}</TotaleMerce>" +
+                "<TotaleTransporto>{TotaleTransporto}</TotaleTransporto>" +
+                "<TotaleAcconto>{TotaleAcconto}</TotaleAcconto>" +
+                "<TotaleFattura>{TotaleFattura}</TotaleFattura>" +
+                "<TotalePartiteCl>{TotalePartiteCl}</TotalePartiteCl>" +
+                "<TotalePartiteFo>{TotalePartiteFo}</TotalePartiteFo>" +
+                "<TotaleCapitale>{TotaleCapitale}</TotaleCapitale>" +
+                "<Saldo>{Saldo}</Saldo>" +
+                "</Row1>" +
+                "{NewRow}"
+        },
         XMLF: {
             XML: '<?xml version="1.0" encoding="UTF-8"?>' +
                 "<form1>" +

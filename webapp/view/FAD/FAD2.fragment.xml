@@ -5,38 +5,74 @@
     xmlns:smartField="sap.ui.comp.smartfield">
     <fb:FilterBar search="onSearchFAD2" showRestoreButton="true">
         <fb:filterGroupItems>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="societa" label="Società" partOfCurrentVariant="true" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="C18" label="Società" visibleInFilterBar="true">
                 <fb:control>
-                    <smartField:SmartField id="idFilterSocietaFAD2" value="{path: 'Societa', mode:'OneWay'}" mandatory="true" entitySet="FAD2Set" />
+                    <Input id="iBUKRS2" type="Text" value="{filterModelFAD2>/BUKRS2}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequestConferimento($event,'BUKRS2')" suggest=".onValueHelpRequestConferimento($event,'BUKRS2')"/>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="fornitore" label="Fornitore" partOfCurrentVariant="true" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="C1" label="{i18n>LIFNR}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartMultiInput:SmartMultiInput id="idFilterFornitoreFAD2" mandatory="true" entitySet="FAD2Set" value="{path: 'Fornitore', mode:'OneWay'}"/>
+                    <MultiInput id="iLIFNR2" valueHelpRequest=".onValueHelpRequestConferimento($event,'LIFNR2')" suggest=".onValueHelpRequestConferimento($event,'LIFNR2')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="specie" label="Specie">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="C" label="{i18n>ZSPECIE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartField:SmartField id="idFilterSpecieFAD2" value="{path: 'Specie', mode:'OneWay'}" mandatory="false" entitySet="FAD2Set" />
+                    <MultiInput id="iSPECIE2" valueHelpRequest=".onValueHelpRequest($event,'SPECIE2')" suggest=".onValueHelpRequest($event,'SPECIE2')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="stagionalita" label="Stagionalità">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="D" label="{i18n>ZSTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <smartField:SmartField id="idFilterStagionalitaFAD2" value="{path: 'Stagionalita', mode:'OneWay'}" mandatory="false" entitySet="FAD2Set" />
+                    <MultiInput id="iSTAG2" valueHelpRequest=".onValueHelpRequest($event,'STAGIONALITA2')" suggest=".onValueHelpRequest($event,'STAGIONALITA')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="z56" label="Data acconto da" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <DatePicker value="{filterModelFAD2>/ZDATACCDA}"></DatePicker>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="z57" label="Data acconto a" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <DatePicker value="{filterModelFAD2>/ZDATACCA}"></DatePicker>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="z583" label="Causale" visibleInFilterBar="true">
+                <fb:control>
+                    <Input id="iZCAUSALE3" type="Text" value="{filterModelFAD2>/ZCAUSALE}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'ZCAUSALE3')" suggest=".onValueHelpRequest($event,'ZCAUSALE3')"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="z60" label="Data documento" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <DatePicker value="{filterModelFAD2>/ZDATADOC}"></DatePicker>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="z582" label="Causale" visibleInFilterBar="true">
+                <fb:control>
+                    <Input id="iZCAUSALE4" type="Text" value="{filterModelFAD2>/ZCAUSALE2}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'ZCAUSALE4')" suggest=".onValueHelpRequest($event,'ZCAUSALE4')"/>
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="z581" label="Imponibile" visibleInFilterBar="true">
+                <fb:control>
+                    <Input id="iZIMPONIBILE" type="Number" value="{filterModelFAD2>/ZIMPONIBILE}" />
+                </fb:control>
+            </fb:FilterGroupItem>
+
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="C18z" label="IVA" visibleInFilterBar="true">
+                <fb:control>
+                    <Input id="iZCONFIVA" type="Text" value="{filterModelFAD2>/ZCONFIVA}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequestConferimento($event,'ZCONFIVA')" suggest=".onValueHelpRequestConferimento($event,'ZCONFIVA')"/>
                 </fb:control>
             </fb:FilterGroupItem>
         </fb:filterGroupItems>
+
     </fb:FilterBar>
-    <OverflowToolbar id="idSimulaFatturaFAD2" style="Clear" visible="false">
-        <Label text="Esercizio competenza" />
-        <Input id="idEsercizioCompetenza2" value="" width="3rem" required="true" maxLength="4"/>
-        <Label text="Data documento" />
-        <DatePicker id="idDataDocumento2" value="" width="8rem" valueFormat="yyyyMMdd" displayFormat="short" required="true"/>
-        <Label text="Importo Acconto" />
-        <Input id="idImportoAcconto2" value="" width="10rem" required="true" maxLength="23"/>
-        <Label text="Codice IVA" />
-        <smartField:SmartField id="idCodiceIVA2" width="3rem" value="{path: 'Mwskz', mode:'OneWay'}" entitySet="CodiceIVASet" mandatory="true" />
-        <ToolbarSpacer/>
-        <Button text="Simula fattura" width="8rem" press="onSimulaFatturaFAD2" />
-    </OverflowToolbar>
 </core:FragmentDefinition>
