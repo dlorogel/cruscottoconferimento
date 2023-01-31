@@ -2826,7 +2826,7 @@ sap.ui.define([
                     }
                 });
             },
-            onCambiaRegimeFiscale:function(oEvent){
+            onCambiaRegimeFiscale: function (oEvent) {
                 const oModel = this.getView().getModel("cambioRegimeFiscaleModel");
                 var oTable = this.byId("TableStoricoRecap"),
                     oSelIndices = oTable.getSelectedIndices(),
@@ -2835,17 +2835,16 @@ sap.ui.define([
                     Rows.push(oTable.getContextByIndex(item).getObject());
                 });
                 if (Rows.length === 1) {
-                    //TODO: cambiare if
-                    //if (Rows[0].ZRilCont && Rows[0].Ztotdoc > 0) {
+                    if (Rows[0].ZRilCont && Rows[0].Ztotdoc > 0 && Rows[0].Zprogsdi !== "" && Rows[0].Zstatus === "I" && Rows[0].Znumprot !== "") {
                         oModel.setProperty("/Row", Rows[0]);
                         if (!this._searchHelpCambioRegimeFiscaleDialog) {
                             this._searchHelpCambioRegimeFiscaleDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.Fragments.CambioRegimeFiscale", this);
                             this.getView().addDependent(this._searchHelpCambioRegimeFiscaleDialog);
                         }
                         this._searchHelpCambioRegimeFiscaleDialog.open();
-                    //} else {
-                    //    sap.m.MessageToast.show(this.oComponent.i18n().getText("msg.SelezionaFattura.text"));
-                    //}
+                    } else {
+                        sap.m.MessageToast.show(this.oComponent.i18n().getText("msg.SelezionaFattura.text"));
+                    }
                 } else {
                     sap.m.MessageToast.show(this.oComponent.i18n().getText("msg.SelezionaUnaSolaFattura.text"));
                 }
