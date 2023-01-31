@@ -1,4 +1,4 @@
-<core:FragmentDefinition controllerName="it.orogel.cruscottoconferimento.controller.Compensazione"
+<core:FragmentDefinition 
     xmlns:m="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:t="sap.ui.table">
@@ -35,13 +35,15 @@
                                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bldat" sortProperty="Bldat">
                                     <m:Label text="{i18n>lbl.Bldat}"/>
                                     <t:template>
-                                        <m:Text text="{Bldat}" wrapping="false"/>
+                                        <!--<m:Text text="{Bldat}" wrapping="false"/>-->
+                                        <m:Text text="{ path:'RequestedDeliveryDate',  formatter: '.formatter.fmFormatDate'}" wrapping="false"/>
                                     </t:template>
                                 </t:Column>
                                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Tsl" sortProperty="Tsl">
                                     <m:Label text="{i18n>lbl.Tsl}"/>
                                     <t:template>
-                                        <m:Text text="{Tsl}" wrapping="false"/>
+                                        <!--<m:Text text="{Tsl}" wrapping="false"/>-->
+                                        <m:Text text="{ path:'Tsl',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                                     </t:template>
                                 </t:Column>
                                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Kunnr" sortProperty="Kunnr">
@@ -82,13 +84,15 @@
                                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bldat" sortProperty="Bldat">
                                     <m:Label text="{i18n>lbl.Bldat}"/>
                                     <t:template>
-                                        <m:Text text="{Bldat}" wrapping="false"/>
+                                        <!--<m:Text text="{Bldat}" wrapping="false"/>-->
+                                        <m:Text  text ="{ path:'Bldat',  formatter: '.formatter.fmFormatDate'}" />
                                     </t:template>
                                 </t:Column>
                                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Tsl" sortProperty="Tsl">
                                     <m:Label text="{i18n>lbl.Tsl}"/>
                                     <t:template>
-                                        <m:Text text="{Tsl}" wrapping="false"/>
+                                        <!--<m:Text text="{Tsl}" wrapping="false"/>-->
+                                        <m:Text  text ="{ path:'Tsl',  formatter: '.formatter.fmFormatNumber'}" />
                                     </t:template>
                                 </t:Column>
                                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Lifnr" sortProperty="Lifnr">
@@ -129,13 +133,15 @@
                                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bldat" sortProperty="Bldat">
                                     <m:Label text="{i18n>lbl.Bldat}"/>
                                     <t:template>
-                                        <m:Text text="{Bldat}" wrapping="false"/>
+                                        <!--<m:Text text="{Bldat}" wrapping="false"/>-->
+                                        <m:Text  text ="{ path:'Bldat',  formatter: '.formatter.fmFormatDate'}" />
                                     </t:template>
                                 </t:Column>
                                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Tsl" sortProperty="Tsl">
                                     <m:Label text="{i18n>lbl.Tsl}"/>
                                     <t:template>
-                                        <m:Text text="{Tsl}" wrapping="false"/>
+                                        <!--<m:Text text="{Tsl}" wrapping="false"/>-->
+                                        <m:Text  text ="{ path:'Tsl',  formatter: '.formatter.fmFormatNumber'}" />
                                     </t:template>
                                 </t:Column>
                                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Lifnr" sortProperty="Lifnr">

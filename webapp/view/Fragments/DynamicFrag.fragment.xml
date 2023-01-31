@@ -1,27 +1,12 @@
-<core:FragmentDefinition
-	xmlns="sap.m"
+<core:FragmentDefinition xmlns="sap.m"
 	xmlns:core="sap.ui.core">
-	<SelectDialog id="_IDGenSelectDialog1"
-		noDataText="{i18n>noValues}"
-		title="{i18n>selValues}"
-		search="._handleValueHelpSearch"
-		confirm="._handleValueHelpClose('dynamicModel',$event)"
-		cancel="._handleValueHelpClose('dynamicModel',$event)"
-		showClearButton="true"
-        multiSelect="true"
-		items="{
+	<SelectDialog id="_IDGenSelectDialog1" noDataText="{i18n>noValues}" title="{i18n>selValues}" search="._handleValueHelpSearch" confirm="._handleValueHelpClose('dynamicModel',$event)" cancel="._handleValueHelpClose('dynamicModel',$event)" showClearButton="true" multiSelect="true" items="{
 			path: 'dynamicModel>/',
 			sorter: {
 				path: 'key',
 				descending: false
 			}
 		}">
-		<StandardListItem
-            id="dynamicList"
-			title="{dynamicModel>key}"
-            description="{dynamicModel>text}"
-			iconDensityAware="false"
-			iconInset="true"
-			type="Active" />
+		<StandardListItem title="{dynamicModel>key}" description="{dynamicModel>text}" iconDensityAware="false" iconInset="true" type="Active" />
 	</SelectDialog>
 </core:FragmentDefinition>

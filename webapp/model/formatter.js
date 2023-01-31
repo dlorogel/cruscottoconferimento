@@ -15,6 +15,14 @@ sap.ui.define([], function () {
                 return "";
             }
         },
+        fmFormatNumber: function (Number) {
+            if (Number !== "") {
+                if (!Number) return "";
+                return parseFloat(Number).toFixed(2);
+            } else {
+                return "";
+            }
+        },
         fmIconChange: function (color) {
             return color ? "sap-icon://color-fill" : "";
         }

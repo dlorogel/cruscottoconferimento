@@ -8,15 +8,17 @@ sap.ui.define([
     'sap/m/Token',
     "it/orogel/cruscottoconferimento/model/Constants",
     "it/orogel/cruscottoconferimento/model/CostantiAttributi",
+    "../model/formatter",
     "it/orogel/cruscottoconferimento/libs/Download",
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, History, FilterOperator, Filter, JSONModel, Fragment, Token, Constants, CostantiAttributi, Download) {
+    function (Controller, History, FilterOperator, Filter, JSONModel, Fragment, Token, Constants, CostantiAttributi, formatter, Download) {
         "use strict";
 
         return Controller.extend("it.orogel.cruscottoconferimento.controller.Compensazione", {
+            formatter: formatter,
             onInit: function () {
                 this.oGlobalBusyDialog = new sap.m.BusyDialog();
                 var oRouter = this.getOwnerComponent().getRouter();
@@ -65,12 +67,14 @@ sap.ui.define([
                             TotaleFattura = 0.00,
                             TotaleAcconti = 0.00,
                             TotaleTrasporto = 0.00,
+                            TotaleMaggiorazioni = 0.00,
                             TotaleMerce = 0.00,
                             TotaleIva = 0.00,
                             TotaleDocumento = 0.00;
                         x.ZCONFSTORHEAD2Set.results.forEach(y => {
                             TotaleMerce = parseFloat(TotaleMerce) + parseFloat(y.Ztoterogparz);
                             TotaleTrasporto = parseFloat(TotaleTrasporto) + parseFloat(y.Zcostraspneg);
+                            TotaleMaggiorazioni = parseFloat(TotaleMaggiorazioni) + parseFloat(y.Zmaggioraz);
                         });
                         x.ZCONFSTORRECAP2Set.results.forEach(y => {
                             TotaleAcconti = parseFloat(TotaleAcconti) + parseFloat(y.Ztotacconti);
@@ -86,6 +90,7 @@ sap.ui.define([
                             "FornitoreNome": x.FornitoreNome,
                             "Zimponibile": Imponibile.toFixed(2),
                             "Ztotiva": TotaleIva.toFixed(2),
+                            "TotaleMaggiorazioni": TotaleMaggiorazioni.toFixed(2),
                             "Ztotdoc": TotaleDocumento.toFixed(2),
                             "TotaleAcconti": TotaleAcconti.toFixed(2),
                             "TotaleFattura": TotaleFattura.toFixed(2),
@@ -102,6 +107,8 @@ sap.ui.define([
                 oAppModel.refresh(true);
             },
             onOpenSelezionarePartite: async function () {
+                const oAppModel = this.getView().getModel("appModel");
+                oAppModel.setProperty("/PartiteSenzaSeme", 1);
                 if (!this._searchHelpEMPDialog) {
                     this._searchHelpEMPDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.Fragments.PartiteAperte", this);
                     this.getView().addDependent(this._searchHelpEMPDialog);
@@ -128,8 +135,6 @@ sap.ui.define([
                     sTo = new Date(oAppModel.getProperty("/ZDATADOCA")),
                     sFromFornitori = new Date(oAppModel.getProperty("/ZDATADOCDAFORNITORI")),
                     sToFornitori = new Date(oAppModel.getProperty("/ZDATADOCAFORNITORI")),
-                    //sFromSociale = new Date(oAppModel.getProperty("/ZDATADOCDASOCIALE")),
-                    //sToSociale = new Date(oAppModel.getProperty("/ZDATADOCASOCIALE")),
                     ZClienteCheck = oAppModel.getProperty("/ClienteCheck"),
                     ZFornitoriCheck = oAppModel.getProperty("/FornitoriCheck"),
                     ZCapitaleSocialeCheck = oAppModel.getProperty("/CapitaleSocialeCheck"),
@@ -143,9 +148,6 @@ sap.ui.define([
                 }
                 if (!ZCapitaleSocialeCheck) {
                     ZCapitaleSocialeCheck = false;
-                }
-                if (!ZpartSenzaSeme) {
-                    ZpartSenzaSeme = false;
                 }
                 sFrom.setHours(sFrom.getHours() + sFrom.getTimezoneOffset() / 60);
                 sTo.setHours(sTo.getHours() + sTo.getTimezoneOffset() / 60);
@@ -200,8 +202,12 @@ sap.ui.define([
                         }));
                     }
                 }
+                var eliminaspecia = false;
                 if (((sFrom && sTo) || !ZClienteCheck) && ((sFromFornitori && sToFornitori) || !ZFornitoriCheck)) {
                     if (ZClienteCheck) {
+                        if (ZpartSenzaSeme === "3" && (this.multiFilter("iZZ1SPECIECompensazione", "Specie"))) {
+                            eliminaspecia = true;
+                        }
                         aFilter = [];
                         aFilter.push(new Filter("Partite", sap.ui.model.FilterOperator.EQ, ZpartSenzaSeme));
                         oFinalFilter.aFilters.push(new Filter({
@@ -209,7 +215,7 @@ sap.ui.define([
                             and: false
                         }));
                         aFilter = [];
-                        fMultifilter = this.multiFilter("iBLART", "Blart");
+                        fMultifilter = this.multiFilter("iBLARTCompensazione", "Blart");
                         if (fMultifilter) {
                             aFilter.push(fMultifilter);
                             oFinalFilter.aFilters.push(new Filter({
@@ -218,7 +224,7 @@ sap.ui.define([
                             }));
                         }
                         aFilter = [];
-                        fMultifilter = this.multiFilter("iZZ1SPECIE", "Specie");
+                        fMultifilter = this.multiFilter("iZZ1SPECIECompensazione", "Specie");
                         if (fMultifilter) {
                             aFilter.push(fMultifilter);
                             oFinalFilter.aFilters.push(new Filter({
@@ -243,43 +249,42 @@ sap.ui.define([
                             }));
                         }
                     }
-                    /*var aFilter = [];
-                    aFilter.push(new Filter("BldatSociale", sap.ui.model.FilterOperator.BT, sFromSociale, sToSociale));
-                    oFinalFilter.aFilters.push(new Filter({
-                        filters: aFilter,
-                        and: false
-                    }));*/
-                    const oPromiseCompensazione = new Promise((resolve, reject) => {
-                        this.getView().getModel().read("/FAD1CompensazioneSet", {
-                            filters: [oFinalFilter],
-                            success: (aData) => {
-                                const oAppModel = this.getView().getModel("appModel");
-                                oAppModel.setProperty("/rowsDettaglioPartite", aData.results);
-                                resolve(aData.results);
-                            },
-                            error: (oError) => {
-                                reject();
-                            }
+                    if (eliminaspecia === false) {
+                        const oPromiseCompensazione = new Promise((resolve, reject) => {
+                            this.getView().getModel().read("/FAD1CompensazioneSet", {
+                                filters: [oFinalFilter],
+                                success: (aData) => {
+                                    const oAppModel = this.getView().getModel("appModel");
+                                    oAppModel.setProperty("/rowsDettaglioPartite", aData.results);
+                                    resolve(aData.results);
+                                },
+                                error: (oError) => {
+                                    reject();
+                                }
+                            });
                         });
-                    });
-                    oPromiseCompensazione.then((aResults) => {
-                        if (!this.RiassuntoPartiteDialog) {
-                            this.RiassuntoPartiteDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.Fragments.RiassuntoPartite", this);
-                            this.getView().addDependent(this.RiassuntoPartiteDialog);
-                        }
-                        this._setTableRiassuntoPartite(aResults);
-                        this.RiassuntoPartiteDialog.open();
+                        oPromiseCompensazione.then((aResults) => {
+                            if (!this.RiassuntoPartiteDialog) {
+                                this.RiassuntoPartiteDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.Fragments.RiassuntoPartite", this);
+                                this.getView().addDependent(this.RiassuntoPartiteDialog);
+                            }
+                            this._setTableRiassuntoPartite(aResults);
+                            this.RiassuntoPartiteDialog.open();
+                            this.oGlobalBusyDialog.close();
+                        }, oError => {
+                            sap.m.MessageToast.show(this.oComponent.i18n().getText("msg.error.compensazione.text"));
+                            this.oGlobalBusyDialog.close();
+                        });
+                    } else {
+                        sap.m.MessageToast.show(this.oComponent.i18n().getText("msg.error.eliminafiltrospecie.text"));
                         this.oGlobalBusyDialog.close();
-                    }, oError => {
-                        sap.m.MessageToast.show(this.oComponent.i18n().getText("msg.error.compensazione.text"));
-                        this.oGlobalBusyDialog.close();
-                    });
+                    }
                 } else {
                     sap.m.MessageToast.show(this.oComponent.i18n().getText("msg.error.dateobbligatorie.text"));
                     this.oGlobalBusyDialog.close();
                 }
             },
-            multiFilter: function (idField, sField) {
+            /*multiFilter: function (idField, sField) {
                 if (sap.ui.getCore().byId(idField).getValue() && sap.ui.getCore().byId(idField).getValue().length > 0) {
                     let aFilterMulti = [];
                     sap.ui.getCore().byId(idField).getValue().forEach(x => {
@@ -292,8 +297,21 @@ sap.ui.define([
                 } else {
                     return null;
                 }
-            },
-            _setTableRiassuntoPartite: function (aResults) {
+            },*/
+            multiFilter: function (idField, sField) {
+                if (sap.ui.getCore().byId(idField).getTokens() && sap.ui.getCore().byId(idField).getTokens().length > 0) {
+                    let aFilterMulti = [];
+                    sap.ui.getCore().byId(idField).getTokens().forEach(x => {
+                        aFilterMulti.push(new Filter(sField, FilterOperator.EQ, x.getKey()));
+                    });
+                    return (new Filter({
+                        filters: aFilterMulti,
+                        and: false
+                    }));
+                } else {
+                    return null;
+                }
+            }, _setTableRiassuntoPartite: function (aResults) {
                 //set model: concat new batch of data to previous model
                 const oAppModel = this.getView().getModel("appModel");
                 const oTable = sap.ui.getCore().byId("TableRiassuntoPartite");
@@ -445,7 +463,7 @@ sap.ui.define([
                     arrayRes = [];
                 const oAppModel = this.getView().getModel("appModel");
                 const filterModel = this.getView().getModel("filterModel");
-                oAppModel.setProperty("/PartiteSenzaSeme", 1);
+
                 var RowsCompensazione = oAppModel.getProperty("/rowsCompensazione"),
                     sFrom = oAppModel.getProperty("/ZDATADOCDA"),
                     sTo = oAppModel.getProperty("/ZDATADOCA");
@@ -512,13 +530,13 @@ sap.ui.define([
                         and: true
                     }));
                     //var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/SpecieSet", "ZZ1_Specie_prd", oFinalFilter)
-                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/SpecieSet", "ZZ1_ZZSPECIE_JEI", oFinalFilter)
+                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/SpecieSet", "ZZ1_ZZSPECIE_JEI,Zdescr", oFinalFilter)
                     aResults.forEach(e => {
-                        var obj = { key: e.ZZ1_ZZSPECIE_JEI, text: '', type: field }
+                        var obj = { key: e.ZZ1_ZZSPECIE_JEI, text: e.Zdescr, type: field }
                         arrayRes.push(obj)
                     });
                     this.getOwnerComponent().getModel("partiteAperteModel").setData(arrayRes);
-                    this.byId("_IDGenSelectDialog1").setMultiSelect(true)
+                    this.byId("_IDGenSelectDialog1FragPartite").setMultiSelect(true)
                 } else if (field === 'BLART') {
                     var aFilter = [];
                     let oFinalFilter = new Filter({
@@ -566,13 +584,13 @@ sap.ui.define([
                         filters: aFilter,
                         and: true
                     }));
-                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/BlartFilterSet", "Blart", oFinalFilter)
+                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/BlartFilterSet", "Blart,Ltext", oFinalFilter)
                     aResults.forEach(e => {
-                        var obj = { key: e.Blart, text: '', type: field }
+                        var obj = { key: e.Blart, text: e.Ltext, type: field }
                         arrayRes.push(obj)
                     });
                     this.getOwnerComponent().getModel("partiteAperteModel").setData(arrayRes);
-                    this.byId("_IDGenSelectDialog1").setMultiSelect(true)
+                    this.byId("_IDGenSelectDialog1FragPartite").setMultiSelect(true)
                 }
                 this.refresh("partiteAperteModel");
                 this.oGlobalBusyDialog.close();
@@ -588,7 +606,7 @@ sap.ui.define([
                     switch (type) {
                         case type:
                             //var oMultiInput = this.byId(kAttributi[type].id);
-                            var oMultiInput = sap.ui.getCore().byId(kAttributi[type].id);
+                            var oMultiInput = sap.ui.getCore().byId(kAttributi[type].id + "Compensazione");
                             break;
                         default:
                             break;
@@ -700,6 +718,8 @@ sap.ui.define([
                     RowsPartite = oAppModel.getProperty("/rowsRiassuntoPartiteDefinitivo"),
                     STotaleMerce = 0.00,
                     STotaleTrasporto = 0.00,
+                    sTotaleIVA = 0.00,
+                    sTotaleMaggiorazioni = 0.00,
                     STotaleAcconto = 0.00,
                     STotaleFattura = 0.00,
                     STotalePartiteCl = 0.00,
@@ -727,9 +747,9 @@ sap.ui.define([
                         //TotaleSaldo = parseFloat(TotaleSaldo) + parseFloat(x.TotaleTrasporto);
                         STotaleTrasporto = parseFloat(STotaleTrasporto) + parseFloat(x.TotaleTrasporto);
                         if (x.TotaleTrasporto !== 0.00) {
-                            sAllegato1 = sAllegato1.replace("{TotaleTransporto}", x.TotaleTrasporto);
+                            sAllegato1 = sAllegato1.replace("{TotaleTrasporto}", x.TotaleTrasporto);
                         } else {
-                            sAllegato1 = sAllegato1.replace("{TotaleTransporto}", "");
+                            sAllegato1 = sAllegato1.replace("{TotaleTrasporto}", "");
                         }
                         //ACCONTO
                         //TotaleSaldo = parseFloat(TotaleSaldo) + parseFloat(x.TotaleAcconti);
@@ -738,6 +758,19 @@ sap.ui.define([
                             sAllegato1 = sAllegato1.replace("{TotaleAcconto}", x.TotaleAcconti);
                         } else {
                             sAllegato1 = sAllegato1.replace("{TotaleAcconto}", "");
+                        }
+                        //TOTALE IVA
+                        sTotaleIVA = parseFloat(sTotaleIVA) + parseFloat(x.Ztotiva);
+                        if (x.Ztotiva !== 0.00) {
+                            sAllegato1 = sAllegato1.replace("{TotaleIVA}", x.Ztotiva);
+                        } else {
+                            sAllegato1 = sAllegato1.replace("{TotaleIVA}", "");
+                        }
+                        sTotaleMaggiorazioni = parseFloat(sTotaleMaggiorazioni) + parseFloat(x.TotaleMaggiorazioni);
+                        if (x.TotaleMaggiorazioni !== 0.00) {
+                            sAllegato1 = sAllegato1.replace("{TotaleMaggiorazioni}", x.TotaleMaggiorazioni);
+                        } else {
+                            sAllegato1 = sAllegato1.replace("{TotaleMaggiorazioni}", "");
                         }
                         //FATTURA
                         TotaleSaldo = parseFloat(TotaleSaldo) + parseFloat(x.TotaleFattura);
@@ -760,17 +793,17 @@ sap.ui.define([
                                 STotaleFornitori = parseFloat(STotaleFornitori) + parseFloat(Find.PartiteFornitore);
 
                                 if (Find.CapitaleSociale !== 0.00) {
-                                    sAllegato1 = sAllegato1.replace("{TotaleCapitale}", Find.CapitaleSociale);
+                                    sAllegato1 = sAllegato1.replace("{TotaleCapitale}", parseFloat(Find.CapitaleSociale).toFixed(2));
                                 } else {
                                     sAllegato1 = sAllegato1.replace("{TotaleCapitale}", "");
                                 }
                                 if (Find.PartiteCliente !== 0.00) {
-                                    sAllegato1 = sAllegato1.replace("{TotalePartiteCl}", Find.PartiteCliente);
+                                    sAllegato1 = sAllegato1.replace("{TotalePartiteCl}", parseFloat(Find.PartiteCliente).toFixed(2));
                                 } else {
                                     sAllegato1 = sAllegato1.replace("{TotalePartiteCl}", "");
                                 }
                                 if (Find.PartiteFornitore !== 0.00) {
-                                    sAllegato1 = sAllegato1.replace("{TotalePartiteFo}", Find.PartiteFornitore);
+                                    sAllegato1 = sAllegato1.replace("{TotalePartiteFo}", parseFloat(Find.PartiteFornitore).toFixed(2));
                                 } else {
                                     sAllegato1 = sAllegato1.replace("{TotalePartiteFo}", "");
                                 }
@@ -789,8 +822,10 @@ sap.ui.define([
                     });
                     sAllegato1 = sAllegato1.replace("{NewRow}", "");
                     sAllegato1 = sAllegato1.replace("{STotaleMerce}", parseFloat(STotaleMerce).toFixed(2));
-                    sAllegato1 = sAllegato1.replace("{STotaleTransporto}", parseFloat(STotaleTrasporto).toFixed(2));
+                    sAllegato1 = sAllegato1.replace("{STotaleTrasporto}", parseFloat(STotaleTrasporto).toFixed(2));
                     sAllegato1 = sAllegato1.replace("{STotaleAcconto}", parseFloat(STotaleAcconto).toFixed(2));
+                    sAllegato1 = sAllegato1.replace("{STotaleIVA}", parseFloat(sTotaleIVA).toFixed(2));
+                    sAllegato1 = sAllegato1.replace("{STotaleMaggiorazioni}", parseFloat(sTotaleMaggiorazioni).toFixed(2));
                     sAllegato1 = sAllegato1.replace("{STotaleFattura}", parseFloat(STotaleFattura).toFixed(2));
                     sAllegato1 = sAllegato1.replace("{STotalePartiteCl}", parseFloat(STotalePartiteCl).toFixed(2));
                     sAllegato1 = sAllegato1.replace("{STotalePartiteFo}", parseFloat(STotaleFornitori).toFixed(2));
@@ -847,9 +882,12 @@ sap.ui.define([
                             "ZCONFSTORHEAD2Set": [],
                             "ZCONFSTORPOS2Set": [],
                             "ZCONFSTORRECAP2Set": [],
+                            "ZCONFMAGGIORAZSet": [],
+                            "ZCONFACCPREGSet": [],
                             "FAD1ToCOMPENSAZNav": []
+
                         };
-                        var Find = RowsCompensazioneFiltered.find(z => z.Fornitore === y);
+                        var Find = RowsCompensazioneFiltered.find(z => z.Fornitore === y && z.Errore === "");
                         if (Find) {
                             //RowStorico.ZCONFSTORHEAD2Set = Find.ZCONFSTORHEAD2Set.results;
                             Find.ZCONFSTORHEAD2Set.results.forEach(b => {
@@ -880,7 +918,23 @@ sap.ui.define([
                                 } else {
                                     b.Zdatadocumento = new Date(b.Zdatadocumento);
                                 }
+                                if (!b.Zdataaccettazionea) {
+                                    delete b.Zdataaccettazionea;
+                                } else {
+                                    b.Zdataaccettazionea = new Date(b.Zdataaccettazionea);
+                                }
+                                if (!b.Zdataaccettazioneda) {
+                                    delete b.Zdataaccettazioneda;
+                                } else {
+                                    b.Zdataaccettazioneda = new Date(b.Zdataaccettazioneda);
+                                }
                                 RowStorico.ZCONFSTORRECAP2Set.push(b);
+                            });
+                            Find.ZCONFMAGGIORAZSet.results.forEach(b => {
+                                RowStorico.ZCONFMAGGIORAZSet.push(b);
+                            });
+                            Find.ZCONFACCPREGSet.results.forEach(b => {
+                                RowStorico.ZCONFACCPREGSet.push(b);
                             });
                             //RowStorico.ZCONFSTORPOS2Set = Find.ZCONFSTORPOS2Set.results;
                             //RowStorico.ZCONFSTORRECAP2Set = Find.ZCONFSTORRECAP2Set.results;
@@ -889,18 +943,85 @@ sap.ui.define([
                             var aFind = DettaglioDefinitivo.filter(a => a.Rbukrs === x && (a.Lifnr === y || a.Kunnr === y));
                             if (aFind.length > 0) {
                                 aFind.forEach(oFind => {
+                                    var Tipoc = "C";
+                                    if (oFind.Tipo === "2") {
+                                        Tipoc = "F";
+                                    } else if (oFind.Tipo === "3") {
+                                        Tipoc = "S";
+                                    }
                                     var oPartita = {
                                         "Gjahr": oFind.Gjahr,
                                         "Lifnr": y,
                                         "Rbukrs": oFind.Rbukrs,
                                         "Buzei": oFind.Buzei,
-                                        "Belnr": oFind.Belnr
+                                        "Belnr": oFind.Belnr,
+                                        "Tipo": Tipoc
                                     };
                                     RowStorico.FAD1ToCOMPENSAZNav.push(oPartita);
                                 });
                             }
                         }
                         RowsStorico.push(RowStorico);
+                        Find = RowsCompensazioneFiltered.find(z => z.Fornitore === y && z.Errore === "3");
+                        if (Find) {
+                            var RowStoricoError3 = {
+                                "Societa": x,
+                                "Fornitore": y,
+                                "ZCONFSTORHEAD2Set": [],
+                                "ZCONFSTORPOS2Set": [],
+                                "ZCONFSTORRECAP2Set": [],
+                                "ZCONFMAGGIORAZSet": [],
+                                "ZCONFACCPREGSet": [],
+                                //"FAD1ToCOMPENSAZNav": []
+                            };
+                            Find.ZCONFSTORHEAD2Set.results.forEach(b => {
+                                if (!b.Zdatadocumento) {
+                                    delete b.Zdatadocumento;
+                                } else {
+                                    b.Zdatadocumento = new Date(b.Zdatadocumento);
+                                }
+                                RowStorico.ZCONFSTORHEAD2Set.push(b);
+                            });
+
+                            Find.ZCONFSTORPOS2Set.results.forEach(b => {
+                                if (!b.Bedat) {
+                                    delete b.Bedat;
+                                } else {
+                                    b.Bedat = new Date(b.Bedat);
+                                }
+                                if (!b.Zdatadocumento) {
+                                    delete b.Zdatadocumento;
+                                } else {
+                                    b.Zdatadocumento = new Date(b.Zdatadocumento);
+                                }
+                                RowStorico.ZCONFSTORPOS2Set.push(b);
+                            });
+                            Find.ZCONFSTORRECAP2Set.results.forEach(b => {
+                                if (!b.Zdatadocumento) {
+                                    delete b.Zdatadocumento;
+                                } else {
+                                    b.Zdatadocumento = new Date(b.Zdatadocumento);
+                                }
+                                if (!b.Zdataaccettazionea) {
+                                    delete b.Zdataaccettazionea;
+                                } else {
+                                    b.Zdataaccettazionea = new Date(b.Zdataaccettazionea);
+                                }
+                                if (!b.Zdataaccettazioneda) {
+                                    delete b.Zdataaccettazioneda;
+                                } else {
+                                    b.Zdataaccettazioneda = new Date(b.Zdataaccettazioneda);
+                                }
+                                RowStorico.ZCONFSTORRECAP2Set.push(b);
+                            });
+                            Find.ZCONFMAGGIORAZSet.results.forEach(b => {
+                                RowStorico.ZCONFMAGGIORAZSet.push(b);
+                            });
+                            Find.ZCONFACCPREGSet.results.forEach(b => {
+                                RowStorico.ZCONFACCPREGSet.push(b);
+                            });
+                            RowsStorico.push(RowStoricoError3);
+                        }
                     });
                 });
                 var batchChanges = [];
@@ -909,7 +1030,6 @@ sap.ui.define([
                 for (var i = 0; i < RowsStorico.length; i++) {
                     batchChanges.push(oDataModel.createBatchOperation("FAD1Set", "POST", RowsStorico[i]));
                 }
-                debugger;
                 oDataModel.addBatchChangeOperations(batchChanges);
                 const oPromiseBatch = new Promise((resolve, reject) => {
                     oDataModel.submitBatch(function (data, responseProcess) {

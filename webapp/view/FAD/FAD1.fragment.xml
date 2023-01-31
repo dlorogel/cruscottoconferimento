@@ -6,26 +6,27 @@
     xmlns:smartField="sap.ui.comp.smartfield">
     <fb:FilterBar id="_IDGenFilterBar1" reset="onReset" search="onFilterSearchFAD1" showRestoreButton="true">
         <fb:filterGroupItems>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="C18" label="Società" mandatory="true" visibleInFilterBar="true">
+            <!--CAMPI PER l'ESTRAZIONE DELLE BOLLE-->
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="C18" label="Società" mandatory="true" visibleInFilterBar="true">
                 <fb:control>
                     <Input id="iBUKRS" type="Text" value="{filterModel>/BUKRS}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'BUKRS')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'BUKRS')"/>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem55" groupName="__$INTERNAL$" name="C1" label="{i18n>LIFNR}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem55" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="C1" label="{i18n>LIFNR}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <MultiInput id="iLIFNR" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFNR')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFNR')">
+                    <MultiInput id="iLIFNR" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFNR')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFNR')" valueHelpOnly="false" showSuggestion="false">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A89" label="Produttore" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="A89" label="Produttore" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iLIFN2" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFN2')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFN2')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem1" groupName="__$INTERNAL$" name="A" label="{i18n>EKORG}" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem1" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="A" label="{i18n>EKORG}" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iEKORG" valueHelpRequest=".onValueHelpRequest($event,'EKORG')" suggest=".onValueHelpRequest($event,'EKORG')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
@@ -33,7 +34,7 @@
                     <!--<Input id="_IDGenInput2" type="Text" value="{filterModel>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A01" label="Numero DDT" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="A01" label="Numero DDT" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iUNSEZ" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'UNSEZ')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'UNSEZ')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
@@ -41,7 +42,7 @@
                     <!--<Input id="_IDGenInput2" type="Text" value="{filterModel>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A02" label="Numero bolla WMS" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="A02" label="Numero bolla WMS" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iIHREZ" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'IHREZ')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'IHREZ')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
@@ -49,7 +50,7 @@
                     <!--<Input id="_IDGenInput2" type="Text" value="{filterModel>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A03" label="Data accettazione" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="A03" label="Data accettazione" visibleInFilterBar="true">
                 <fb:control>
                     <DateRangeSelection required="true" id="iBEDAT" delimiter="-" dateValue="{filterModel>/DataDocumentoFrom}" secondDateValue="{filterModel>/DataDocumentoTo}" displayFormat="short"/>
                     <!--<MultiInput id="iBEDAT" valueHelpRequest=".onValueHelpRequest($event,'IHREZ')" suggest=".onValueHelpRequest($event,'IHREZ')">
@@ -58,7 +59,7 @@
                     <!--<Input id="_IDGenInput2" type="Text" value="{filterModel>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A04" label="Tipo materiale" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="A04" label="Tipo materiale" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iMTART" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'MTART')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'MTART')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
@@ -66,196 +67,196 @@
                     <!--<Input id="_IDGenInput2" type="Text" value="{filterModel>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem5" groupName="__$INTERNAL$" name="C" label="{i18n>ZSPECIE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem5" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="C" label="{i18n>ZSPECIE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
                     <MultiInput id="iSPECIE" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SPECIE')" suggest=".onValueHelpRequest('dynamicModel',$event,'SPECIE')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem6" groupName="__$INTERNAL$" name="D" label="{i18n>ZSTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem6" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="D" label="{i18n>ZSTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSTAG" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'STAGIONALITA')" suggest=".onValueHelpRequest('dynamicModel',$event,'STAGIONALITA')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem7" groupName="__$INTERNAL$" name="F" label="{i18n>ZVARIETA}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem7" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="F" label="{i18n>ZVARIETA}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iVARIETA" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'VARIETA')" suggest=".onValueHelpRequest('dynamicModel',$event,'VARIETA')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem9" groupName="__$INTERNAL$" name="H" label="{i18n>ZCERTAZ}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem9" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="H" label="{i18n>ZCERTAZ}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iCERTAZ" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_AZIENDALE')" suggest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_AZIENDALE')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem10" groupName="__$INTERNAL$" name="I" label="{i18n>ZCERTPROD}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem10" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="I" label="{i18n>ZCERTPROD}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
                     <MultiInput id="iCERTPROD" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_PRODOTTO')" suggest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_PRODOTTO')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem11" groupName="__$INTERNAL$" name="L" label="{i18n>ZRESIDUO}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem11" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="L" label="{i18n>ZRESIDUO}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iRESIDUO" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'RESIDUO')" suggest=".onValueHelpRequest('dynamicModel',$event,'RESIDUO')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem12" groupName="__$INTERNAL$" name="M" label="{i18n>ZCERTIFCOM}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem12" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="M" label="{i18n>ZCERTIFCOM}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iCERTIFCOMM" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_COMMERCIALE')" suggest=".onValueHelpRequest('dynamicModel',$event,'CERTIFICAZIONE_COMMERCIALE')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem15" groupName="__$INTERNAL$" name="P" label="{i18n>ZSPECIFICA}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem15" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="P" label="{i18n>ZSPECIFICA}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSPECIFICA" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SPECIFICA')" suggest=".onValueHelpRequest('dynamicModel',$event,'SPECIFICA')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem14" groupName="__$INTERNAL$" name="O" label="{i18n>ZLAVORAZIONE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem14" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="O" label="{i18n>ZLAVORAZIONE}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iLAVORAZIONE" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'LAVORAZIONE')" suggest=".onValueHelpRequest('dynamicModel',$event,'LAVORAZIONE')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem13" groupName="__$INTERNAL$" name="O1" label="{i18n>ZORIGINE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem13" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="O1" label="{i18n>ZORIGINE}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iORIGINE" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'ORIGINE')" suggest=".onValueHelpRequest('dynamicModel',$event,'ORIGINE')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem16" groupName="__$INTERNAL$" name="Q" label="{i18n>ZQUALITA}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem16" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="Q" label="{i18n>ZQUALITA}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iQUALITA" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'QUALITA')" suggest=".onValueHelpRequest('dynamicModel',$event,'QUALITA')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem17" groupName="__$INTERNAL$" name="R" label="{i18n>ZCALIBRAZIONE}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem17" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="R" label="{i18n>ZCALIBRAZIONE}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iCALIBRAZIONE" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'CALIBRAZIONE')" suggest=".onValueHelpRequest('dynamicModel',$event,'CALIBRAZIONE')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem19" groupName="__$INTERNAL$" name="T" label="{i18n>ZEVCOLT}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem19" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="T" label="{i18n>ZEVCOLT}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iEVENTI" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'EVENTI')" suggest=".onValueHelpRequest('dynamicModel',$event,'EVENTI')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="T1" label="{i18n>ZRACTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="T1" label="{i18n>ZRACTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iCAR_RACTAG" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'CAR_RACTAG')" suggest=".onValueHelpRequest('dynamicModel',$event,'CAR_RACTAG')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem20" groupName="__$INTERNAL$" name="U1" label="{i18n>ZSERRACTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem20" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="U1" label="{i18n>ZSERRACTAG}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSERVIZIO1" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO1')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO1')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U" label="{i18n>ZSERCAR}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="U" label="{i18n>ZSERCAR}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSERVIZIO3" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO3')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO3')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U4" label="{i18n>ZSERASTC}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="U4" label="{i18n>ZSERASTC}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSERVIZIO2" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO2')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO2')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U5" label="{i18n>ZSERDEP}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="U5" label="{i18n>ZSERDEP}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSERVIZIO4" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO4')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO4')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="U6" label="{i18n>ZSERCAL}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="U6" label="{i18n>ZSERCAL}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSERVIZIO5" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO5')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIO5')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X1" label="{i18n>ZSER1}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="X1" label="{i18n>ZSER1}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSERVIZIOEXTRA1" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA1')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA1')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X2" label="{i18n>ZSER2}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="X2" label="{i18n>ZSER2}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSERVIZIOEXTRA2" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA2')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA2')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X3" label="{i18n>ZSER3}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="X3" label="{i18n>ZSER3}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSERVIZIOEXTRA3" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA3')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA3')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X4" label="{i18n>ZSER4}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="X4" label="{i18n>ZSER4}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSERVIZIOEXTRA4" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA4')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA4')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X5" label="{i18n>ZSER5}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="X5" label="{i18n>ZSER5}" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iSERVIZIOEXTRA5" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA5')" suggest=".onValueHelpRequest('dynamicModel',$event,'SERVIZIOEXTRA5')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X51" label="Raggruppamento di liquidazione" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="X51" label="Raggruppamento di liquidazione" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
                     <MultiInput id="iRAGGLIQ" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'RAGGLIQ')" suggest=".onValueHelpRequest('dynamicModel',$event,'RAGGLIQ')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X52" label="Zona di trasporto" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="X52" label="Zona di trasporto" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iZONATRAS" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'TRATTA')" suggest=".onValueHelpRequest('dynamicModel',$event,'TRATTA')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X53" label="Campo Politiche OP" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="X53" label="Campo Politiche OP" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iPOLITICHEOP" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'POLITICHEOP')" suggest=".onValueHelpRequest('dynamicModel',$event,'POLITICHEOP')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X54" label="Incoterm (Trasporto)" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="X54" label="Incoterm (Trasporto)" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiComboBox selectionChange="handleSelectionChange" selectionFinish="handleSelectionFinish" width="350px" items="{
 				path: 'incoterModel>/',
@@ -265,34 +266,41 @@
                     </MultiComboBox>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X55" label="Magazzino" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="X55" label="Magazzino" labelTooltip="Tooltip Example" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iLGORT" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'LGORT')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'LGORT')">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X56" label="Data acconto" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+        </fb:filterGroupItems>
+        <fb:filterGroupItems>
+            <!--CAMPI PER CONSIDERARE GLI ACCONTI Già RICONOSCIUTI-->
+            <fb:FilterGroupItem groupName="__$INTERNAL2$" groupTitle="CAMPI PER CONSIDERARE GLI ACCONTI GIÀ RICONOSCIUTI" name="X56" label="Data acconto" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
                     <DateRangeSelection id="iDATACC" delimiter="-" dateValue="{filterModel>/DataAccontoFrom}" secondDateValue="{filterModel>/DataAccontoTo}" displayFormat="short"/>
                     <!--<DatePicker value="{filterModel>/ZDATACCDA}"></DatePicker>-->
                 </fb:control>
             </fb:FilterGroupItem>
 
-            <!--<fb:FilterGroupItem groupName="__$INTERNAL$" name="X57" label="Data acconto a" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <!--<fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER CONSIDERARE GLI ACCONTI GIÀ RICONOSCIUTI" name="X57" label="Data acconto a" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
                     <DatePicker value="{filterModel>/ZDATACCA}"></DatePicker>
                 </fb:control>
             </fb:FilterGroupItem>-->
 
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X58" label="Causale Acconti" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL2$" groupTitle="CAMPI PER CONSIDERARE GLI ACCONTI GIÀ RICONOSCIUTI" name="X58" label="Causale Acconti" visibleInFilterBar="true">
                 <fb:control>
-                    <Input id="iZCAUSALE" type="Text" value="{filterModel>/ZCAUSALE}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE')" suggest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE')"/>
+                    <!--<Input id="iZCAUSALE" type="Text" value="{filterModel>/ZCAUSALE}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE')" suggest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE')"/>-->
+                    <MultiInput id="iZCAUSALE" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE')" suggest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE')">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
                 </fb:control>
             </fb:FilterGroupItem>
-
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X59" label="Codice Acconto" mandatory="true" visibleInFilterBar="true">
+        </fb:filterGroupItems>
+        <fb:filterGroupItems>
+            <!--CAMPI PER LA FATTURAZIONE-->
+            <fb:FilterGroupItem groupName="__$INTERNAL3$" groupTitle="CAMPI PER LA FATTURAZIONE" name="X59" label="Codice Acconto" mandatory="true" visibleInFilterBar="true">
                 <fb:control>
                     <ComboBox id="iZCODACC" items="{
 					path: 'codAccModel>/',
@@ -303,22 +311,46 @@
                 </fb:control>
             </fb:FilterGroupItem>
 
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X60" label="Data documento" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL3$" groupTitle="CAMPI PER LA FATTURAZIONE" name="X60" label="Data documento" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
                     <!--<DateRangeSelection required="true" id="iDATADOC" delimiter="-" dateValue="{filterModel>/DataDocumentoIFrom}" secondDateValue="{filterModel>/DataDocumentoITo}" displayFormat="short"/>-->
                     <DatePicker id="iDATADOC" dateValue="{filterModel>/DataDocumentoI}" displayFormat="short" required="true"/>
                 </fb:control>
             </fb:FilterGroupItem>
 
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X61" label="Causale" mandatory="true" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL3$" groupTitle="CAMPI PER LA FATTURAZIONE" name="X61" label="Causale" mandatory="true" visibleInFilterBar="true">
                 <fb:control>
                     <Input id="iZCAUSALE2" type="Text" value="{filterModel>/ZCAUSALE2}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE2')" suggest=".onValueHelpRequest('dynamicModel',$event,'ZCAUSALE2')"/>
                 </fb:control>
             </fb:FilterGroupItem>
-
         </fb:filterGroupItems>
-
     </fb:FilterBar>
+    <FlexBox alignItems="Center">
+        <VBox>
+            <Label text="Testi" design="Bold"></Label>
+            <items>
+                <HBox>
+                    <VBox>
+                        <Label text="Testo per Note 1" labelFor="Note"></Label>
+                        <ToolbarSpacer width="2rem"/>
+                        <TextArea value="{appModel>/Note1}" editable="true" width="40rem"/>
+                    </VBox>
+                    <ToolbarSpacer width="2rem"/>
+                    <VBox>
+                        <Label text="Testo per Note 2" labelFor="iNote1"></Label>
+                        <ToolbarSpacer width="2rem"/>
+                        <Input type="Text" value="{appModel>/Note2}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpText($event,'Note2')" suggest=".onValueHelpText($event,'Note2')"/>
+                    </VBox>
+                    <ToolbarSpacer width="2rem"/>
+                    <VBox>
+                        <Label text="Testo per Note 3 " labelFor="iNote2"></Label>
+                        <ToolbarSpacer width="2rem"/>
+                        <Input type="Text" value="{appModel>/Note3}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpText($event,'Note3')" suggest=".onValueHelpText($event,'Note3')"/>
+                    </VBox>
+                </HBox>
+            </items>
+        </VBox>
+    </FlexBox>
     <t:Table id="TableError" rows="{appModel>/rowsErrorRecap}" selectionMode="None" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" visible="{appModel>/Table3Visible}">
         <t:columns>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bukrs" sortProperty="Bukrs" width="10em">
@@ -342,25 +374,29 @@
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotacconti" sortProperty="Ztotacconti" width="10em">
                 <Label text="{i18n>lbl.Ztotacconti}"/>
                 <t:template>
-                    <Text text="{Ztotacconti}" wrapping="false"/>
+                    <!--<Text text="{Ztotacconti}" wrapping="false"/>-->
+                    <Text text="{ path:'Ztotacconti',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zimponibile" sortProperty="Zimponibile" width="10em">
                 <Label text="{i18n>lbl.Zimponibile}"/>
                 <t:template>
-                    <Text text="{Zimponibile}" wrapping="false"/>
+                    <!-- <Text text="{Zimponibile}" wrapping="false"/>-->
+                    <Text text="{ path:'Zimponibile',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotiva" sortProperty="Ztotiva" width="10em">
                 <Label text="{i18n>lbl.Ztotiva}"/>
                 <t:template>
-                    <Text text="{Ztotiva}" wrapping="false"/>
+                    <!--<Text text="{Ztotiva}" wrapping="false"/>-->
+                    <Text text="{ path:'Ztotiva',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotdoc" sortProperty="Ztotdoc" width="10em">
                 <Label text="{i18n>lbl.Ztotdoc}"/>
                 <t:template>
-                    <Text text="{Ztotdoc}" wrapping="false"/>
+                    <!--<Text text="{Ztotdoc}" wrapping="false"/>-->
+                    <Text text="{ path:'Ztotdoc',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Elaborazione" sortProperty="Elaborazione" width="10em">

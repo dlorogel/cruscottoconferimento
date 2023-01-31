@@ -54,6 +54,7 @@ sap.ui.define([], function () {
                 key: "SPECIE",
                 id: "iSPECIE2"
             },
+
             STAGIONALITA: {
                 key: "STAGIONALITA",
                 id: "iSTAG",
@@ -61,8 +62,9 @@ sap.ui.define([], function () {
             },
             STAGIONALITA2: {
                 key: "STAGIONALITA",
-                id: "iSTAG2",
+                id: "iSTAG",
             },
+
             VARIETA: {
                 key: "VARIETA",
                 id: "iVARIETA",
@@ -190,7 +192,8 @@ sap.ui.define([], function () {
             },
             ZCAUSALE: {
                 key: "ZCAUSALE",
-                id: "iZCAUSALE"
+                id: "iZCAUSALE",
+                filterField: "CausaleAcconti"
             },
             ZCAUSALE2: {
                 key: "ZCAUSALE2",
@@ -212,6 +215,18 @@ sap.ui.define([], function () {
                 key: "ZSTATO",
                 id: "iZSTATO",
                 filterField: "Stato"
+            },
+            STAGIONALITAM2: {
+                key: "STAGIONALITA",
+                id: "iSTAG",
+            },
+            ZCONFIVAM2: {
+                key: "ZCONFIVA",
+                id: "iZCONFIVA",
+            },
+            SPECIEM2: {
+                key: "SPECIE",
+                id: "iSPECIE"
             }
         },
         ATTRCOMPENSAZIONE: {

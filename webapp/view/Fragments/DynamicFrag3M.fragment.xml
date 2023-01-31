@@ -7,6 +7,6 @@
 				descending: false
 			}
 		}">
-		<StandardListItem id="dynamicList3M" title="{dynamicModel3>key}" description="{dynamicModel3>text}" iconDensityAware="false" iconInset="true" type="Active" />
+		<StandardListItem  title="{dynamicModel3>key}" description="{dynamicModel3>text}" iconDensityAware="false" iconInset="true" type="Active" />
 	</SelectDialog>
 </core:FragmentDefinition>

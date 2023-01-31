@@ -1,5 +1,4 @@
-<core:FragmentDefinition controllerName="it.orogel.cruscottoconferimento.controller.Compensazione"
-    xmlns:m="sap.m"
+<core:FragmentDefinition xmlns:m="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:t="sap.ui.table">
     <m:Dialog title="{i18n>lbl.RiassuntoPartite}" contentHeight="80%" contentWidth="80%">
@@ -21,19 +20,22 @@
                     <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="PartiteCliente" sortProperty="PartiteCliente">
                         <m:Label text="{i18n>lbl.PartiteCliente}"/>
                         <t:template>
-                            <m:Text text="{PartiteCliente}" wrapping="false"/>
+                            <!--<m:Text text="{PartiteCliente}" wrapping="false"/>-->
+                            <m:Text  text ="{ path:'PartiteCliente',  formatter: '.formatter.fmFormatNumber'}" />
                         </t:template>
                     </t:Column>
                     <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="PartiteFornitore" sortProperty="PartiteFornitore">
                         <m:Label text="{i18n>lbl.PartiteFornitore}"/>
                         <t:template>
-                            <m:Text text="{PartiteFornitore}" wrapping="false"/>
+                            <!--<m:Text text="{PartiteFornitore}" wrapping="false"/>-->
+                            <m:Text  text ="{ path:'PartiteFornitore',  formatter: '.formatter.fmFormatNumber'}" />
                         </t:template>
                     </t:Column>
                     <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="CapitaleSociale" sortProperty="CapitaleSociale">
                         <m:Label text="{i18n>lbl.CapitaleSociale}"/>
                         <t:template>
-                            <m:Text text="{CapitaleSociale}" wrapping="false"/>
+                            <!--<m:Text text="{CapitaleSociale}" wrapping="false"/>-->
+                            <m:Text  text ="{ path:'CapitaleSociale',  formatter: '.formatter.fmFormatNumber'}" />
                         </t:template>
                     </t:Column>
                 </t:columns>

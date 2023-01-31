@@ -68,6 +68,15 @@
                     "localUri": "localService/metadata.xml",
                     "odataVersion": "2.0"
                 }
+            },
+            "testi": {
+                "uri": "/sap/opu/odata/sap/ZZ1_CRUSCOTTOCONFTESTI_CDS",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
             }
         },
         "crossNavigation": {
@@ -143,7 +152,8 @@
                 "settings": {
                     "defaultBindingMode": "TwoWay",
                     "defaultCountMode": "Inline",
-                    "refreshAfterChange": true
+                    "refreshAfterChange": true,
+                    "useBatch": false
                 }
             },
             "ekorgModel": {
@@ -163,6 +173,11 @@
             },
             "causaleModel": {
                 "dataSource": "causaleData",
+                "preload": true,
+                "settings": {}
+            },
+            "testiModel": {
+                "dataSource": "testi",
                 "preload": true,
                 "settings": {}
             },

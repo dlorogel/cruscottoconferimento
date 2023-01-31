@@ -13,7 +13,7 @@
             </fb:FilterGroupItem>
             <fb:FilterGroupItem id="_IDGenFilterGroupItem553" groupName="__$INTERNAL$" name="C1" label="{i18n>LIFNR}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
-                    <MultiInput id="iLIFNRM3" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel3',$event,'LIFNR')" suggest=".onValueHelpRequestConferimento('dynamicModel3',$event,'LIFNR')">
+                    <MultiInput id="iLIFNRM3" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel3',$event,'LIFNR')" suggest=".onValueHelpRequestConferimento('dynamicModel3',$event,'LIFNR')" valueHelpOnly="false" showSuggestion="false" >
                         <core:Item key="{dynamicModel3>key}" text="{dynamicModel3>text}" />
                     </MultiInput>
                 </fb:control>
@@ -49,7 +49,7 @@
                     <!--<Input id="_IDGenInput2" type="Text" value="{filterModel3>/EKORG}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest($event,'EKORG',true)"/>-->
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A03" label="Data documento acquisto" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="A03" label="Data accettazione" visibleInFilterBar="true">
                 <fb:control>
                     <DateRangeSelection id="iBEDATM3" delimiter="-" dateValue="{filterModel3>/DataDocumentoFrom}" secondDateValue="{filterModel3>/DataDocumentoTo}" displayFormat="short"/>
                     <!--<MultiInput id="iBEDAT" valueHelpRequest=".onValueHelpRequest($event,'IHREZ')" suggest=".onValueHelpRequest($event,'IHREZ')">
@@ -286,7 +286,7 @@
                 </fb:control>
             </fb:FilterGroupItem>-->
 
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X58" label="Causale" visibleInFilterBar="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="X58" label="Causale acconti" visibleInFilterBar="true">
                 <fb:control>
                     <Input id="iZCAUSALEM3" type="Text" value="{filterModel3>/ZCAUSALE}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequest('dynamicModel3',$event,'ZCAUSALE')" suggest=".onValueHelpRequest('dynamicModel3',$event,'ZCAUSALE')"/>
                 </fb:control>
@@ -306,18 +306,20 @@
     <FlexBox height="3rem" alignItems="Start" justifyContent="Start" visible="{appModel>/TableStoricoRecapVisible}">
         <Button text="{i18n>lbl.VistaDettagliata}" type="Emphasized" press="onVistaDettagliata" class="sapUiLargeMarginBeginEnd" />
         <!--<ToolbarSpacer width="35rem"></ToolbarSpacer>-->
-        <Button text="{i18n>lbl.InvioMail}" type="Emphasized" press="onInvioMail" class="sapUiLargeMarginBeginEnd" />
-        <Button text="{i18n>lbl.InvioXML}" type="Emphasized" press="onInvioXML" class="sapUiLargeMarginBeginEnd" />
-        <Button text="{i18n>lbl.ModificaStato}" type="Emphasized" press="onModificaStato" class="sapUiLargeMarginBeginEnd" />
-        <Button text="{i18n>lbl.CreaNotaCredito}" type="Emphasized" press="onCreaNotaCredito" class="sapUiLargeMarginBeginEnd" />
+        <Button text="{i18n>lbl.InvioMail}" type="Emphasized" press="onInvioMail" class="sapUiMediumMarginEnd" />
+        <Button text="{i18n>lbl.InvioXML}" type="Emphasized" press="onInvioXML" class="sapUiMediumMarginBeginEnd" />
+        <Button text="{i18n>lbl.ModificaStato}" type="Emphasized" press="onModificaStato" class="sapUiMediumMarginBeginEnd" />
+        <Button text="{i18n>lbl.Salva}" type="Emphasized" press="onSalvaStorico" class="sapUiMediumMarginBeginEnd" />
+        <Button text="{i18n>lbl.CreaNotaCredito}" type="Emphasized" press="onCreaNotaCredito" class="sapUiMediumMarginBeginEnd" />
+        <Button text="{i18n>lbl.CambioRegimeFiscale}" type="Emphasized" press="onCambiaRegimeFiscale" class="sapUiMediumMarginBeginEnd" />
     </FlexBox>
 
-    <FlexBox height="3rem" alignItems="Start" justifyContent="Start" visible="{appModel>/TableStoricoPosVisible}">
+    <FlexBox height="3rem" alignItems="Start" justifyContent="Start" visible="{appModel>/TableStoricoPosVisible}" >
         <ToolbarSpacer width="60rem"></ToolbarSpacer>
         <Button text="{i18n>lbl.VistaRecap}" type="Emphasized" press="onVistaRecap" class="sapUiLargeMarginBeginEnd"/>
     </FlexBox>
 
-    <t:Table id="TableStoricoRecap" rows="{appModel>/rowsStoricoRecap}" selectionMode="Single" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" visible="{appModel>/TableStoricoRecapVisible}">
+    <t:Table id="TableStoricoRecap" rows="{appModel>/rowsStoricoRecapUnique}" selectionMode="MultiToggle" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" visible="{appModel>/TableStoricoRecapVisible}"  >
         <t:columns>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zidstorico" sortProperty="Zidstorico" width="10em">
                 <Label text="{i18n>lbl.Zidstorico}"/>
@@ -328,7 +330,7 @@
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zprogsdi" sortProperty="Zprogsdi" width="10em">
                 <Label text="{i18n>lbl.Zprogsdi}"/>
                 <t:template>
-                    <Text text="{Zprogsdi}" wrapping="false"/>
+                    <Input value="{Zprogsdi}" wrapping="false" editable="{UpdatableProgsdi}" />
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Znumprot" sortProperty="Znumprot" width="10em">
@@ -340,15 +342,25 @@
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zdatadocumento" sortProperty="Zdatadocumento" width="10em">
                 <Label text="{i18n>lbl.Zdatadocumento}"/>
                 <t:template>
-                    <Text text="{Zdatadocumento}" wrapping="false"/>
+                    <!--<Text text="{Zdatadocumento}" wrapping="false"/>-->
+                    <Text text="{ path:'Zdatadocumento',  formatter: '.formatter.fmFormatDate'}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zstatus" sortProperty="Zstatus" width="10em">
                 <Label text="{i18n>lbl.Zstatus}"/>
                 <t:template>
-                    <Text text="{Zstatus}" wrapping="false"/>
+                    <Input value="{Zstatus} - {Zdescrizionestatus}" suggestionItems="{ path: 'statiModel>/', sorter: { path: 'key' } }" valueHelpOnly="true" valueHelpRequest=".onValueHelpStati($event,'StatoRow')" suggest=".onValueHelpStati($event,'StatoRow')" showValueHelp="true" class="customHeightInput" editable="{Updatable}">
+                        <core:Item key="{Zstatus}"/>
+                    </Input>
+                    <!--<Text text="{Zstatus} - {Zdescrizionestatus}" wrapping="false"/>-->
                 </t:template>
             </t:Column>
+            <!--<t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zdescrizionestatus" sortProperty="Zdescrizionestatus" width="10em">
+                <Label text="{i18n>lbl.Zdescrizionestatus}"/>
+                <t:template>
+                    <Text text="{Zdescrizionestatus}" wrapping="false"/>
+                </t:template>
+            </t:Column>-->
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zcausale" sortProperty="Zcausale" width="10em">
                 <Label text="{i18n>lbl.Zcausale}"/>
                 <t:template>
@@ -367,34 +379,38 @@
                     <Text text="{Lifnr}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ziva" sortProperty="Ziva" width="10em">
+            <!--<t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ziva" sortProperty="Ziva" width="10em">
                 <Label text="{i18n>lbl.Ziva}"/>
                 <t:template>
                     <Text text="{Ziva}" wrapping="false"/>
                 </t:template>
-            </t:Column>
+            </t:Column>-->
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotacconti" sortProperty="Ztotacconti" width="10em">
                 <Label text="{i18n>lbl.Ztotacconti}"/>
                 <t:template>
-                    <Text text="{Ztotacconti}" wrapping="false"/>
+                    <!--<Text text="{Ztotacconti}" wrapping="false"/>-->
+                    <Text text="{ path:'Ztotacconti',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zimponibile" sortProperty="Zimponibile" width="10em">
                 <Label text="{i18n>lbl.Zimponibile}"/>
                 <t:template>
-                    <Text text="{Zimponibile}" wrapping="false"/>
+                    <!--<Text text="{Zimponibile}" wrapping="false"/>-->
+                    <Text text="{ path:'Zimponibile',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotiva" sortProperty="Ztotiva" width="10em">
                 <Label text="{i18n>lbl.Ztotiva}"/>
                 <t:template>
-                    <Text text="{Ztotiva}" wrapping="false"/>
+                    <!--<Text text="{Ztotiva}" wrapping="false"/>-->
+                    <Text text="{ path:'Ztotiva',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotdoc" sortProperty="Ztotdoc" width="10em">
                 <Label text="{i18n>lbl.Ztotdoc}"/>
                 <t:template>
-                    <Text text="{Ztotdoc}" wrapping="false"/>
+                    <!--<Text text="{Ztotdoc}" wrapping="false"/>-->
+                    <Text text="{ path:'Ztotdoc',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZRilCont" sortProperty="ZRilCont" width="10em">
@@ -409,21 +425,27 @@
                     <Text text="{=${Ztotdoc} > 0 ? 'FT' : 'NC'}" wrapping="false"/>
                 </t:template>
             </t:Column>
+            <!--<t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Testo1" sortProperty="Testo1" width="10em">
+                <Label text="{i18n>lbl.Testo1}"/>
+                <t:template>
+                    <Text text="{Testo1}" wrapping="false"/>
+                </t:template>
+            </t:Column>-->
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filtered="false" width="10em">
                 <Label text="Stampa Fattura"/>
                 <t:template>
-                    <Button text="Stampa Fattura"/>
+                    <Button text="Stampa Fattura" press="onStampaFattura"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filtered="false" width="10em">
                 <Label text="Estratto Conto di Liquidazione"/>
                 <t:template>
-                    <Button text="Estratto Conto di Liquidazione"/>
+                    <Button text="Estratto Conto di Liquidazione" press="onEstrattoContoDiLiquidazione"/>
                 </t:template>
             </t:Column>
         </t:columns>
     </t:Table>
-    <t:Table id="TableStoricoPos" rows="{appModel>/rowsStoricoPos}" selectionMode="None" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" visible="{appModel>/TableStoricoPosVisible}">
+    <t:Table id="TableStoricoPos" rows="{appModel>/rowsStoricoPosFiltered}" selectionMode="None" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" visible="{appModel>/TableStoricoPosVisible}">
         <t:columns>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zidstorico" sortProperty="Zidstorico" width="10em">
                 <Label text="{i18n>lbl.Zidstorico}"/>
@@ -446,7 +468,8 @@
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zdatadocumento" sortProperty="Zdatadocumento" width="10em">
                 <Label text="{i18n>lbl.Zdatadocumento}"/>
                 <t:template>
-                    <Text text="{Zdatadocumento}" wrapping="false"/>
+                    <!--<Text text="{Zdatadocumento}" wrapping="false"/>-->
+                    <Text text="{ path:'Zdatadocumento',  formatter: '.formatter.fmFormatDate'}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zcausale" sortProperty="Zcausale" width="10em">
@@ -464,7 +487,8 @@
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bedat" sortProperty="Bedat" width="10em">
                 <Label text="{i18n>lbl.Bedat}"/>
                 <t:template>
-                    <Text text="{Bedat}" wrapping="false"/>
+                    <!--<Text text="{Bedat}" wrapping="false"/>-->
+                    <Text text="{ path:'Bedat',  formatter: '.formatter.fmFormatDate'}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ebeln" sortProperty="Ebeln" width="10em">
@@ -485,67 +509,69 @@
                     <Text text="{Lifnr}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Specie" sortProperty="Specie" width="10em">
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zz1Specie" sortProperty="Zz1Specie" width="10em">
                 <Label text="{i18n>lbl.Specie}"/>
                 <t:template>
-                    <Text text="{Specie}" wrapping="false"/>
+                    <Text text="{Zz1Specie}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Stag" sortProperty="Stag" width="10em">
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zz1Stag" sortProperty="Zz1Stag" width="10em">
                 <Label text="{i18n>lbl.Stag}"/>
                 <t:template>
-                    <Text text="{Stag}" wrapping="false"/>
+                    <Text text="{Zz1Stag}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Menge" sortProperty="Menge" width="10em">
                 <Label text="{i18n>lbl.Menge}"/>
                 <t:template>
-                    <Text text="{Menge}" wrapping="false"/>
+                    <!--<Text text="{Menge}" wrapping="false"/>-->
+                    <Text text="{ path:'Menge',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZPrezLordo" sortProperty="ZPrezLordo" width="10em">
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zprezlordo" sortProperty="Zprezlordo" width="10em">
                 <Label text="{i18n>lbl.ZPrezLordo}"/>
                 <t:template>
-                    <Text text="{ZPrezLordo}" wrapping="false"/>
+                    <!--<Text text="{ZPrezLordo}" wrapping="false"/>-->
+                    <Text text="{ path:'Zprezlordo',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZTotErogParz" sortProperty="ZTotErogParz" width="10em">
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztoterogparz" sortProperty="Ztoterogparz" width="10em">
                 <Label text="{i18n>lbl.ZTotErogParz}"/>
                 <t:template>
-                    <Text text="{ZTotErogParz}" wrapping="false"/>
+                    <!--<Text text="{ZTotErogParz}" wrapping="false"/>-->
+                    <Text text="{ path:'Ztoterogparz',  formatter: '.formatter.fmFormatNumber'}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZCodIva" sortProperty="ZCodIva" width="10em">
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ziva" sortProperty="Ziva" width="10em">
                 <Label text="{i18n>lbl.ZCodIva}"/>
                 <t:template>
-                    <Text text="{ZCodIva}" wrapping="false"/>
+                    <Text text="{Ziva}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZMaggioraz" sortProperty="ZMaggioraz" width="10em">
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zmaggioraz" sortProperty="Zmaggioraz" width="10em">
                 <Label text="{i18n>lbl.ZMaggioraz}"/>
                 <t:template>
-                    <Text text="{ZMaggioraz}" wrapping="false"/>
+                    <Text text="{Zmaggioraz}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZP01" sortProperty="ZP01" width="10em">
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zp" sortProperty="Zp" width="10em">
                 <Label text="{i18n>lbl.ZP01}"/>
                 <t:template>
-                    <Text text="{ZP01}" wrapping="false"/>
+                    <Text text="{Zp}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZV01" sortProperty="ZV01" width="10em">
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zv" sortProperty="Zv" width="10em">
                 <Label text="{i18n>lbl.ZV01}"/>
                 <t:template>
-                    <Text text="{ZV01}" wrapping="false"/>
+                    <Text text="{Zv}" wrapping="false"/>
                 </t:template>
             </t:Column>
-            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="ZD01" sortProperty="ZD01" width="10em">
+            <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zd" sortProperty="Zd" width="10em">
                 <Label text="{i18n>lbl.ZD01}"/>
                 <t:template>
-                    <Text text="{ZD01}" wrapping="false"/>
+                    <Text text="{Zd}" wrapping="false"/>
                 </t:template>
             </t:Column>
-
         </t:columns>
     </t:Table>
 </core:FragmentDefinition>

@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog id="_IDGenSelectDialog12M" noDataText="{i18n>noValues}" title="{i18n>selValues}" search="._handleValueHelpSearch" confirm="._handleValueHelpClose('dynamicModel2',$event)" cancel="._handleValueHelpClose('dynamicModel2',$event)" showClearButton="true" multiSelect="true" items="{
+			path: 'dynamicModel2>/',
+			sorter: {
+				path: 'key',
+				descending: false
+			}
+		}">
+		<StandardListItem  title="{dynamicModel2>key}" description="{dynamicModel2>text}" iconDensityAware="false" iconInset="true" type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

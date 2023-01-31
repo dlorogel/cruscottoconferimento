@@ -26,19 +26,22 @@
                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Zimponibile" sortProperty="Zimponibile">
                     <Label text="{i18n>lbl.Zimponibile}"/>
                     <t:template>
-                        <Text text="{Zimponibile}" wrapping="false"/>
+                        <!--<Text text="{Zimponibile}" wrapping="false"/>-->
+                        <Text  text ="{ path:'Zimponibile',  formatter: '.formatter.fmFormatNumber'}" />
                     </t:template>
                 </t:Column>
                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotiva" sortProperty="Ztotiva">
                     <Label text="{i18n>lbl.Ztotiva}"/>
                     <t:template>
-                        <Text text="{Ztotiva}" wrapping="false"/>
+                        <!--<Text text="{Ztotiva}" wrapping="false"/>-->
+                        <Text  text ="{ path:'Ztotiva',  formatter: '.formatter.fmFormatNumber'}" />
                     </t:template>
                 </t:Column>
                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ztotdoc" sortProperty="Ztotdoc">
                     <Label text="{i18n>lbl.Ztotdoc}"/>
                     <t:template>
-                        <Text text="{Ztotdoc}" wrapping="false"/>
+                        <!--<Text text="{Ztotdoc}" wrapping="false"/>-->
+                        <Text  text ="{ path:'Ztotdoc',  formatter: '.formatter.fmFormatNumber'}" />
                     </t:template>
                 </t:Column>
             </t:columns>

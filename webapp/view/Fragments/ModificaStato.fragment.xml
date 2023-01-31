@@ -1,0 +1,31 @@
+<c:FragmentDefinition xmlns="sap.m"
+    xmlns:c="sap.ui.core">
+    <Dialog title="{i18n>lbl.ModificaStato}" contentHeight="20%" contentWidth="60%">
+        <FlexBox alignItems="Center">
+            <VBox>
+                <items>
+                    <HBox>
+                        <ToolbarSpacer width="2rem"/>
+                        <Label text="Da:" labelFor="Note" class="sapUiSmallMarginTop"></Label>
+                        <ToolbarSpacer width="2rem"/>
+                        <Input type="Text" value="{appModel>/StatoDa}" description="{appModel>/StatoDaDescription}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpStati($event,'StatoDa')" suggest=".onValueHelpStati($event,'StatoDa')"/>
+                        <ToolbarSpacer width="6rem"/>
+                        <Label text="a:" labelFor="iNote1" class="sapUiSmallMarginTop"></Label>
+                        <ToolbarSpacer width="2rem"/>
+                        <Input type="Text" value="{appModel>/StatoA}" description="{appModel>/StatoADescription}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpStati($event,'StatoA')" suggest=".onValueHelpStati($event,'StatoA')"/>
+                        <VBox>
+                        </VBox>
+                        <ToolbarSpacer width="2rem"/>
+                        <VBox>
+                        </VBox>
+                        <ToolbarSpacer width="2rem"/>
+                    </HBox>
+                </items>
+                <HBox>
+                    <Button text="{i18n>lbl.ModificaManualeStato}" type="Emphasized" press="onModificaManualeStato" class="sapUiLargeMarginBeginEnd" />
+                    <Button text="{i18n>lbl.ConfermaModificaMassivaStato}" type="Emphasized" press="onConfermaModificaMassivaStato" class="sapUiLargeMarginBeginEnd" />
+                </HBox>
+            </VBox>
+        </FlexBox>
+    </Dialog>
+</c:FragmentDefinition>

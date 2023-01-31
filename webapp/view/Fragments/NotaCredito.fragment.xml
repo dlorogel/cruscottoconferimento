@@ -1,0 +1,50 @@
+<core:FragmentDefinition controllerName="it.orogel.cruscottoconferimento.controller.FAD"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.ui.table">
+    <m:Dialog title="{i18n>lbl.NotaCredito}" contentHeight="80%" contentWidth="80%">
+        <m:content>
+            <f:Form editable="true">
+                <f:layout>
+                    <f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false" />
+                </f:layout>
+                <f:formContainers>
+                    <f:FormContainer>
+                        <f:formElements>
+                            <f:FormElement label="Importo Nota Credito">
+                                <f:fields>
+                                    <m:Input type="Number" value="{notaCreditoModel>/Importo}" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="DataDocumento">
+                                <f:fields>
+                                    <m:DatePicker dateValue="{notaCreditoModel>/DataDocumento}" displayFormat="short"/>
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Testo per Note 1">
+                                <f:fields>
+                                    <m:TextArea value="{notaCreditoModel>/Note1}" editable="true" width="62rem" />
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Testo per Note 2">
+                                <f:fields>
+                                    <m:Input type="Text" value="{notaCreditoModel>/Note2}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpTextNotaCredito($event,'Note2')" suggest=".onValueHelpTextNotaCredito($event,'Note2')"/>
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Testo per Note 3">
+                                <f:fields>
+                                    <m:Input type="Text" value="{notaCreditoModel>/Note3}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpTextNotaCredito($event,'Note3')" suggest=".onValueHelpTextNotaCredito($event,'Note3')"/>
+                                </f:fields>
+                            </f:FormElement>
+                        </f:formElements>
+                    </f:FormContainer>
+                </f:formContainers>
+            </f:Form>
+        </m:content>
+        <m:buttons>
+            <m:Button text="{i18n>lbl.Close}" type="Reject" width="8em" press="onCloseNotaCredito"/>
+            <m:Button text="{i18n>lbl.CreaNotaCredito}" type="Success" width="16em" press="onCreazioneNotaCredito"/>
+        </m:buttons>
+    </m:Dialog>
+</core:FragmentDefinition>

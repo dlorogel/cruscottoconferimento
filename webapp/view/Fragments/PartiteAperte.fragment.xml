@@ -37,14 +37,14 @@
                             </f:FormElement>
                             <f:FormElement label="Tipo Documento">
                                 <f:fields>
-                                    <m:MultiInput id="iBLART" valueHelpRequest=".onValueHelpRequestConferimento($event,'BLART')" suggest=".onValueHelpRequestConferimento($event,'BLART')" enabled="{appModel>/EnabledData}">
+                                    <m:MultiInput id="iBLARTCompensazione" valueHelpRequest=".onValueHelpRequestConferimento($event,'BLART')" suggest=".onValueHelpRequestConferimento($event,'BLART')" enabled="{appModel>/EnabledData}">
                                         <core:Item key="{partiteAperteModel>key}" text="{partiteAperteModel>text}" />
                                     </m:MultiInput>
                                 </f:fields>
                             </f:FormElement>
                             <f:FormElement label="Specie">
                                 <f:fields>
-                                    <m:MultiInput id="iZZ1SPECIE" valueHelpRequest=".onValueHelpRequestConferimento($event,'ZZ1SPECIE')" suggest=".onValueHelpRequestConferimento($event,'ZZ1SPECIE')" enabled="{appModel>/EnabledData}">
+                                    <m:MultiInput id="iZZ1SPECIECompensazione" valueHelpRequest=".onValueHelpRequestConferimento($event,'ZZ1SPECIE')" suggest=".onValueHelpRequestConferimento($event,'ZZ1SPECIE')" enabled="{appModel>/EnabledData}">
                                         <core:Item key="{partiteAperteModel>key}" text="{partiteAperteModel>text}" />
                                     </m:MultiInput>
                                 </f:fields>
