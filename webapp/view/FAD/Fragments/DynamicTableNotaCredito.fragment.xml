@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <TableSelectDialog id="myDialog" noDataText="Nessun testo trovato" title="{i18n>titleText}" confirm=".handleTableNotaCreditoClose($event)" cancel=".handleTableNotaCreditoClose($event)" growing="true" search=".handleTableSearch" items="{
+			path : 'textModel>/',
+			sorter : {
+				path : 'ZID',
+				descending : false
+			}
+		}">
+        <ColumnListItem id="_IDGenColumnListItem111" vAlign="Middle">
+            <cells>
+                <Text text="{textModel>ZID}" />
+                <Text text="{textModel>ZDESCRID}" />
+            </cells>
+        </ColumnListItem>
+        <columns>
+            <Column id="_IDGenColumn111" minScreenWidth="Tablet" demandPopin="true" width="5rem">
+                <header>
+                    <Text id="_IDGenText411" text="{i18n>id}" />
+                </header>
+            </Column>
+            <Column id="_IDGenColumn211" minScreenWidth="Tablet" demandPopin="true">
+                <header>
+                    <Text id="_IDGenText511" text="{i18n>descrId}" />
+                </header>
+            </Column>
+        </columns>
+    </TableSelectDialog>
+</core:FragmentDefinition>

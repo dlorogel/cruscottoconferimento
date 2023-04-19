@@ -1,5 +1,4 @@
-<core:FragmentDefinition 
-    xmlns:m="sap.m"
+<core:FragmentDefinition xmlns:m="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:t="sap.ui.table">
     <m:Dialog title="{i18n>lbl.DettaglioPartite}" contentHeight="80%" contentWidth="80%">
@@ -35,8 +34,7 @@
                                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bldat" sortProperty="Bldat">
                                     <m:Label text="{i18n>lbl.Bldat}"/>
                                     <t:template>
-                                        <!--<m:Text text="{Bldat}" wrapping="false"/>-->
-                                        <m:Text text="{ path:'RequestedDeliveryDate',  formatter: '.formatter.fmFormatDate'}" wrapping="false"/>
+                                        <m:Text  text ="{ path:'Bldat',  formatter: '.formatter.fmFormatDate'}" />
                                     </t:template>
                                 </t:Column>
                                 <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Tsl" sortProperty="Tsl">

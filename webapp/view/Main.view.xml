@@ -1,16 +1,16 @@
 <mvc:View controllerName="it.orogel.cruscottoconferimento.controller.Main"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
+    <Page id="page" title="{i18n>title}" titleAlignment="Center">
         <content>
-            <FlexBox>
+            <FlexBox alignItems="Center" direction="Column">
                 <items>
-                    <VBox>
-                        <Button class="sapUiTinyMargin" text="Fattura di acconto socio" press="onPressFAD"/>
-                        <Button class="sapUiTinyMargin" text="Fattura di acconto" press=""/>
-                        <Button class="sapUiTinyMargin" text="Scritture al 31/12" press=""/>
-                        <Button class="sapUiTinyMargin" text="Fattura di saldo delegata/Preparazione" press=""/>
-                        <Button class="sapUiTinyMargin" text="Fattura di saldo" press=""/>
+                    <VBox alignItems="Center" direction="Column">
+                        <Button class="sapUiTinyMargin" type="Emphasized" width="22em" text="Fattura di acconto socio" press="onPressFAD"/>
+                        <Button class="sapUiTinyMargin" type="Emphasized" width="22em" text="Fattura di acconto" press="onPressFA"/>
+                        <Button class="sapUiTinyMargin" type="Emphasized" width="22em" text="Scritture al 31/12" press=""/>
+                        <Button class="sapUiTinyMargin" type="Emphasized" width="22em" text="Fattura di saldo delegata/Preparazione" press=""/>
+                        <Button class="sapUiTinyMargin" type="Emphasized" width="22em" text="Fattura di saldo" press=""/>
                     </VBox>
                 </items>
             </FlexBox>

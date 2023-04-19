@@ -11,9 +11,9 @@
                     <Input id="iBUKRSM2" type="Text" value="{filterModel2>/BUKRS}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel2',$event,'BUKRS')" suggest=".onValueHelpRequestConferimento('dynamicModel2',$event,'BUKRS')"/>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem groupName="__$INTERNAL$" name="C1" label="{i18n>LIFNR}" labelTooltip="Tooltip Example" visibleInFilterBar="true" mandatory="true">
+            <fb:FilterGroupItem groupName="__$INTERNAL$" name="C1" label="{i18n>ZBP}" labelTooltip="Tooltip Example" visibleInFilterBar="true" mandatory="true">
                 <fb:control>
-                    <MultiInput id="iLIFNRM2" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel2',$event,'LIFNR')" suggest=".onValueHelpRequestConferimento('dynamicModel2',$event,'LIFNR')" valueHelpOnly="false" showSuggestion="false">
+                    <MultiInput id="iKUNNRM2" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel2',$event,'KUNNR')" suggest=".onValueHelpRequestConferimento('dynamicModel2',$event,'KUNNR')" valueHelpOnly="false" showSuggestion="false">
                         <core:Item key="{dynamicModel2>key}" text="{dynamicModel2>text}" />
                     </MultiInput>
                 </fb:control>

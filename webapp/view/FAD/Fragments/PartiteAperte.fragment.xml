@@ -1,0 +1,103 @@
+<core:FragmentDefinition controllerName="it.orogel.cruscottoconferimento.controller.FAD.Compensazione"
+    xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns="sap.ui.table">
+    <m:Dialog title="{i18n>lbl.SelezionarePartiteAperte}" contentHeight="80%" contentWidth="80%">
+        <m:content>
+            <!--<m:VBox id="VboxPartiteClienti" class="sapUiSmallMargin">
+                <m:Label text="Selezione Range Date" labelFor="DataRange"/>
+                <m:DateRangeSelection id="DataRange" delimiter="-" dateValue="{path: 'appModel>/ZDATADOCDA'}" secondDateValue="{path: 'appModel>/ZDATADOCA'}" displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd"/> -->            <!--change="onChangeData"-->
+            <!--<m:Label text="Tipo Documento" labelFor="iBLART"/>
+            <m:MultiInput id="iBLART" valueHelpRequest=".onValueHelpRequestConferimento($event,'BLART')" suggest=".onValueHelpRequestConferimento($event,'BLART')">
+                <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+            </m:MultiInput>
+            <m:Label text="Specie" labelFor="iZZ1SPECIE"/>
+            <m:MultiInput id="iZZ1SPECIE" valueHelpRequest=".onValueHelpRequestConferimento($event,'ZZ1SPECIE')" suggest=".onValueHelpRequestConferimento($event,'ZZ1SPECIE')">
+                <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+            </m:MultiInput>
+        </m:VBox>-->
+            <f:Form editable="true">
+                <f:layout>
+                    <f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="12" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="2" columnsM="1" singleContainerFullSize="false" />
+                </f:layout>
+                <f:formContainers>
+
+                    <f:FormContainer title="Partite Clienti">
+                        <f:formElements>
+                            <f:FormElement label="Attivazione Partite Clienti">
+                                <f:fields>
+                                    <m:CheckBox id="ClienteCheck" selected="{appModel>/ClienteCheck}"/>
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Selezione Range Date">
+                                <f:fields>
+                                    <m:DateRangeSelection id="DataRangePartiteClienti" delimiter="-" dateValue="{path: 'appModel>/ZDATADOCDA'}" secondDateValue="{path: 'appModel>/ZDATADOCA'}" displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd" change="onChangeData"/>
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Tipo Documento">
+                                <f:fields>
+                                    <m:MultiInput id="iBLARTCompensazione" valueHelpRequest=".onValueHelpRequestConferimento($event,'BLART')" suggest=".onValueHelpRequestConferimento($event,'BLART')" enabled="{appModel>/EnabledData}">
+                                        <core:Item key="{partiteAperteModel>key}" text="{partiteAperteModel>text}" />
+                                    </m:MultiInput>
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Specie">
+                                <f:fields>
+                                    <m:MultiInput id="iZZ1SPECIECompensazione" valueHelpRequest=".onValueHelpRequestConferimento($event,'ZZ1SPECIE')" suggest=".onValueHelpRequestConferimento($event,'ZZ1SPECIE')" enabled="{appModel>/EnabledData}">
+                                        <core:Item key="{partiteAperteModel>key}" text="{partiteAperteModel>text}" />
+                                    </m:MultiInput>
+                                </f:fields>
+                            </f:FormElement>
+                            <f:FormElement label="Senza Seme">
+                                <f:fields>
+                                    <!--<m:CheckBox id="PartiteSenzaSeme" selected="{appModel>/PartiteSenzaSeme}"/>-->
+                                    <m:ComboBox id="StatoElaborazione" selectedKey="{appModel>/PartiteSenzaSeme}"
+                                        xmlns="sap.m">
+                                        <items>
+                                            <core:Item xmlns:core="sap.ui.core" key="1" text="Tutte le partite"/>
+                                            <core:Item xmlns:core="sap.ui.core" key="2" text="Partite con specie valorizzata"/>
+                                            <core:Item xmlns:core="sap.ui.core" key="3" text="Partite con specie non valorizzata"/>
+                                        </items>
+                                    </m:ComboBox>
+                                </f:fields>
+                            </f:FormElement>
+                        </f:formElements>
+                    </f:FormContainer>
+                    <f:FormContainer title="Partite Fornitori">
+                        <f:FormElement label="Attivazione Partite Fornitori">
+                            <f:fields>
+                                <m:CheckBox id="FornitoriCheck" selected="{appModel>/FornitoriCheck}"/>
+                            </f:fields>
+                        </f:FormElement>
+                        <f:formElements>
+                            <f:FormElement label="Selezione Range Date">
+                                <f:fields>
+                                    <m:DateRangeSelection id="DataRangePartiteFornitori" delimiter="-" dateValue="{path: 'appModel>/ZDATADOCDAFORNITORI'}" secondDateValue="{path: 'appModel>/ZDATADOCAFORNITORI'}" displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd" />
+                                </f:fields>
+                            </f:FormElement>
+                        </f:formElements>
+                    </f:FormContainer>
+                    <f:FormContainer title="Capitale Sociale">
+                        <f:formElements>
+                            <!--<f:FormElement label="Selezione Range Date">
+                                <f:fields>
+                                    <m:DateRangeSelection id="DataRangeCapitaleSociale" delimiter="-" dateValue="{path: 'appModel>/ZDATADOCDASOCIALE'}" secondDateValue="{path: 'appModel>/ZDATADOCASOCIALE'}" displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd" />
+                                </f:fields>
+                            </f:FormElement>-->
+                            <f:FormElement label="Quota Capitale Sociale">
+                                <f:fields>
+                                    <m:CheckBox id="CapitaleSocialeCheck" selected="{appModel>/CapitaleSocialeCheck}"/>
+                                </f:fields>
+                            </f:FormElement>
+                        </f:formElements>
+                    </f:FormContainer>
+                </f:formContainers>
+            </f:Form>
+        </m:content>
+        <m:buttons>
+            <m:Button text="{i18n>lbl.Close}" type="Reject" width="8em" press="onCloseSelezionarePartite"/>
+            <m:Button text="{i18n>lbl.RiassuntoPartite}" type="Success" width="16em" press="onOpenRiassuntoPartite"/>
+        </m:buttons>
+    </m:Dialog>
+</core:FragmentDefinition>

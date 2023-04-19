@@ -1,4 +1,5 @@
-<core:FragmentDefinition xmlns:core="sap.ui.core"
+<core:FragmentDefinition controllerName="it.orogel.cruscottoconferimento.controller.FA.FA"
+    xmlns:core="sap.ui.core"
     xmlns="sap.m"
     xmlns:t="sap.ui.table"
     xmlns:fb="sap.ui.comp.filterbar"
@@ -12,13 +13,20 @@
                     <Input id="iBUKRS" type="Text" value="{filterModel>/BUKRS}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'BUKRS')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'BUKRS')"/>
                 </fb:control>
             </fb:FilterGroupItem>
-            <fb:FilterGroupItem id="_IDGenFilterGroupItem55" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="C1" label="{i18n>LIFNR}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+            <fb:FilterGroupItem id="_IDGenFilterGroupItem55" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="C1" label="{i18n>ZBP}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
+                <fb:control>
+                    <MultiInput id="iKUNNR" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'KUNNR')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'KUNNR')" valueHelpOnly="false" showSuggestion="false">
+                        <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
+                    </MultiInput>
+                </fb:control>
+            </fb:FilterGroupItem>
+            <!--<fb:FilterGroupItem id="_IDGenFilterGroupItem55" groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="C1" label="{i18n>LIFNR}" labelTooltip="Tooltip Example" visibleInFilterBar="true">
                 <fb:control>
                     <MultiInput id="iLIFNR" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFNR')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFNR')" valueHelpOnly="false" showSuggestion="false">
                         <core:Item key="{dynamicModel>key}" text="{dynamicModel>text}" />
                     </MultiInput>
                 </fb:control>
-            </fb:FilterGroupItem>
+            </fb:FilterGroupItem>-->
             <fb:FilterGroupItem groupName="__$INTERNAL4$" groupTitle="CAMPI PER l'ESTRAZIONE DELLE BOLLE" name="A89" label="Produttore" visibleInFilterBar="false">
                 <fb:control>
                     <MultiInput id="iLIFN2" valueHelpRequest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFN2')" suggest=".onValueHelpRequestConferimento('dynamicModel',$event,'LIFN2')">
@@ -373,13 +381,13 @@
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Bukrs" sortProperty="Bukrs" width="10em">
                 <Label text="{i18n>lbl.Bukrs}"/>
                 <t:template>
-                    <Text text="{Bukrs}" wrapping="false"/>
+                    <Text text="{LifnrFA}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Lifnr" sortProperty="Lifnr" width="10em">
                 <Label text="{i18n>lbl.Lifnr}"/>
                 <t:template>
-                    <Text text="{Lifnr}" wrapping="false"/>
+                    <Text text="{BukrsFa}" wrapping="false"/>
                 </t:template>
             </t:Column>
             <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Ziva" sortProperty="Ziva" width="10em">

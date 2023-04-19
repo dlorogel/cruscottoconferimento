@@ -1,4 +1,4 @@
-<core:FragmentDefinition controllerName="it.orogel.cruscottoconferimento.controller.Compensazione"
+<core:FragmentDefinition controllerName="it.orogel.cruscottoconferimento.controller.FAD.Compensazione"
     xmlns:m="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form"

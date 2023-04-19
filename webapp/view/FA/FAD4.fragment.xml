@@ -1,0 +1,11 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:t="sap.ui.table"
+    xmlns:smartMultiInput="sap.ui.comp.smartmultiinput"
+    xmlns:smartField="sap.ui.comp.smartfield">
+    <fb:FilterBar search="onFilterSearchFAD2" showRestoreButton="true">
+       
+    </fb:FilterBar>
+   
+</core:FragmentDefinition>

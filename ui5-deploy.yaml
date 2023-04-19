@@ -20,4 +20,4 @@ builder:
           name: zcrusconf
           description: Cruscotto Conferimento App
           package: Z001
-          transport: SODK900400
+          transport: SODK904494

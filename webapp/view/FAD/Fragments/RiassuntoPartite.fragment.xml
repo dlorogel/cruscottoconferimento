@@ -1,0 +1,50 @@
+<core:FragmentDefinition xmlns:m="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:t="sap.ui.table">
+    <m:Dialog title="{i18n>lbl.RiassuntoPartite}" contentHeight="80%" contentWidth="80%">
+        <m:content>
+            <t:Table id="TableRiassuntoPartite" rows="{appModel>/rowsRiassuntoPartite}" selectionMode="Single" selectionBehavior="RowOnly" visibleRowCountMode="Interactive" ariaLabelledBy="title" alternateRowColors="true" enableCellFilter="true" columnHeaderVisible="true" showNoData="true" rowSelectionChange="onChangeRowRiassuntoPartite">
+                <t:columns>
+                    <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Rbukrs" sortProperty="Rbukrs">
+                        <m:Label text="{i18n>lbl.Rbukrs}"/>
+                        <t:template>
+                            <m:Text text="{Rbukrs}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="Lifnr" sortProperty="Lifnr">
+                        <m:Label text="{i18n>lbl.Lifnr}"/>
+                        <t:template>
+                            <m:Text text="{Lifnr}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="PartiteCliente" sortProperty="PartiteCliente">
+                        <m:Label text="{i18n>lbl.PartiteCliente}"/>
+                        <t:template>
+                            <!--<m:Text text="{PartiteCliente}" wrapping="false"/>-->
+                            <m:Text  text ="{ path:'PartiteCliente',  formatter: '.formatter.fmFormatNumber'}" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="PartiteFornitore" sortProperty="PartiteFornitore">
+                        <m:Label text="{i18n>lbl.PartiteFornitore}"/>
+                        <t:template>
+                            <!--<m:Text text="{PartiteFornitore}" wrapping="false"/>-->
+                            <m:Text  text ="{ path:'PartiteFornitore',  formatter: '.formatter.fmFormatNumber'}" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column hAlign="Begin" resizable="true" autoResizable="true" filterProperty="CapitaleSociale" sortProperty="CapitaleSociale">
+                        <m:Label text="{i18n>lbl.CapitaleSociale}"/>
+                        <t:template>
+                            <!--<m:Text text="{CapitaleSociale}" wrapping="false"/>-->
+                            <m:Text  text ="{ path:'CapitaleSociale',  formatter: '.formatter.fmFormatNumber'}" />
+                        </t:template>
+                    </t:Column>
+                </t:columns>
+            </t:Table>
+        </m:content>
+        <m:buttons>
+            <m:Button text="{i18n>lbl.Filtri}" type="Back" width="8em" press="onCloseDialogRiassuntoPartite"/>
+            <m:Button text="{i18n>lbl.Cancella}" type="Reject" width="8em" press="onEliminaRiassuntoPartite"/>
+            <m:Button text="{i18n>lbl.Salva}" type="Success" width="8em" press="onSalvaPartite"/>
+        </m:buttons>
+    </m:Dialog>
+</core:FragmentDefinition>

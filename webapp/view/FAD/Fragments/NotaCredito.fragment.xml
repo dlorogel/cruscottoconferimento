@@ -1,4 +1,4 @@
-<core:FragmentDefinition controllerName="it.orogel.cruscottoconferimento.controller.FAD"
+<core:FragmentDefinition controllerName="it.orogel.cruscottoconferimento.controller.FAD.FAD"
     xmlns:m="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form"
@@ -12,11 +12,11 @@
                 <f:formContainers>
                     <f:FormContainer>
                         <f:formElements>
-                            <f:FormElement label="Importo Nota Credito">
+                            <!--<f:FormElement label="Importo Nota Credito">
                                 <f:fields>
                                     <m:Input type="Number" value="{notaCreditoModel>/Importo}" />
                                 </f:fields>
-                            </f:FormElement>
+                            </f:FormElement>-->
                             <f:FormElement label="DataDocumento">
                                 <f:fields>
                                     <m:DatePicker dateValue="{notaCreditoModel>/DataDocumento}" displayFormat="short"/>

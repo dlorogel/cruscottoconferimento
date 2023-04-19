@@ -7,11 +7,10 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/Fragment",
     "sap/m/MessageBox",
-    "../model/formatter",
+    "../../model/formatter",
     'sap/m/Token',
     "it/orogel/cruscottoconferimento/model/Constants",
     "it/orogel/cruscottoconferimento/model/CostantiAttributi",
-    "it/orogel/cruscottoconferimento/libs/Download",
     "sap/makit/Row",
 ],
     /**
@@ -29,11 +28,10 @@ sap.ui.define([
         Token,
         Constants,
         CostantiAttributi,
-        Download,
         Row) {
         "use strict";
 
-        return Controller.extend("it.orogel.cruscottoconferimento.controller.FAD", {
+        return Controller.extend("it.orogel.cruscottoconferimento.controller.FA.FA", {
             formatter: formatter,
             onInit: function () {
                 this.oComponent = this.getOwnerComponent();
@@ -44,9 +42,53 @@ sap.ui.define([
                         text: args.text
                     });
                 };
-                this.getView().byId("iLIFNR").addValidator(fnValidator);
-                this.getView().byId("iLIFNRM2").addValidator(fnValidator);
-                this.getView().byId("iLIFNRM3").addValidator(fnValidator);
+                let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                oRouter.getRoute("FA.FA").attachMatched(this._onObjectMatched, this);
+                this.getView().byId("iKUNNR").addValidator(fnValidator);
+                this.getView().byId("iKUNNRM2").addValidator(fnValidator);
+                this.getView().byId("iKUNNRM3").addValidator(fnValidator);
+
+            },
+            _onObjectMatched: function () {
+                //[Gheorghe] Resetto tutti i token delle multiinput ogni volta che rientro nella sezione
+                this.getView().byId("iKUNNR").removeAllTokens();
+                this.getView().byId("iLIFN2").removeAllTokens();
+                this.getView().byId("iEKORG").removeAllTokens();
+                this.getView().byId("iUNSEZ").removeAllTokens();
+                this.getView().byId("iIHREZ").removeAllTokens();
+                this.getView().byId("iMTART").removeAllTokens();
+                this.getView().byId("iSPECIE").removeAllTokens();
+                this.getView().byId("iSTAG").removeAllTokens();
+                this.getView().byId("iVARIETA").removeAllTokens();
+                this.getView().byId("iCERTAZ").removeAllTokens();
+                this.getView().byId("iCERTPROD").removeAllTokens();
+                this.getView().byId("iRESIDUO").removeAllTokens();
+                this.getView().byId("iCERTIFCOMM").removeAllTokens();
+                this.getView().byId("iSPECIFICA").removeAllTokens();
+                this.getView().byId("iLAVORAZIONE").removeAllTokens();
+                this.getView().byId("iORIGINE").removeAllTokens();
+                this.getView().byId("iQUALITA").removeAllTokens();
+                this.getView().byId("iCALIBRAZIONE").removeAllTokens();
+                this.getView().byId("iEVENTI").removeAllTokens();
+                this.getView().byId("iCAR_RACTAG").removeAllTokens();
+                this.getView().byId("iSERVIZIO1").removeAllTokens();
+                this.getView().byId("iSERVIZIO2").removeAllTokens();
+                this.getView().byId("iSERVIZIO3").removeAllTokens();
+                this.getView().byId("iSERVIZIO4").removeAllTokens();
+                this.getView().byId("iSERVIZIO5").removeAllTokens();
+                this.getView().byId("iSERVIZIOEXTRA1").removeAllTokens();
+                this.getView().byId("iSERVIZIOEXTRA2").removeAllTokens();
+                this.getView().byId("iSERVIZIOEXTRA3").removeAllTokens();
+                this.getView().byId("iSERVIZIOEXTRA4").removeAllTokens();
+                this.getView().byId("iSERVIZIOEXTRA5").removeAllTokens();
+                this.getView().byId("iRAGGLIQ").removeAllTokens();
+                this.getView().byId("iZONATRAS").removeAllTokens();
+                this.getView().byId("iPOLITICHEOP").removeAllTokens();
+                this.getView().byId("iLGORT").removeAllTokens();
+                this.getView().byId("iZCAUSALE").removeAllTokens();
+                this.resetModels();
+            },
+            resetModels: function () {
                 // [Gheorghe]
                 this.getOwnerComponent().setModel(new JSONModel({}), "filterModel");
                 this.getOwnerComponent().setModel(new JSONModel({}), "filterModel2");
@@ -54,6 +96,7 @@ sap.ui.define([
                 this.getOwnerComponent().setModel(new JSONModel({}), "dynamicModel");
                 this.getOwnerComponent().setModel(new JSONModel({}), "dynamicModel2");
                 this.getOwnerComponent().setModel(new JSONModel({}), "dynamicModel3");
+                this.getOwnerComponent().setModel(new JSONModel({}), "emissioneFatturaModel");
                 this.getOwnerComponent().setModel(new JSONModel({}), "textModel");
                 this.getOwnerComponent().setModel(new JSONModel({}), "statiModel");
                 this.getOwnerComponent().setModel(new JSONModel({}), "notaCreditoModel");
@@ -65,6 +108,9 @@ sap.ui.define([
                 oAppModel.setProperty("/TableStoricoRecapVisible", false);
                 oAppModel.setProperty("/TableStoricoPosVisible", false);
                 oAppModel.setProperty("/TableFAD2Visible", false);
+                oAppModel.setProperty("/FADStorico", []);
+                oAppModel.setProperty("/FAD2Recap", []);
+                oAppModel.setProperty("/FAD2", []);
                 // [Gheorghe]
             },
             onNavBack: function () {
@@ -129,6 +175,7 @@ sap.ui.define([
                 delete aValues[44]
                 delete aValues[45]
                 delete aValues[46]
+                delete aValues[47]
                 //Costruisco i vari filtri tramite le Costanti
                 aValues.forEach(e => {
                     var key = e['key'],
@@ -194,7 +241,7 @@ sap.ui.define([
                 }*/
                 if (filterModel.hasOwnProperty('DataAccontoFrom') && filterModel.hasOwnProperty('DataAccontoTo')) {
                     filterModel.DataAccontoFrom.setHours(filterModel.DataAccontoFrom.getHours() - filterModel.DataAccontoFrom.getTimezoneOffset() / 60);
-                    filterModel.DataAccontoTo.setHours(filterModel.DataAccontoTo.getHours() - filterModel.DataAccontoTo.getTimezoneOffset() / 60);
+                    //filterModel.DataAccontoTo.setHours(filterModel.DataAccontoTo.getHours() - filterModel.DataAccontoTo.getTimezoneOffset() / 60);
                     oFinalFilter.aFilters.push(new Filter({
                         filters: [new Filter("DataAcconto", FilterOperator.BT, filterModel.DataAccontoFrom, filterModel.DataAccontoTo)],
                         and: false
@@ -248,9 +295,9 @@ sap.ui.define([
                     }));
                 }
                 this.oGlobalBusyDialog.open();
-                this.getView().getModel().read("/FAD1Set", {
+                this.getView().getModel("faModel").read("/FA1Set", {
                     urlParameters: {
-                        "$expand": "ZCONFSTORHEAD2Set,ZCONFSTORPOS2Set,ZCONFSTORRECAP2Set,ZCONFMAGGIORAZSet,ZCONFACCPREGSet"
+                        "$expand": "STORHEADSet,STORPOSSet,STORRECAPSet,ZCONFMAGGIORAZSet,ZCONFACCPREGSet"
                     },
                     filters: [oFinalFilter],
                     success: (oDataFAD1) => {
@@ -270,13 +317,13 @@ sap.ui.define([
                         if (aError1.length > 0) {
                             sError = this.oComponent.i18n().getText("msg.error1.text") + "\n";
                             aError1.forEach(x => {
-                                sError = sError + x.Fornitore + "\n";
+                                sError = sError + x.SocietaFa + "\n";
                             });
                         }
                         if (aError2.length > 0) {
                             sError = sError + this.oComponent.i18n().getText("msg.error2.text") + "\n";
                             aError2.forEach(x => {
-                                sError = sError + x.Fornitore + "\n";
+                                sError = sError + x.SocietaFa + "\n";
                             });
                         }
                         if (sError !== "") {
@@ -293,7 +340,7 @@ sap.ui.define([
                                             } else {
                                                 if (aNoError.length > 0) {
                                                     let oRouter = sap.ui.core.UIComponent.getRouterFor(that);
-                                                    oRouter.navTo("Compensazione");
+                                                    oRouter.navTo("FA.Compensazione");
                                                 } else {
                                                     sap.m.MessageToast.show(that.oComponent.i18n().getText("msg.noResult.text"));
                                                 }
@@ -311,7 +358,7 @@ sap.ui.define([
                             } else {
                                 if (aNoError.length > 0) {
                                     let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                                    oRouter.navTo("Compensazione");
+                                    oRouter.navTo("FA.Compensazione");
                                 } else {
                                     sap.m.MessageToast.show(this.oComponent.i18n().getText("msg.noResult.text"));
                                 }
@@ -349,7 +396,7 @@ sap.ui.define([
                 const aValues = Object.values(kAttributi);
                 delete aValues[0];
                 delete aValues[1];
-                delete aValues[38];
+                //delete aValues[38];
                 delete aValues[39];
                 delete aValues[40];
                 delete aValues[41];
@@ -357,6 +404,7 @@ sap.ui.define([
                 delete aValues[44];
                 delete aValues[45];
                 delete aValues[46];
+                delete aValues[47];
                 //Costruisco i vari filtri tramite le Costanti
                 aValues.forEach(e => {
                     var key = e['key'],
@@ -418,9 +466,9 @@ sap.ui.define([
                     }));
                 }
                 this.oGlobalBusyDialog.open();
-                this.getView().getModel().read("/FADStoricoSet", {
+                this.getView().getModel("faModel").read("/FAStoricoSet", {
                     urlParameters: {
-                        "$expand": "FADStoricoToPosizioni,FADStoricoToRecap"
+                        "$expand": "FAStoricoToPosizioni,FAStoricoToRecap"
                     },
                     filters: [oFinalFilter],
                     success: (oDataFADStorico) => {
@@ -453,7 +501,7 @@ sap.ui.define([
                     bFiltro = true;
                     sErrore += "Società" + "\n";
                 }
-                if (this.byId("iLIFNRM2").getTokens().length === 0) {
+                if (this.byId("iKUNNRM2").getTokens().length === 0) {
                     bFiltro = true;
                     sErrore += "Fornitore" + "\n";
                 }
@@ -481,7 +529,10 @@ sap.ui.define([
                     bFiltro = true;
                     sErrore += "IVA" + "\n";
                 }
-
+                if (!this.byId("iMTARTM2").getValue() || this.byId("iMTARTM2").getValue() === "") {
+                    bFiltro = true;
+                    sErrore += "Tipo Materiale" + "\n";
+                }
                 if (bFiltro) {
                     sap.m.MessageToast.show(sErrore);
                     return;
@@ -495,7 +546,7 @@ sap.ui.define([
                     filters: [new Filter("Societa", FilterOperator.EQ, filterModel.BUKRS)],
                     and: false
                 }));
-                this.byId("iLIFNRM2").getTokens().forEach(x => {
+                this.byId("iKUNNRM2").getTokens().forEach(x => {
                     aLifnrFilter.push(new Filter("Fornitore", FilterOperator.EQ, x.getKey()));
                 });
                 oFinalFilter.aFilters.push(new Filter({
@@ -518,10 +569,16 @@ sap.ui.define([
                     filters: [new Filter("Imponibile", FilterOperator.EQ, filterModel.ZIMPONIBILE)],
                     and: false
                 }));
+                //[Gheorghe] cambiata la property da dynamicModel a filterModel da cui prendo il dato
                 oFinalFilter.aFilters.push(new Filter({
-                    filters: [new Filter("IVA", FilterOperator.EQ, dynamicModel.ZCONFIVAValore)],
+                    filters: [new Filter("IVA", FilterOperator.EQ, filterModel.ZCONFIVAValore)],
                     and: false
                 }));
+                oFinalFilter.aFilters.push(new Filter({
+                    filters: [new Filter("TipoMateriale", FilterOperator.EQ, filterModel.MTART)],
+                    and: false
+                }));
+
                 filterModel.ZDATADOC.setHours(filterModel.ZDATADOC.getHours() - filterModel.ZDATADOC.getTimezoneOffset() / 60);
                 oFinalFilter.aFilters.push(new Filter({
                     filters: [new Filter("DataDocumento", FilterOperator.EQ, filterModel.ZDATADOC)],
@@ -561,11 +618,11 @@ sap.ui.define([
                     }));
                 }
                 this.oGlobalBusyDialog.open();
-                this.getView().getModel().read("/FAD2Set", {
+                this.getView().getModel("faModel").read("/FA2Set", {
                     urlParameters: {
-                        "$expand": "ZCONFSTORHEAD2Set,ZCONFSTORPOS2Set,ZCONFSTORRECAP2Set"
+                        "$expand": "ZCONFSTORHEADSet,ZCONFSTORPOSSet,ZCONFSTORRECAPSet"
                     },
-                    filters: [oFinalFilter],
+                    filters: oFinalFilter.aFilters,
                     success: (oData) => {
                         const oAppModel = this.getView().getModel("appModel");
                         oAppModel.setProperty("/TableFAD2Visible", true);
@@ -573,7 +630,7 @@ sap.ui.define([
                         oAppModel.setProperty("/FAD2", oData.results);
                         this.oGlobalBusyDialog.close();
                     },
-                    error: () => {
+                    error: (oError) => {
                         this.oGlobalBusyDialog.close();
                         sap.m.MessageToast.show("Errore di connessione");
                     }
@@ -993,9 +1050,9 @@ sap.ui.define([
                 });
             },
             createStorico: function (oRow) {
-                var oModel = this.getView().getModel();
+                var oModel = this.getView().getModel("faModel");
                 return new Promise((resolve, reject) => {
-                    oModel.create("/FADBolleConferimentoSet", oRow, {
+                    oModel.create("/FABolleConferimentoSet", oRow, {
                         success: () => {
                             resolve();
                         },
@@ -1007,7 +1064,7 @@ sap.ui.define([
             },
             createStoricoFAD2: function (oRow) {
                 return new Promise((resolve, reject) => {
-                    this.getView().getModel().create("/FAD2Set", oRow, {
+                    this.getView().getModel("faModel").create("/FA2Set", oRow, {
                         success: () => {
                             resolve();
                         },
@@ -1062,7 +1119,7 @@ sap.ui.define([
                 if (!this._pValueHelpDialog) {
                     this._pValueHelpDialog = Fragment.load({
                         id: oView.getId(),
-                        name: "it.orogel.cruscottoconferimento.view.Fragments.DynamicFrag" + Modello,
+                        name: "it.orogel.cruscottoconferimento.view.FA.Fragments.DynamicFrag" + Modello,
                         controller: this
                     }).then(function (oValueHelpDialog) {
                         oView.addDependent(oValueHelpDialog);
@@ -1141,6 +1198,14 @@ sap.ui.define([
                         arrayRes.push(obj)
                     });
                     this.getOwnerComponent().getModel(dynamicModel).setData(arrayRes);
+                } else if (field === 'MTARTM2') {
+                    var aFilter = [];
+                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/MtartSet", "Chiave,Descrizione", aFilter)
+                    aResults.forEach(e => {
+                        var obj = { key: e.Chiave, text: e.Descrizione, type: field }
+                        arrayRes.push(obj)
+                    });
+                    this.getOwnerComponent().getModel(dynamicModel).setData(arrayRes);
                 } else { // Caso singolo di Specie e tutti gli attributi recuperabili nella HEAD
                     var aFilter = [];
                     if (field === 'SPECIE2' || field === 'SPECIEM2') {
@@ -1167,10 +1232,12 @@ sap.ui.define([
                     oValueHelpDialog.open();
                 }.bind(this));
                 //if (field === 'ZCAUSALE' || field === 'ZCAUSALE2' || field === 'ZCAUSALE3' || field === 'ZCAUSALE4') {
-                if (field === 'ZCAUSALE2' || field === 'ZCAUSALE3' || field === 'ZCAUSALE4' || field === 'SPECIEM2' || field === 'STAGIONALITAM2') {
-                    this.byId("_IDGenSelectDialog1" + Modello).setMultiSelect(false)
-                } else {
-                    this.byId("_IDGenSelectDialog1" + Modello).setMultiSelect(true)
+                if (arrayRes.legnth > 0) {
+                    if (field === 'ZCAUSALE2' || field === 'ZCAUSALE3' || field === 'ZCAUSALE4' || field === 'SPECIEM2' || field === 'STAGIONALITAM2' || field === 'MTARTM2') {
+                        this.byId("_IDGenSelectDialog1" + Modello).setMultiSelect(false)
+                    } else {
+                        this.byId("_IDGenSelectDialog1" + Modello).setMultiSelect(true)
+                    }
                 }
             },
             onValueHelpStati: async function (event, TypeField) {
@@ -1189,14 +1256,14 @@ sap.ui.define([
                     if (!this._statiValueHelpDialog) {
                         this._statiValueHelpDialog = Fragment.load({
                             id: oView.getId(),
-                            name: "it.orogel.cruscottoconferimento.view.Fragments.StatiFrag",
+                            name: "it.orogel.cruscottoconferimento.view.FA.Fragments.StatiFrag",
                             controller: this
                         }).then(function (oValueHelpDialog) {
                             oView.addDependent(oValueHelpDialog);
                             return oValueHelpDialog;
                         });
                     }
-                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/StatoSet", "Chiave,Descrizione", aFilter);
+                    var aResults = await this._APIGet(this.getOwnerComponent().getModel("faModel"), "/StatoSet", "Chiave,Descrizione", aFilter);
 
                     var StatCostant = Constants.CAMBIOSTATO;
                     aResults.forEach(e => {
@@ -1305,7 +1372,7 @@ sap.ui.define([
                     }
                 });
                 var batchChanges = [];
-                var sServiceUrl = "/sap/opu/odata/sap/ZCRUSCOTTOCONFERIMENTO_SRV/";
+                var sServiceUrl = "/sap/opu/odata/sap/ZCRUSCCONFFA_SRV_01/";
                 var oDataModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
                 RowsChangeRecap.forEach(x => {
                     //                    if (!x.IndirizzoMail || StatoA.Zstatus !== "S") {
@@ -1346,7 +1413,7 @@ sap.ui.define([
                 if (!this._textValueHelpDialog) {
                     this._textValueHelpDialog = Fragment.load({
                         id: oView.getId(),
-                        name: "it.orogel.cruscottoconferimento.view.Fragments.DynamicTable",
+                        name: "it.orogel.cruscottoconferimento.view.FA.Fragments.DynamicTable",
                         controller: this
                     }).then(function (oValueHelpDialog) {
                         oView.addDependent(oValueHelpDialog);
@@ -1371,7 +1438,7 @@ sap.ui.define([
                 if (!this._textValueNotaCreditoHelpDialog) {
                     this._textValueNotaCreditoHelpDialog = Fragment.load({
                         id: oView.getId(),
-                        name: "it.orogel.cruscottoconferimento.view.Fragments.DynamicTableNotaCredito",
+                        name: "it.orogel.cruscottoconferimento.view.FA.Fragments.DynamicTableNotaCredito",
                         controller: this
                     }).then(function (oValueHelpDialog) {
                         oView.addDependent(oValueHelpDialog);
@@ -1396,7 +1463,7 @@ sap.ui.define([
                 if (!this._textValueCambioRegimeFiscaleHelpDialog) {
                     this._textValueCambioRegimeFiscaleHelpDialog = Fragment.load({
                         id: oView.getId(),
-                        name: "it.orogel.cruscottoconferimento.view.Fragments.DynamicTableCambioRegimeFiscale",
+                        name: "it.orogel.cruscottoconferimento.view.FA.Fragments.DynamicTableCambioRegimeFiscale",
                         controller: this
                     }).then(function (oValueHelpDialog) {
                         oView.addDependent(oValueHelpDialog);
@@ -1427,7 +1494,7 @@ sap.ui.define([
                 if (!this._pValueHelpDialog) {
                     this._pValueHelpDialog = Fragment.load({
                         id: oView.getId(),
-                        name: "it.orogel.cruscottoconferimento.view.Fragments.DynamicFrag" + Modello,
+                        name: "it.orogel.cruscottoconferimento.view.FA.Fragments.DynamicFrag" + Modello,
                         controller: this
                     }).then(function (oValueHelpDialog) {
                         oView.addDependent(oValueHelpDialog);
@@ -1438,7 +1505,7 @@ sap.ui.define([
 
                 if (field === 'BUKRS' || field === 'BUKRS2') {
 
-                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/SocietaSet", "Bukrs,Butxt")
+                    var aResults = await this._APIGet(this.getOwnerComponent().getModel("faModel"), "/SocietaSet", "Bukrs,Butxt")
                     aResults.forEach(e => {
                         var obj = { key: e.Bukrs, text: e.Butxt, type: field }
                         arrayRes.push(obj)
@@ -1447,17 +1514,17 @@ sap.ui.define([
                         this.byId("_IDGenSelectDialog1" + Modello).setMultiSelect(false)
                     }
                     this.getOwnerComponent().getModel(dynamicModel).setData(arrayRes);
-                } else if (field === 'LIFNR' || field === 'LIFN2' || field === 'LIFNR2') {
-                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/FornitoreSet", "Lifnr,Name1")
+                } else if (field === 'KUNNR' || field === 'LIFN2' || field === 'LIFNR2') {
+                    var aResults = await this._APIGet(this.getOwnerComponent().getModel("faModel"), "/FornitoreSet", "Kunnr,Name1", new Filter("Vbund", sap.ui.model.FilterOperator.NE, ""))
 
                     aResults.forEach(e => {
-                        var obj = { key: e.Lifnr, text: e.Name1, type: field }
+                        var obj = { key: e.Kunnr, text: e.Name1, type: field }
                         arrayRes.push(obj)
                     });
                     this.getOwnerComponent().getModel(dynamicModel).setData(arrayRes);
                     this.byId("_IDGenSelectDialog1" + Modello).setMultiSelect(true)
                 } else if (field === 'UNSEZ') {
-                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/NumeroDDTSet", "Unsez")
+                    var aResults = await this._APIGet(this.getOwnerComponent().getModel("faModel"), "/NumeroDDTSet", "Unsez")
                     aResults.forEach(e => {
                         var obj = { key: e.Unsez, text: e.Unsez, type: field }
                         arrayRes.push(obj)
@@ -1466,7 +1533,7 @@ sap.ui.define([
                     this.getOwnerComponent().getModel(dynamicModel).setData(arrayRes);
                     this.byId("_IDGenSelectDialog1" + Modello).setMultiSelect(true)
                 } else if (field === 'IHREZ') {
-                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/NumeroBollaSet", "Ihrez")
+                    var aResults = await this._APIGet(this.getOwnerComponent().getModel("faModel"), "/NumeroBollaSet", "Ihrez")
                     aResults.forEach(e => {
                         var obj = { key: e.Ihrez, text: e.Ihrez, type: field }
                         arrayRes.push(obj)
@@ -1475,25 +1542,28 @@ sap.ui.define([
                     this.getOwnerComponent().getModel(dynamicModel).setData(arrayRes);
                     this.byId("_IDGenSelectDialog1" + Modello).setMultiSelect(true)
                 } else if (field === 'MTART') {
-                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/TipoMaterialeSet", "Mtart")
+                    /*var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/TipoMaterialeSet", "Mtart")
                     aResults.forEach(e => {
                         var obj = { key: e.Mtart, text: e.Mtart, type: field }
                         arrayRes.push(obj)
+                    });*/
+                    var aResults = await this._APIGet(this.getOwnerComponent().getModel("faModel"), "/MtartSet", "Chiave,Descrizione")
+                    aResults.forEach(e => {
+                        var obj = { key: e.Chiave, text: e.Descrizione, type: field }
+                        arrayRes.push(obj)
                     });
-
                     this.getOwnerComponent().getModel(dynamicModel).setData(arrayRes);
                     this.byId("_IDGenSelectDialog1" + Modello).setMultiSelect(true)
                 } else if (field === 'LGORT') {
-                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/MagazzinoSet", "Lgort")
+                    var aResults = await this._APIGet(this.getOwnerComponent().getModel("faModel"), "/MagazzinoSet", "Lgort")
                     aResults.forEach(e => {
                         var obj = { key: e.Lgort, text: e.Lgort, type: field }
                         arrayRes.push(obj)
                     });
-
                     this.getOwnerComponent().getModel(dynamicModel).setData(arrayRes);
                     this.byId("_IDGenSelectDialog1" + Modello).setMultiSelect(true)
                 } else if (field === 'ZCONFIVA' || field === 'ZCONFIVAM2') {
-                    var aResults = await this._APIGet(this.getOwnerComponent().getModel(), "/ConfIVASet", "Taxm1,Ziva")
+                    var aResults = await this._APIGet(this.getOwnerComponent().getModel("faModel"), "/ConfIVASet", "Taxm1,Ziva")
                     aResults.forEach(e => {
                         var obj = { key: e.Taxm1, text: e.Ziva, type: field }
                         arrayRes.push(obj)
@@ -1503,7 +1573,6 @@ sap.ui.define([
                     }
                     this.getOwnerComponent().getModel(dynamicModel).setData(arrayRes);
                 }
-
                 this.refresh(dynamicModel);
                 this.oGlobalBusyDialog.close();
                 this._pValueHelpDialog.then(function (oValueHelpDialog) {
@@ -1557,10 +1626,12 @@ sap.ui.define([
                     if (aSelectedItems && aSelectedItems.length > 0) {
                         aSelectedItems.forEach(function (oItem) {
                             //if (type === 'BUKRS' || type === 'BUKRS2' || type === 'ZCAUSALE2' || type === 'ZCAUSALE') {
-                            if (type === 'BUKRS' || type === 'BUKRS2' || type === 'ZCAUSALE2' || type === 'SPECIEM2' || type === 'STAGIONALITAM2' || type === 'ZCONFIVAM2') {
+                            if (type === 'BUKRS' || type === 'BUKRS2' || type === 'ZCAUSALE2' || type === 'SPECIEM2' || type === 'STAGIONALITAM2' || type === 'ZCONFIVAM2' || type === 'MTARTM2') {
                                 oMultiInput.setValue(oItem.getTitle())
                                 if (type === 'ZCONFIVAM2') {
-                                    that.getOwnerComponent().getModel(dynamicModel).setProperty("/ZCONFIVAValore", oItem.getDescription())
+                                    //[Gheorghe] Commentata riga 1582 e sostituita con quella sottostante
+                                    that.getOwnerComponent().getModel("filterModel2").getData().ZCONFIVAValore = oItem.getDescription();
+                                    //that.getOwnerComponent().getModel(dynamicModel).setProperty("/ZCONFIVAValore", oItem.getDescription())
                                 }
                             } else {
                                 oMultiInput.addToken(new Token({
@@ -1634,8 +1705,8 @@ sap.ui.define([
                 var aError3Recap = [];
                 aResults.forEach(x => {
                     aError3.push(JSON.parse(JSON.stringify(x)));
-                    if (x.ZCONFSTORRECAP2Set.results.length > 0) {
-                        x.ZCONFSTORRECAP2Set.results.forEach(y => {
+                    if (x.ZCONFSTORRECAPSet.results.length > 0) {
+                        x.ZCONFSTORRECAPSet.results.forEach(y => {
                             var oCopy = JSON.parse(JSON.stringify(y));
                             if (oCopy.Zimponibile < 0) {
                                 oCopy.Elaborazione = false;
@@ -1666,13 +1737,13 @@ sap.ui.define([
                     //concat
                     //if (x.FADStoricoToRecap.results.length > 0) {
                     //x.FADStoricoToRecap.results.forEach(y => {
-                    var oCopy = JSON.parse(JSON.stringify(x.FADStoricoToRecap.results));
+                    var oCopy = JSON.parse(JSON.stringify(x.FAStoricoToRecap.results));
                     aStoricoRecap = aStoricoRecap.concat(oCopy);
                     //});
                     //}
                     //if (x.FADStoricoToPosizioni.results.length > 0) {
                     //    x.FADStoricoToPosizioni.results.forEach(y => {
-                    oCopy = JSON.parse(JSON.stringify(x.FADStoricoToPosizioni.results));
+                    oCopy = JSON.parse(JSON.stringify(x.FAStoricoToPosizioni.results));
                     aStoricoPos = aStoricoPos.concat(oCopy);
                     //    });
                     //}
@@ -1730,7 +1801,7 @@ sap.ui.define([
                 const oTableRecap = this.getView().byId("TableFad2");
                 var aRecap = [];
                 aResults.forEach(x => {
-                    var oCopy = JSON.parse(JSON.stringify(x.ZCONFSTORRECAP2Set.results));
+                    var oCopy = JSON.parse(JSON.stringify(x.ZCONFSTORRECAPSet.results));
                     aRecap = aRecap.concat(oCopy);
                 });
                 oAppModel.setProperty("/FAD2Recap", aRecap);
@@ -1763,16 +1834,80 @@ sap.ui.define([
                 const oAppModel = this.getView().getModel("appModel");
                 var RowsErrorRecap = oAppModel.getProperty("/rowsErrorRecap");
                 var RowsError = oAppModel.getProperty("/rowsError");
+                var RowsErrorNoteCredito = JSON.parse(JSON.stringify(RowsError));
                 var RowsNoError = oAppModel.getProperty("/rowsNoError");
+                var aFatture = [];
                 if (RowsError) {
                     RowsError.forEach(x => {
+                        x.Errore = "";
+                        for (var i = 0; i < x.ZCONFSTORRECAPSet.results.length; i++) {
+                            var oConfStorPos = x.ZCONFSTORRECAPSet.results[i];
+                            var oFind = RowsErrorRecap.find(y => y.Bukrs === oConfStorPos.Bukrs
+                                && y.Lifnr === oConfStorPos.Lifnr
+                                && y.Ziva === oConfStorPos.Ziva);
+                            if (oFind) {
+                                if (oFind.Elaborazione === false || parseFloat(oConfStorPos.Zimponibile) <= 0) {
+                                    x.ZCONFSTORRECAPSet.results.splice(i, 1);
+                                    i--;
+                                } else {
+                                    aFatture.push({ 'Bukrs': oConfStorPos.Bukrs, 'Lifnr': oConfStorPos.Lifnr, 'Ziva': oConfStorPos.Ziva });
+                                }
+                            }
+                        }
+                        for (var i = 0; i < x.ZCONFSTORHEADSet.results.length; i++) {
+                            var oConfStorHead = x.ZCONFSTORHEADSet.results[i];
+                            var oFind = RowsErrorRecap.find(y => y.Bukrs === oConfStorHead.Bukrs
+                                && y.Lifnr === oConfStorHead.Lifnr
+                                && y.Ziva === oConfStorHead.Ziva);
+                            if (oFind) {
+                                var oFindFattura = aFatture.find(y => y.Bukrs === oConfStorHead.Bukrs
+                                    && y.Lifnr === oConfStorHead.Lifnr
+                                    && y.Ziva === oConfStorHead.Ziva);
+                                if (oFind.Elaborazione === false || !oFindFattura) {
+                                    x.ZCONFSTORHEADSet.results.splice(i, 1);
+                                    i--;
+                                }
+                            }
+                        }
+                        for (var i = 0; i < x.ZCONFSTORPOSSet.results.length; i++) {
+                            var oConfStorPos = x.ZCONFSTORPOSSet.results[i];
+                            var oFind = RowsErrorRecap.find(y => y.Bukrs === oConfStorPos.Bukrs
+                                && y.Lifnr === oConfStorPos.Lifnr
+                                && y.Ziva === oConfStorPos.Ziva);
+                            if (oFind) {
+                                var oFindFattura = aFatture.find(y => y.Bukrs === oConfStorPos.Bukrs
+                                    && y.Lifnr === oConfStorPos.Lifnr
+                                    && y.Ziva === oConfStorPos.Ziva);
+                                if (oFind.Elaborazione === false || !oFindFattura) {
+                                    x.ZCONFSTORPOSSet.results.splice(i, 1);
+                                    i--;
+                                }
+                            }
+                        }
+                    });
+                    RowsErrorNoteCredito.forEach(x => {
+                        for (var i = 0; i < x.ZCONFSTORRECAP2Set.results.length; i++) {
+                            var oConfStorPos = x.ZCONFSTORRECAP2Set.results[i];
+                            var oFind = RowsErrorRecap.find(y => y.Bukrs === oConfStorPos.Bukrs
+                                && y.Lifnr === oConfStorPos.Lifnr
+                                && y.Ziva === oConfStorPos.Ziva);
+                            if (oFind) {
+                                if (oFind.Elaborazione === false || parseFloat(oConfStorPos.Zimponibile) > 0) {
+                                    x.ZCONFSTORRECAP2Set.results.splice(i, 1);
+                                    i--;
+                                }
+                            }
+                        }
                         for (var i = 0; i < x.ZCONFSTORHEAD2Set.results.length; i++) {
                             var oConfStorHead = x.ZCONFSTORHEAD2Set.results[i];
                             var oFind = RowsErrorRecap.find(y => y.Bukrs === oConfStorHead.Bukrs
                                 && y.Lifnr === oConfStorHead.Lifnr
                                 && y.Ziva === oConfStorHead.Ziva);
                             if (oFind) {
-                                if (oFind.Elaborazione === false) {
+                                var oFindFattura = aFatture.find(y => y.Bukrs === oConfStorHead.Bukrs
+                                    && y.Lifnr === oConfStorHead.Lifnr
+                                    && y.Ziva === oConfStorHead.Ziva);
+                                if (oFind.Elaborazione === false || oFindFattura) {
                                     x.ZCONFSTORHEAD2Set.results.splice(i, 1);
                                     i--;
                                 }
@@ -1784,30 +1919,23 @@ sap.ui.define([
                                 && y.Lifnr === oConfStorPos.Lifnr
                                 && y.Ziva === oConfStorPos.Ziva);
                             if (oFind) {
-                                if (oFind.Elaborazione === false) {
+                                var oFindFattura = aFatture.find(y => y.Bukrs === oConfStorPos.Bukrs
+                                    && y.Lifnr === oConfStorPos.Lifnr
+                                    && y.Ziva === oConfStorPos.Ziva);
+                                if (oFind.Elaborazione === false || oFindFattura) {
                                     x.ZCONFSTORPOS2Set.results.splice(i, 1);
                                     i--;
                                 }
                             }
                         }
-                        for (var i = 0; i < x.ZCONFSTORRECAP2Set.results.length; i++) {
-                            var oConfStorPos = x.ZCONFSTORRECAP2Set.results[i];
-                            var oFind = RowsErrorRecap.find(y => y.Bukrs === oConfStorPos.Bukrs
-                                && y.Lifnr === oConfStorPos.Lifnr
-                                && y.Ziva === oConfStorPos.Ziva);
-                            if (oFind) {
-                                if (oFind.Elaborazione === false) {
-                                    x.ZCONFSTORRECAP2Set.results.splice(i, 1);
-                                    i--;
-                                }
-                            }
-                        }
                     });
-                    RowsError = RowsError.filter(x => x.ZCONFSTORRECAP2Set.results.length > 0);
+                    RowsError = RowsError.filter(x => x.ZCONFSTORRECAPSet.results.length > 0);
+                    RowsErrorNoteCredito = RowsErrorNoteCredito.filter(x => x.ZCONFSTORRECAP2Set.results.length > 0);
+                    RowsError = RowsError.concat(RowsErrorNoteCredito);
                     oAppModel.setProperty("/rowsNoError", RowsNoError.concat(RowsError));
                     if (RowsNoError.concat(RowsError).length > 0) {
                         let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                        oRouter.navTo("Compensazione");
+                        oRouter.navTo("FA.Compensazione");
                     } else {
                         sap.m.MessageToast.show(this.oComponent.i18n().getText("msg.noResult.text"));
                     }
@@ -1827,22 +1955,22 @@ sap.ui.define([
                         var RowStorico = {
                             "Societa": x,
                             "Fornitore": y,
-                            "ZCONFSTORHEAD2Set": [],
-                            "ZCONFSTORPOS2Set": [],
-                            "ZCONFSTORRECAP2Set": []
+                            "ZCONFSTORHEADSet": [],
+                            "ZCONFSTORPOSSet": [],
+                            "ZCONFSTORRECAPSet": []
                         };
                         var Find = RowsFiltered.find(z => z.Fornitore === y);
                         if (Find) {
-                            Find.ZCONFSTORHEAD2Set.results.forEach(b => {
+                            Find.ZCONFSTORHEADSet.results.forEach(b => {
                                 if (!b.Zdatadocumento) {
                                     delete b.Zdatadocumento;
                                 } else {
                                     b.Zdatadocumento = new Date(b.Zdatadocumento);
                                 }
-                                RowStorico.ZCONFSTORHEAD2Set.push(b);
+                                RowStorico.ZCONFSTORHEADSet.push(b);
                             });
 
-                            Find.ZCONFSTORPOS2Set.results.forEach(b => {
+                            Find.ZCONFSTORPOSSet.results.forEach(b => {
                                 if (!b.Bedat) {
                                     delete b.Bedat;
                                 } else {
@@ -1853,9 +1981,9 @@ sap.ui.define([
                                 } else {
                                     b.Zdatadocumento = new Date(b.Zdatadocumento);
                                 }
-                                RowStorico.ZCONFSTORPOS2Set.push(b);
+                                RowStorico.ZCONFSTORPOSSet.push(b);
                             });
-                            Find.ZCONFSTORRECAP2Set.results.forEach(b => {
+                            Find.ZCONFSTORRECAPSet.results.forEach(b => {
                                 if (!b.Zdatadocumento) {
                                     delete b.Zdatadocumento;
                                 } else {
@@ -1870,17 +1998,17 @@ sap.ui.define([
                                 } else {
                                     b.Zdataaccettazioneda = new Date(b.Zdataaccettazioneda);
                                 }
-                                RowStorico.ZCONFSTORRECAP2Set.push(b);
+                                RowStorico.ZCONFSTORRECAPSet.push(b);
                             });
                         }
                         RowsStorico.push(RowStorico);
                     });
                 });
                 var batchChanges = [];
-                var sServiceUrl = "/sap/opu/odata/sap/ZCRUSCOTTOCONFERIMENTO_SRV/";
+                var sServiceUrl = "/sap/opu/odata/sap/ZCRUSCCONFFA_SRV_01/";
                 var oDataModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
                 for (var i = 0; i < RowsStorico.length; i++) {
-                    batchChanges.push(oDataModel.createBatchOperation("FAD2Set", "POST", RowsStorico[i]));
+                    batchChanges.push(oDataModel.createBatchOperation("FA2Set", "POST", RowsStorico[i]));
                 }
                 oDataModel.addBatchChangeOperations(batchChanges);
                 const oPromiseBatch = new Promise((resolve, reject) => {
@@ -1905,7 +2033,7 @@ sap.ui.define([
                     arrayRes = [];
                 this.oGlobalBusyDialog.open();
                 if (!this._ModificaStatoValueHelpDialog) {
-                    this._ModificaStatoValueHelpDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.Fragments.ModificaStato", this);
+                    this._ModificaStatoValueHelpDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.FA.Fragments.ModificaStato", this);
                     this.getView().addDependent(this._ModificaStatoValueHelpDialog);
                 }
                 this._ModificaStatoValueHelpDialog.open();
@@ -1936,7 +2064,7 @@ sap.ui.define([
                     }
                 });
                 var batchChanges = [];
-                var sServiceUrl = "/sap/opu/odata/sap/ZCRUSCOTTOCONFERIMENTO_SRV/";
+                var sServiceUrl = "/sap/opu/odata/sap/ZCRUSCCONFFA_SRV_01/";
                 var oDataModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
                 RowsChange.forEach(x => {
                     //var ModifyString = "ZCONFSTORRECAPSet(Zidstorico='" + x.Zidstorico + "',Zprogsdi='" + x.Zprogsdi + "',Znumprot='" + x.Znumprot + "',Ziva=" + x.Ziva + "m)",
@@ -1945,7 +2073,7 @@ sap.ui.define([
                             "Zstatus": x.Zstatus
                         };
                     if (x.Zstatus === "S") {
-                        batchChanges.push(oDataModel.createBatchOperation(encodeURIComponent(ModifyString), "PATCH", { "Zprogsdi": x.Zprogsdi, "Zstatus": x.Zstatus }));
+                        batchChanges.push(oDataModel.createBatchOperation(encodeURIComponent(ModifyString), "PATCH", { "Zprogsdi": x.Zprogsdi }));
                     } else {
                         batchChanges.push(oDataModel.createBatchOperation(encodeURIComponent(ModifyString), "PATCH", StatoA));
                     }
@@ -1981,9 +2109,10 @@ sap.ui.define([
                 var oSelIndices = oTable.getSelectedIndices(),
                     Rows = oAppModel.getProperty("/rowsStoricoRecapUnique");
                 const oPromiseRows = oSelIndices.map(item => {
-                    let Row = oTable.getContextByIndex(item).getObject(),
-                        RowsFiltered = Rows.filter(x => parseFloat(x.Zidrif) !== 0 && Row.Zidrif === x.Zidrif && parseFloat(x.Zidstorico) < parseFloat(Row.Zidstorico));
-                    if ((oTable.getContextByIndex(item).getObject().Zstatus !== "F" && oTable.getContextByIndex(item).getObject().Zstatus !== "P") || RowsFiltered.length > 0) {
+                    let Row = oTable.getContextByIndex(item).getObject();
+                    //                        RowsFiltered = Rows.filter(x => parseFloat(x.Zidrif) !== 0 && Row.Zidrif === x.Zidrif && parseFloat(x.Zidstorico) < parseFloat(Row.Zidstorico));
+                    //                    if ((oTable.getContextByIndex(item).getObject().Zstatus !== "F" && oTable.getContextByIndex(item).getObject().Zstatus !== "P") || RowsFiltered.length > 0) {
+                    if ((oTable.getContextByIndex(item).getObject().Zstatus !== "F" && oTable.getContextByIndex(item).getObject().Zstatus !== "P")) {
                         return new Promise((resolve, reject) => {
                             resolve();
                         })
@@ -2005,7 +2134,7 @@ sap.ui.define([
                     const oPromiseXML = new Promise((resolve1, reject1) => {
                         var ModifyString = "XmlSet(ZIDSTORICO='" + Row.Zidstorico + "',ZNUMPROT='" + Row.Znumprot + "')";
                         ModifyString = "/" + encodeURIComponent(ModifyString);
-                        this.getView().getModel().read(ModifyString, {
+                        this.getView().getModel("faModel").read(ModifyString, {
                             success: (oData) => {
                                 resolve1(oData);
                             },
@@ -2025,6 +2154,70 @@ sap.ui.define([
                     });
                 });
             },
+            onEmissioneFattura: function (oEvent) {
+                if (!this._searchHelpEMPDialog2) {
+                    this._searchHelpEMPDialog2 = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.FA.Fragments.PopupDocTypeCoge", this);
+                    this.getView().addDependent(this._searchHelpEMPDialog2);
+                }
+                this._searchHelpEMPDialog2.open();
+            },
+            onValueHelpCoge: async function (oEvent, sEntity) {
+                this.oGlobalBusyDialog.open();
+                var oView = this.getView(),
+                    arrayRes = [];
+                if (!this._pValueHelpDialog) {
+                    this._pValueHelpDialog = Fragment.load({
+                        id: oView.getId(),
+                        name: "it.orogel.cruscottoconferimento.view.FA.Fragments.DynamicFragCoge",
+                        controller: this
+                    }).then(function (oValueHelpDialog) {
+                        oView.addDependent(oValueHelpDialog);
+                        return oValueHelpDialog;
+                    });
+                }
+                var aResults = await this._APIGet(this.getOwnerComponent().getModel("faModel"), "/" + sEntity, "", "")
+                if (sEntity === "ContiCoGeSet") {
+                    aResults.forEach(e => {
+                        var obj = { key: e.Sakan, text: e.Txt50, type: sEntity }
+                        arrayRes.push(obj)
+                    });
+                } else {
+                    aResults.forEach(e => {
+                        var obj = { key: e.Blart, text: e.Ltext, type: sEntity }
+                        arrayRes.push(obj)
+                    });
+                }
+                if (aResults.length > 0) {
+                    //this.byId("_IDGenSelectDialog13M").setMultiSelect(false)
+                }
+                this.getOwnerComponent().getModel("dynamicModel3").setData(arrayRes);
+                this.refresh("dynamicModel3");
+                this.oGlobalBusyDialog.close();
+                this._pValueHelpDialog.then(function (oValueHelpDialog) {
+                    oValueHelpDialog.open();
+                }.bind(this));
+
+            },
+            _handleValueHelpCloseCoge: function (dynamicModel, evt) {
+                var aSelectedItems = evt.getParameter("selectedItems"),
+                    aModel = this.getOwnerComponent().getModel("emissioneFatturaModel").getData(),
+                    type = this.getOwnerComponent().getModel("dynamicModel3").getData()[0].type;
+
+                if (type === "TipoDocumentoSet") {
+                    aModel.TipoDocumento = aSelectedItems[0].getTitle();
+                } else if (type === "ContiCoGeSet") {
+                    aModel.ContoCoge = aSelectedItems[0].getTitle();
+                }
+                this.getView().getModel("emissioneFatturaModel").refresh(true);
+            },
+            onConfermaCoge: function (oEvent) {
+                debugger;
+            },
+            onAnnullaCoge: function (oEvent) {
+                this._searchHelpEMPDialog2.close();
+                this._searchHelpEMPDialog2.destroy();
+                this._searchHelpEMPDialog2 = null;
+            },
             onInvioMail: function (oEvent) {
                 this.oGlobalBusyDialog.open();
                 const oAppModel = this.getView().getModel("appModel"),
@@ -2034,10 +2227,11 @@ sap.ui.define([
                 this.ErroreMail = "";
                 //ErroreMail="I seguenti Soci non hanno mail in anagrafica:\n";
                 const oPromiseRows = oSelIndices.map(item => {
-                    let Row = oTable.getContextByIndex(item).getObject(),
-                        RowsFiltered = Rows.filter(x => parseFloat(x.Zidrif) !== 0 && Row.Zidrif === x.Zidrif && parseFloat(x.Zidstorico) < parseFloat(Row.Zidstorico));
+                    let Row = oTable.getContextByIndex(item).getObject();
+                    //    RowsFiltered = Rows.filter(x => parseFloat(x.Zidrif) !== 0 && Row.Zidrif === x.Zidrif && parseFloat(x.Zidstorico) < parseFloat(Row.Zidstorico));
                     //if (oTable.getContextByIndex(item).getObject().Zstatus !== "P") {
-                    if (Row.Zstatus !== "P" || RowsFiltered.length > 0) {
+                    //if (Row.Zstatus !== "P" || RowsFiltered.length > 0) {
+                    if (Row.Zstatus !== "P") {
                         return new Promise((resolve, reject) => {
                             resolve();
                         })
@@ -2073,7 +2267,7 @@ sap.ui.define([
                             "Zidstorico": Row.Zidstorico,
                             "Znumprot": Row.Znumprot
                         };
-                        this.getView().getModel().create("/EmailAllegatiSet", Email, {
+                        this.getView().getModel("faModel").create("/EmailAllegatiSet", Email, {
                             success: (oData) => {
                                 if (oData.Errore !== "") {
                                     if (this.ErroreMail === "") {
@@ -2107,7 +2301,7 @@ sap.ui.define([
                     and: true
                 });
                 this.oGlobalBusyDialog.open();
-                this.getView().getModel().read("/StampaStoricoLiquidazioneSet", {
+                this.getView().getModel("faModel").read("/StampaStoricoLiquidazioneSet", {
                     filters: [oFinalFilter],
                     success: (oData) => {
                         let sAllegato1 = Constants.STORICOLIQUIDAZIONE.XML;
@@ -2164,10 +2358,16 @@ sap.ui.define([
                                 "embedFont": "0"
                             };
                         var oPDFModel = this.getView().getModel("pdfModel");
-                        var filename = "EstrattoContoDiLiquidazione" + ".pdf";
+                        var filename = "EstrattoContoDiLiquidazione";
                         oPDFModel.create(Constants.PDF.ENTITY, mObj, {
                             success: (oData) => {
-                                download("data:application/pdf;base64," + oData.PDFOut, filename, "application/pdf");
+                                var binary = atob(oData.PDFOut);
+                                var len = binary.length;
+                                var bytes = new Uint8Array(len);
+                                for (var i = 0; i < len; i++) {
+                                    bytes[i] = binary.charCodeAt(i);
+                                }
+                                sap.ui.core.util.File.save(bytes.buffer, filename, "pdf", "application/pdf");
                                 this.oGlobalBusyDialog.close();
                             },
                             error: (oError) => {
@@ -2193,7 +2393,7 @@ sap.ui.define([
                     and: true
                 });
                 this.oGlobalBusyDialog.open();
-                this.getView().getModel().read("/StampaStoricoLiquidazioneSet", {
+                this.getView().getModel("faModel").read("/StampaStoricoLiquidazioneSet", {
                     filters: [oFinalFilter],
                     success: (oData) => {
                         let sAllegato1 = Constants.STORICOLIQUIDAZIONE.XML;
@@ -2290,7 +2490,7 @@ sap.ui.define([
                 });
                 this.oGlobalBusyDialog.open();
                 const oPromiseDatiStampa = new Promise((resolve, reject) => {
-                    this.getView().getModel().read("/StampaFatturaSet", {
+                    this.getView().getModel("faModel").read("/StampaFatturaSet", {
                         urlParameters: {
                             "$expand": "StampaFatturaAziendaSet,StampaFatturaFornitoreSet,ZCONFMAGGIORAZSet,ZCONFACCPREGSet"
                         },
@@ -2314,6 +2514,7 @@ sap.ui.define([
                                 } else {
                                     sAllegato1 = sAllegato1.replace("{Type_Invoice}", "BOZZA FATTURA");
                                 }
+                                sAllegato1 = sAllegato1.replace("{CompanyCode}", Fattura.Bukrs);
                                 sAllegato1 = sAllegato1.replace("{NameC}", FornitoreFattura.Name);
                                 sAllegato1 = sAllegato1.replace("{StreetC}", FornitoreFattura.Street);
                                 sAllegato1 = sAllegato1.replace("{House_Num1C}", FornitoreFattura.House_Num1);
@@ -2341,7 +2542,10 @@ sap.ui.define([
                                 var sommaTotale = 0.00,
                                     sommaQuantita = 0.00,
                                     imponibile = 0.00,
-                                    totalemerce = 0.00;
+                                    totalemerce = 0.00,
+                                    aPesoLordo = [],
+                                    oPesoLordo = [],
+                                    Imponibili = [];
                                 if (!Forfettario) {
                                     var fieldArray = ["Specie",
                                         "Stagionalita", "Varieta", "CertificazioneAziendale", "CertificazioneProdotto", "Residuo",
@@ -2381,11 +2585,18 @@ sap.ui.define([
                                                     sAllegato1 = sAllegato1.replace("{Quality}", x.DescQualita);
                                                     sAllegato1 = sAllegato1.replace("{Caliber}", x.DescCalibrazione);
                                                     sAllegato1 = sAllegato1.replace("{UM}", x.Meins);
-                                                    sAllegato1 = sAllegato1.replace("{Quantity}", x.Menge);
-                                                    var ImportoRiga = (parseFloat(x.zprezlordo) * parseFloat(x.zp)),
-                                                        ImportoTotaleRiga = parseFloat(ImportoRiga) * parseFloat(x.Menge);
-                                                    sAllegato1 = sAllegato1.replace("{Price}", ImportoRiga.toFixed(2));
-                                                    sAllegato1 = sAllegato1.replace("{Total}", ImportoTotaleRiga.toFixed(2));
+                                                    sAllegato1 = sAllegato1.replace("{Quantity}", parseInt(x.Menge).toLocaleString('it-IT'));
+                                                    var ImportoRiga = 0.00;
+                                                    if (parseFloat(x.zp) !== 0) {
+                                                        ImportoRiga = (parseFloat(x.zprezlordo) * parseFloat(x.zp));
+                                                    } else if (parseFloat(x.zv) !== 0) {
+                                                        ImportoRiga = parseFloat(x.zv);
+                                                    } else {
+                                                        ImportoRiga = (parseFloat(x.zprezlordo) - parseFloat(x.zd));
+                                                    }
+                                                    var ImportoTotaleRiga = parseFloat(ImportoRiga) * parseFloat(x.Menge);
+                                                    sAllegato1 = sAllegato1.replace("{Price}", ImportoRiga.toLocaleString('it-IT', { minimumFractionDigits: 4, maximumFractionDigits: 4 }));
+                                                    sAllegato1 = sAllegato1.replace("{Total}", ImportoTotaleRiga.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                                     sommaTotaleRiga = parseFloat(sommaTotaleRiga) + parseFloat(ImportoTotaleRiga);
                                                     sommaQuantitaRiga = parseFloat(sommaQuantitaRiga) + parseFloat(x.Menge);
                                                 } else {
@@ -2394,87 +2605,148 @@ sap.ui.define([
                                                     sAllegato1 = sAllegato1.replace("{Quality}", "Scarto");
                                                     sAllegato1 = sAllegato1.replace("{Caliber}", "");
                                                     sAllegato1 = sAllegato1.replace("{UM}", x.Meins);
-                                                    sAllegato1 = sAllegato1.replace("{Quantity}", x.Menge);
+                                                    sAllegato1 = sAllegato1.replace("{Quantity}", parseInt(x.Menge).toLocaleString('it-IT'));
                                                     sAllegato1 = sAllegato1.replace("{Price}", "");
                                                     sAllegato1 = sAllegato1.replace("{Total}", "-");
                                                     sommaQuantitaRiga = parseFloat(sommaQuantitaRiga) + parseFloat(x.Menge);
                                                 }
+                                                oPesoLordo = {
+                                                    "Specie": x.Specie,
+                                                    "DescSpecie": x.DescSpecie,
+                                                    "PesoLordo": parseFloat(x.Brgew),
+                                                    "CostoTrasporto": parseFloat(x.Zprtransp),
+                                                    "ziva": parseFloat(x.ziva)
+                                                };
+                                                var FindPesoLordo = aPesoLordo.find(x => x.Specie === oPesoLordo.Specie);
+                                                if (FindPesoLordo) {
+                                                    FindPesoLordo.PesoLordo = parseFloat(FindPesoLordo.PesoLordo) + parseFloat(oPesoLordo.PesoLordo)
+                                                } else {
+                                                    aPesoLordo.push(oPesoLordo);
+                                                }
                                             });
                                             sAllegato1 = sAllegato1.replace("{U.M}", aFilter[0].Meins);
-                                            sAllegato1 = sAllegato1.replace("{SumQuantity}", parseFloat(sommaQuantitaRiga).toFixed(2));
-                                            sAllegato1 = sAllegato1.replace("{SumTotal}", parseFloat(sommaTotaleRiga).toFixed(2));
+                                            sAllegato1 = sAllegato1.replace("{SumQuantity}", parseInt(sommaQuantitaRiga).toLocaleString('it-IT'));
+                                            sAllegato1 = sAllegato1.replace("{SumTotal}", parseFloat(sommaTotaleRiga).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                             sommaQuantita = parseFloat(sommaQuantita) + parseFloat(sommaQuantitaRiga);
+                                            var FindIva = Imponibili.find(x => x.ziva === aFilter[0].ziva);
+                                            if (FindIva) {
+                                                FindIva.importo = parseFloat(FindIva.importo) + parseFloat(sommaTotaleRiga);
+                                            } else {
+                                                Imponibili.push({ "ziva": aFilter[0].ziva, "importo": parseFloat(sommaTotaleRiga) - parseFloat(aFilter[0].ztotacconti) });
+                                            }
                                             sommaTotale = parseFloat(sommaTotale) + parseFloat(sommaTotaleRiga);
                                             sAllegato1 = sAllegato1.replace("{ROW1TABLE1}", "");
                                         }
                                     });
                                     sAllegato1 = sAllegato1.replace("{SumAllUM}", FirstItem.Meins);
-                                    sAllegato1 = sAllegato1.replace("{SumAllQuantity}", parseFloat(sommaQuantita).toFixed(2));
-                                    sAllegato1 = sAllegato1.replace("{SumAllTotal}", parseFloat(sommaTotale).toFixed(2));
+                                    sAllegato1 = sAllegato1.replace("{SumAllQuantity}", parseInt(sommaQuantita).toLocaleString('it-IT'));
+                                    sAllegato1 = sAllegato1.replace("{SumAllTotal}", parseFloat(sommaTotale).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                     sAllegato1 = sAllegato1.replace("{TABLE1}", "");
+                                    if (Fattura.Bukrs === "IT04") {
+                                        aPesoLordo.forEach(y => {
+                                            sAllegato1 = sAllegato1.replace("{ROW1TABLE3}", Constants.FATTURA.ROW1TABLE3);
+                                            sAllegato1 = sAllegato1.replace("{Species}", y.DescSpecie);
+                                            sAllegato1 = sAllegato1.replace("{GrossKg}", parseFloat(y.PesoLordo).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                            var AmountPesoLordo = parseFloat(y.PesoLordo) * parseFloat(y.CostoTrasporto);
+                                            sAllegato1 = sAllegato1.replace("{TotalAmount}", parseFloat(AmountPesoLordo).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                            var FindIvaPesoLordo = Imponibili.find(x => x.ziva === aFilter[0].ziva);
+                                            if (FindIvaPesoLordo) {
+                                                FindIvaPesoLordo.importo = parseFloat(FindIvaPesoLordo.importo) + parseFloat(sommaTotaleRiga);
+                                            }
+                                            sommaTotale = parseFloat(sommaTotale) + parseFloat(AmountPesoLordo);
+                                        });
+                                    }
                                     sAllegato1 = sAllegato1.replace("{ROW1TABLE3}", "");
                                     //IMPORTI FATTURA
-                                    sAllegato1 = sAllegato1.replace("{VTotaleMerceConferita}", parseFloat(sommaQuantita).toFixed(2));
-
+                                    sAllegato1 = sAllegato1.replace("{VTotaleMerceConferita}", parseFloat(sommaTotale).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                     //MAGGIORAZIONE
+                                    const uniqueMapMaggiorazione = {};
+                                    oData.results.forEach((obj) => {
+                                        const { Ebeln, ziva } = obj;
+                                        const key = `${Ebeln}-${ziva}`;
+                                        if (!uniqueMapMaggiorazione[key]) {
+                                            uniqueMapMaggiorazione[key] = { Ebeln, ziva };
+                                        }
+                                    });
+                                    const uniqueArrayMaggiorazione = Object.keys(uniqueMapMaggiorazione).map((key) => uniqueMapMaggiorazione[key]);
+                                    uniqueArrayMaggiorazione.forEach(maggioraz => {
+                                        var oFindMaggiorazione = oData.results.find(x => x.Ebeln === maggioraz.Ebeln && x.ziva === maggioraz.ziva);
+                                        if (oFindMaggiorazione) {
+                                            var oFindImponibile = Imponibili.find(x => x.ziva === oFindMaggiorazione.ziva);
+                                            if (oFindImponibile) {
+                                                oFindImponibile.importo = parseFloat(oFindImponibile.importo) + parseFloat(oFindMaggiorazione.zmaggioraz);
+                                            }
+                                        }
+                                    });
                                     FirstItem.ZCONFMAGGIORAZSet.results.forEach(zconf => {
-                                        sAllegato1 = sAllegato1.replace("{ROW2MAGGIORAZIONE}", Constants.FATTURA.ROW2MAGGIORAZIONE);
-                                        sAllegato1 = sAllegato1.replace("{Maggiorazione}", zconf.Zdescr);
-                                        sAllegato1 = sAllegato1.replace("{VMaggiorazione}", parseFloat(zconf.Zcalcmag).toFixed(2));
-                                        sommaTotale = parseFloat(sommaTotale) + parseFloat(zconf.Zcalcmag);
+                                        if (parseFloat(zconf.Zcalcmag) !== 0) {
+                                            sAllegato1 = sAllegato1.replace("{ROW2MAGGIORAZIONE}", Constants.FATTURA.ROW2MAGGIORAZIONE);
+                                            sAllegato1 = sAllegato1.replace("{Maggiorazione}", zconf.Zdescr);
+                                            sAllegato1 = sAllegato1.replace("{VMaggiorazione}", parseFloat(zconf.Zcalcmag).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                            sommaTotale = parseFloat(sommaTotale) + parseFloat(zconf.Zcalcmag);
+                                        }
                                     });
                                     sAllegato1 = sAllegato1.replace("{ROW2MAGGIORAZIONE}", "");
                                     //ACCONTI
                                     FirstItem.ZCONFACCPREGSet.results.forEach(acc => {
                                         sAllegato1 = sAllegato1.replace("{ROW4ACCONTI}", Constants.FATTURA.ROW4ACCONTI);
                                         sAllegato1 = sAllegato1.replace("{Acconto}", "Acconto " + acc.Zdescr);
-                                        sAllegato1 = sAllegato1.replace("{VAcconto}", parseFloat(acc.Zimporto).toFixed(2));
-                                        sommaTotale = parseFloat(sommaTotale) + parseFloat(acc.Zimporto);
+                                        sAllegato1 = sAllegato1.replace("{VAcconto}", "-" + parseFloat(acc.Zimporto).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                        sommaTotale = parseFloat(sommaTotale) - parseFloat(acc.Zimporto);
                                     });
                                     sAllegato1 = sAllegato1.replace("{ROW4ACCONTI}", "");
                                     sAllegato1 = sAllegato1.replace("{Imponibile}", parseFloat(sommaTotale).toFixed(2));
-                                    //IVA
+                                    //IVA E IMPORTI
                                     var aUniqueZiva = [...new Set(oData.results.map(item => `${item.ziva}%${item.ztotiva}`))];
-                                    aUniqueZiva.forEach(iva => {
-                                        var values = iva.split("%"),
-                                            Percentage = values[0],
-                                            ZtotIva = values[1];
-                                        sAllegato1 = sAllegato1.replace("{FOOTERROW2}", Constants.FATTURA.FOOTERROW2);
-
-                                        sAllegato1 = sAllegato1.replace("{Percentage}", parseFloat(Percentage).toFixed(2));
-                                        sAllegato1 = sAllegato1.replace("{Iva}", parseFloat(ZtotIva).toFixed(2));
-                                        sommaTotale = parseFloat(sommaTotale) + parseFloat(ZtotIva);
+                                    Imponibili.forEach(x => {
+                                        aUniqueZiva.forEach(iva => {
+                                            var values = iva.split("%"),
+                                                Percentage = values[0],
+                                                ZtotIva = values[1];
+                                            if (parseFloat(ZtotIva) !== 0 && Percentage === x.ziva) {
+                                                sAllegato1 = sAllegato1.replace("{FOOTERROW1}", Constants.FATTURA.FOOTERROW1);
+                                                sAllegato1 = sAllegato1.replace("{Imponibile}", parseFloat(x.importo).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                                sAllegato1 = sAllegato1.replace("{Percentage}", parseFloat(Percentage).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                                sAllegato1 = sAllegato1.replace("{Iva}", parseFloat(ZtotIva).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                                sommaTotale = parseFloat(sommaTotale) + parseFloat(ZtotIva);
+                                            }
+                                        });
                                     });
-                                    sAllegato1 = sAllegato1.replace("{FOOTERROW2}", "");
-                                    sAllegato1 = sAllegato1.replace("{TotaleDocumento}", parseFloat(sommaTotale).toFixed(2));
+                                    sAllegato1 = sAllegato1.replace("{FOOTERROW1}", "");
+                                    sAllegato1 = sAllegato1.replace("{TotaleDocumento}", parseFloat(sommaTotale).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                     //DDT
                                     var aUniqueIHREZ = [...new Set(oData.results.map(item => item.ihrez))];
                                     aUniqueIHREZ.forEach(ihrez => {
                                         var FindDDT = oData.results.find(y => y.ihrez === ihrez);
                                         sAllegato1 = sAllegato1.replace("{ROW1DDT}", Constants.FATTURA.ROW1DDT);
                                         sAllegato1 = sAllegato1.replace("{DeliveryNoteNumber}", FindDDT.ihrez);
-                                        sAllegato1 = sAllegato1.replace("{Date1}", FindDDT.zz1_dataddt);
+                                        sAllegato1 = sAllegato1.replace("{Date1}", FindDDT.Bedat.toLocaleDateString("IT-it"));
                                         sAllegato1 = sAllegato1.replace("{MemberDDTNumber}", FindDDT.unsez);
-                                        sAllegato1 = sAllegato1.replace("{Date2}", FindDDT.zz1_dataddt);
+                                        if (FindDDT.zz1_dataddt instanceof Date) {
+                                            sAllegato1 = sAllegato1.replace("{Date2}", FindDDT.zz1_dataddt.toLocaleDateString("IT-it"));
+                                        } else {
+                                            sAllegato1 = sAllegato1.replace("{Date2}", "");
+                                        }
                                     });
                                     sAllegato1 = sAllegato1.replace("{ROW1DDT}", "");
                                 } else {
                                     sommaTotale = parseFloat(Fattura.Zimponibile);
-                                    sAllegato1 = sAllegato1.replace("{Imponibile}", parseFloat(sommaTotale).toFixed(2));
+                                    sAllegato1 = sAllegato1.replace("{Imponibile}", parseFloat(sommaTotale).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                     //IVA
                                     var aUniqueZiva = [...new Set(oData.results.map(item => `${item.ziva}%${item.ztotiva}`))];
                                     aUniqueZiva.forEach(iva => {
                                         var values = iva.split("%"),
                                             Percentage = values[0],
                                             ZtotIva = values[1];
-                                        sAllegato1 = sAllegato1.replace("{FOOTERROW2}", Constants.FATTURA.FOOTERROW2);
-
-                                        sAllegato1 = sAllegato1.replace("{Percentage}", parseFloat(Percentage).toFixed(2));
-                                        sAllegato1 = sAllegato1.replace("{Iva}", parseFloat(ZtotIva).toFixed(2));
-                                        sommaTotale = parseFloat(sommaTotale) + parseFloat(ZtotIva);
+                                        if (parseFloat(ZtotIva) !== 0) {
+                                            sAllegato1 = sAllegato1.replace("{FOOTERROW2}", Constants.FATTURA.FOOTERROW2);
+                                            sAllegato1 = sAllegato1.replace("{Percentage}", parseFloat(Percentage).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                            sAllegato1 = sAllegato1.replace("{Iva}", parseFloat(ZtotIva).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                            sommaTotale = parseFloat(sommaTotale) + parseFloat(ZtotIva);
+                                        }
                                     });
                                     sAllegato1 = sAllegato1.replace("{FOOTERROW2}", "");
-                                    sAllegato1 = sAllegato1.replace("{TotaleDocumento}", parseFloat(sommaTotale).toFixed(2));
+                                    sAllegato1 = sAllegato1.replace("{TotaleDocumento}", parseFloat(sommaTotale).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                 }
                                 sAllegato1 = sAllegato1.replaceAll("&", "&amp;");
                                 var xmlz = (new DOMParser()).parseFromString(sAllegato1, "application/xml"),
@@ -2489,10 +2761,16 @@ sap.ui.define([
                                     "embedFont": "0"
                                 };
                                 var oPDFModel = this.getView().getModel("pdfModel");
-                                var filename = "Fattura" + ".pdf";
+                                var filename = "Fattura";
                                 oPDFModel.create(Constants.PDF.ENTITY, mObj, {
                                     success: (oData) => {
-                                        download("data:application/pdf;base64," + oData.PDFOut, filename, "application/pdf");
+                                        var binary = atob(oData.PDFOut);
+                                        var len = binary.length;
+                                        var bytes = new Uint8Array(len);
+                                        for (var i = 0; i < len; i++) {
+                                            bytes[i] = binary.charCodeAt(i);
+                                        }
+                                        sap.ui.core.util.File.save(bytes.buffer, filename, "pdf", "application/pdf");
                                         this.oGlobalBusyDialog.close();
                                     },
                                     error: (oError) => {
@@ -2555,6 +2833,7 @@ sap.ui.define([
                             } else {
                                 sAllegato1 = sAllegato1.replace("{Type_Invoice}", "BOZZA FATTURA");
                             }
+                            sAllegato1 = sAllegato1.replace("{CompanyCode}", Fattura.Bukrs);
                             sAllegato1 = sAllegato1.replace("{NameC}", FornitoreFattura.Name);
                             sAllegato1 = sAllegato1.replace("{StreetC}", FornitoreFattura.Street);
                             sAllegato1 = sAllegato1.replace("{House_Num1C}", FornitoreFattura.House_Num1);
@@ -2582,7 +2861,10 @@ sap.ui.define([
                             var sommaTotale = 0.00,
                                 sommaQuantita = 0.00,
                                 imponibile = 0.00,
-                                totalemerce = 0.00;
+                                totalemerce = 0.00,
+                                aPesoLordo = [],
+                                oPesoLordo = [],
+                                Imponibili = [];
                             if (!Forfettario) {
                                 var fieldArray = ["Specie",
                                     "Stagionalita", "Varieta", "CertificazioneAziendale", "CertificazioneProdotto", "Residuo",
@@ -2622,11 +2904,18 @@ sap.ui.define([
                                                 sAllegato1 = sAllegato1.replace("{Quality}", x.DescQualita);
                                                 sAllegato1 = sAllegato1.replace("{Caliber}", x.DescCalibrazione);
                                                 sAllegato1 = sAllegato1.replace("{UM}", x.Meins);
-                                                sAllegato1 = sAllegato1.replace("{Quantity}", x.Menge);
-                                                var ImportoRiga = (parseFloat(x.zprezlordo) * parseFloat(x.zp)),
-                                                    ImportoTotaleRiga = parseFloat(ImportoRiga) * parseFloat(x.Menge);
-                                                sAllegato1 = sAllegato1.replace("{Price}", ImportoRiga.toFixed(2));
-                                                sAllegato1 = sAllegato1.replace("{Total}", ImportoTotaleRiga.toFixed(2));
+                                                sAllegato1 = sAllegato1.replace("{Quantity}", parseInt(x.Menge).toLocaleString('it-IT'));
+                                                var ImportoRiga = 0.00;
+                                                if (parseFloat(x.zp) !== 0) {
+                                                    ImportoRiga = (parseFloat(x.zprezlordo) * parseFloat(x.zp));
+                                                } else if (parseFloat(x.zv) !== 0) {
+                                                    ImportoRiga = parseFloat(x.zv);
+                                                } else {
+                                                    ImportoRiga = (parseFloat(x.zprezlordo) - parseFloat(x.zd));
+                                                }
+                                                var ImportoTotaleRiga = parseFloat(ImportoRiga) * parseFloat(x.Menge);
+                                                sAllegato1 = sAllegato1.replace("{Price}", ImportoRiga.toLocaleString('it-IT', { minimumFractionDigits: 4, maximumFractionDigits: 4 }));
+                                                sAllegato1 = sAllegato1.replace("{Total}", ImportoTotaleRiga.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                                 sommaTotaleRiga = parseFloat(sommaTotaleRiga) + parseFloat(ImportoTotaleRiga);
                                                 sommaQuantitaRiga = parseFloat(sommaQuantitaRiga) + parseFloat(x.Menge);
                                             } else {
@@ -2635,87 +2924,147 @@ sap.ui.define([
                                                 sAllegato1 = sAllegato1.replace("{Quality}", "Scarto");
                                                 sAllegato1 = sAllegato1.replace("{Caliber}", "");
                                                 sAllegato1 = sAllegato1.replace("{UM}", x.Meins);
-                                                sAllegato1 = sAllegato1.replace("{Quantity}", x.Menge);
+                                                sAllegato1 = sAllegato1.replace("{Quantity}", parseInt(x.Menge).toLocaleString('it-IT'));
                                                 sAllegato1 = sAllegato1.replace("{Price}", "");
                                                 sAllegato1 = sAllegato1.replace("{Total}", "-");
                                                 sommaQuantitaRiga = parseFloat(sommaQuantitaRiga) + parseFloat(x.Menge);
                                             }
+                                            oPesoLordo = {
+                                                "Specie": x.Specie,
+                                                "DescSpecie": x.DescSpecie,
+                                                "PesoLordo": parseFloat(x.Brgew),
+                                                "CostoTrasporto": parseFloat(x.Zprtransp),
+                                                "ziva": parseFloat(x.ziva)
+                                            };
+                                            var FindPesoLordo = aPesoLordo.find(x => x.Specie === oPesoLordo.Specie);
+                                            if (FindPesoLordo) {
+                                                FindPesoLordo.PesoLordo = parseFloat(FindPesoLordo.PesoLordo) + parseFloat(oPesoLordo.PesoLordo)
+                                            } else {
+                                                aPesoLordo.push(oPesoLordo);
+                                            }
                                         });
                                         sAllegato1 = sAllegato1.replace("{U.M}", aFilter[0].Meins);
-                                        sAllegato1 = sAllegato1.replace("{SumQuantity}", parseFloat(sommaQuantitaRiga).toFixed(2));
-                                        sAllegato1 = sAllegato1.replace("{SumTotal}", parseFloat(sommaTotaleRiga).toFixed(2));
+                                        sAllegato1 = sAllegato1.replace("{SumQuantity}", parseInt(sommaQuantitaRiga).toLocaleString('it-IT'));
+                                        sAllegato1 = sAllegato1.replace("{SumTotal}", parseFloat(sommaTotaleRiga).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                         sommaQuantita = parseFloat(sommaQuantita) + parseFloat(sommaQuantitaRiga);
+                                        var FindIva = Imponibili.find(x => x.ziva === aFilter[0].ziva);
+                                        if (FindIva) {
+                                            FindIva.importo = parseFloat(FindIva.importo) + parseFloat(sommaTotaleRiga);
+                                        } else {
+                                            Imponibili.push({ "ziva": aFilter[0].ziva, "importo": parseFloat(sommaTotaleRiga) - parseFloat(aFilter[0].ztotacconti) });
+                                        }
                                         sommaTotale = parseFloat(sommaTotale) + parseFloat(sommaTotaleRiga);
                                         sAllegato1 = sAllegato1.replace("{ROW1TABLE1}", "");
                                     }
                                 });
                                 sAllegato1 = sAllegato1.replace("{SumAllUM}", FirstItem.Meins);
-                                sAllegato1 = sAllegato1.replace("{SumAllQuantity}", parseFloat(sommaQuantita).toFixed(2));
-                                sAllegato1 = sAllegato1.replace("{SumAllTotal}", parseFloat(sommaTotale).toFixed(2));
+                                sAllegato1 = sAllegato1.replace("{SumAllQuantity}", parseInt(sommaQuantita).toLocaleString('it-IT'));
+                                sAllegato1 = sAllegato1.replace("{SumAllTotal}", parseFloat(sommaTotale).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                 sAllegato1 = sAllegato1.replace("{TABLE1}", "");
+                                if (Fattura.Bukrs === "IT04") {
+                                    aPesoLordo.forEach(y => {
+                                        sAllegato1 = sAllegato1.replace("{ROW1TABLE3}", Constants.FATTURA.ROW1TABLE3);
+                                        sAllegato1 = sAllegato1.replace("{Species}", y.DescSpecie);
+                                        sAllegato1 = sAllegato1.replace("{GrossKg}", parseFloat(y.PesoLordo).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                        var AmountPesoLordo = parseInt(y.PesoLordo) * parseFloat(y.CostoTrasporto);
+                                        sAllegato1 = sAllegato1.replace("{TotalAmount}", parseFloat(AmountPesoLordo).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                        var FindIvaPesoLordo = Imponibili.find(x => x.ziva === aFilter[0].ziva);
+                                        if (FindIvaPesoLordo) {
+                                            FindIvaPesoLordo.importo = parseFloat(FindIvaPesoLordo.importo) + parseFloat(sommaTotaleRiga);
+                                        }
+                                        sommaTotale = parseFloat(sommaTotale) + parseFloat(AmountPesoLordo);
+                                    });
+                                }
                                 sAllegato1 = sAllegato1.replace("{ROW1TABLE3}", "");
                                 //IMPORTI FATTURA
-                                sAllegato1 = sAllegato1.replace("{VTotaleMerceConferita}", parseFloat(sommaQuantita).toFixed(2));
-
+                                sAllegato1 = sAllegato1.replace("{VTotaleMerceConferita}", parseFloat(sommaTotale).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                 //MAGGIORAZIONE
+                                const uniqueMapMaggiorazione = {};
+                                oData.results.forEach((obj) => {
+                                    const { Ebeln, ziva } = obj;
+                                    const key = `${Ebeln}-${ziva}`;
+                                    if (!uniqueMapMaggiorazione[key]) {
+                                        uniqueMapMaggiorazione[key] = { Ebeln, ziva };
+                                    }
+                                });
+                                const uniqueArrayMaggiorazione = Object.keys(uniqueMapMaggiorazione).map((key) => uniqueMapMaggiorazione[key]);
+                                uniqueArrayMaggiorazione.forEach(maggioraz => {
+                                    var oFindMaggiorazione = oData.results.find(x => x.Ebeln === maggioraz.Ebeln && x.ziva === maggioraz.ziva);
+                                    if (oFindMaggiorazione) {
+                                        var oFindImponibile = Imponibili.find(x => x.ziva === oFindMaggiorazione.ziva);
+                                        if (oFindImponibile) {
+                                            oFindImponibile.importo = parseFloat(oFindImponibile.importo) + parseFloat(oFindMaggiorazione.zmaggioraz);
+                                        }
+                                    }
+                                });
                                 FirstItem.ZCONFMAGGIORAZSet.results.forEach(zconf => {
-                                    sAllegato1 = sAllegato1.replace("{ROW2MAGGIORAZIONE}", Constants.FATTURA.ROW2MAGGIORAZIONE);
-                                    sAllegato1 = sAllegato1.replace("{Maggiorazione}", zconf.Zdescr);
-                                    sAllegato1 = sAllegato1.replace("{VMaggiorazione}", parseFloat(zconf.Zcalcmag).toFixed(2));
-                                    sommaTotale = parseFloat(sommaTotale) + parseFloat(zconf.Zcalcmag);
+                                    if (parseFloat(zconf.Zcalcmag) !== 0) {
+                                        sAllegato1 = sAllegato1.replace("{ROW2MAGGIORAZIONE}", Constants.FATTURA.ROW2MAGGIORAZIONE);
+                                        sAllegato1 = sAllegato1.replace("{Maggiorazione}", zconf.Zdescr);
+                                        sAllegato1 = sAllegato1.replace("{VMaggiorazione}", parseFloat(zconf.Zcalcmag).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                        sommaTotale = parseFloat(sommaTotale) + parseFloat(zconf.Zcalcmag);
+                                    }
                                 });
                                 sAllegato1 = sAllegato1.replace("{ROW2MAGGIORAZIONE}", "");
                                 //ACCONTI
                                 FirstItem.ZCONFACCPREGSet.results.forEach(acc => {
                                     sAllegato1 = sAllegato1.replace("{ROW4ACCONTI}", Constants.FATTURA.ROW4ACCONTI);
                                     sAllegato1 = sAllegato1.replace("{Acconto}", "Acconto " + acc.Zdescr);
-                                    sAllegato1 = sAllegato1.replace("{VAcconto}", parseFloat(acc.Zimporto).toFixed(2));
-                                    sommaTotale = parseFloat(sommaTotale) + parseFloat(acc.Zimporto);
+                                    sAllegato1 = sAllegato1.replace("{VAcconto}", "-" + parseFloat(acc.Zimporto).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                    sommaTotale = parseFloat(sommaTotale) - parseFloat(acc.Zimporto);
                                 });
                                 sAllegato1 = sAllegato1.replace("{ROW4ACCONTI}", "");
-                                sAllegato1 = sAllegato1.replace("{Imponibile}", parseFloat(sommaTotale).toFixed(2));
-                                //IVA
+                                //IVA E IMPORTI
                                 var aUniqueZiva = [...new Set(oData.results.map(item => `${item.ziva}%${item.ztotiva}`))];
-                                aUniqueZiva.forEach(iva => {
-                                    var values = iva.split("%"),
-                                        Percentage = values[0],
-                                        ZtotIva = values[1];
-                                    sAllegato1 = sAllegato1.replace("{FOOTERROW2}", Constants.FATTURA.FOOTERROW2);
-
-                                    sAllegato1 = sAllegato1.replace("{Percentage}", parseFloat(Percentage).toFixed(2));
-                                    sAllegato1 = sAllegato1.replace("{Iva}", parseFloat(ZtotIva).toFixed(2));
-                                    sommaTotale = parseFloat(sommaTotale) + parseFloat(ZtotIva);
+                                Imponibili.forEach(x => {
+                                    aUniqueZiva.forEach(iva => {
+                                        var values = iva.split("%"),
+                                            Percentage = values[0],
+                                            ZtotIva = values[1];
+                                        if (parseFloat(ZtotIva) !== 0 && Percentage === x.ziva) {
+                                            sAllegato1 = sAllegato1.replace("{FOOTERROW1}", Constants.FATTURA.FOOTERROW1);
+                                            sAllegato1 = sAllegato1.replace("{Imponibile}", parseFloat(x.importo).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                            sAllegato1 = sAllegato1.replace("{Percentage}", parseFloat(Percentage).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                            sAllegato1 = sAllegato1.replace("{Iva}", parseFloat(ZtotIva).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                            sommaTotale = parseFloat(sommaTotale) + parseFloat(ZtotIva);
+                                        }
+                                    });
                                 });
-                                sAllegato1 = sAllegato1.replace("{FOOTERROW2}", "");
-                                sAllegato1 = sAllegato1.replace("{TotaleDocumento}", parseFloat(sommaTotale).toFixed(2));
+                                sAllegato1 = sAllegato1.replace("{FOOTERROW1}", "");
+                                sAllegato1 = sAllegato1.replace("{TotaleDocumento}", parseFloat(sommaTotale).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                 //DDT
                                 var aUniqueIHREZ = [...new Set(oData.results.map(item => item.ihrez))];
                                 aUniqueIHREZ.forEach(ihrez => {
                                     var FindDDT = oData.results.find(y => y.ihrez === ihrez);
                                     sAllegato1 = sAllegato1.replace("{ROW1DDT}", Constants.FATTURA.ROW1DDT);
                                     sAllegato1 = sAllegato1.replace("{DeliveryNoteNumber}", FindDDT.ihrez);
-                                    sAllegato1 = sAllegato1.replace("{Date1}", FindDDT.zz1_dataddt);
+                                    sAllegato1 = sAllegato1.replace("{Date1}", FindDDT.Bedat.toLocaleDateString("IT-it"));
                                     sAllegato1 = sAllegato1.replace("{MemberDDTNumber}", FindDDT.unsez);
-                                    sAllegato1 = sAllegato1.replace("{Date2}", FindDDT.zz1_dataddt);
+                                    if (FindDDT.zz1_dataddt instanceof Date) {
+                                        sAllegato1 = sAllegato1.replace("{Date2}", FindDDT.zz1_dataddt.toLocaleDateString("IT-it"));
+                                    } else {
+                                        sAllegato1 = sAllegato1.replace("{Date2}", "");
+                                    }
                                 });
                                 sAllegato1 = sAllegato1.replace("{ROW1DDT}", "");
                             } else {
                                 sommaTotale = parseFloat(Fattura.Zimponibile);
-                                sAllegato1 = sAllegato1.replace("{Imponibile}", parseFloat(sommaTotale).toFixed(2));
+                                sAllegato1 = sAllegato1.replace("{Imponibile}", parseFloat(sommaTotale).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                                 //IVA
                                 var aUniqueZiva = [...new Set(oData.results.map(item => `${item.ziva}%${item.ztotiva}`))];
                                 aUniqueZiva.forEach(iva => {
                                     var values = iva.split("%"),
                                         Percentage = values[0],
                                         ZtotIva = values[1];
-                                    sAllegato1 = sAllegato1.replace("{FOOTERROW2}", Constants.FATTURA.FOOTERROW2);
-
-                                    sAllegato1 = sAllegato1.replace("{Percentage}", parseFloat(Percentage).toFixed(2));
-                                    sAllegato1 = sAllegato1.replace("{Iva}", parseFloat(ZtotIva).toFixed(2));
-                                    sommaTotale = parseFloat(sommaTotale) + parseFloat(ZtotIva);
+                                    if (parseFloat(ZtotIva) !== 0) {
+                                        sAllegato1 = sAllegato1.replace("{FOOTERROW2}", Constants.FATTURA.FOOTERROW2);
+                                        sAllegato1 = sAllegato1.replace("{Percentage}", parseFloat(Percentage).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                        sAllegato1 = sAllegato1.replace("{Iva}", parseFloat(ZtotIva).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+                                        sommaTotale = parseFloat(sommaTotale) + parseFloat(ZtotIva);
+                                    }
                                 });
                                 sAllegato1 = sAllegato1.replace("{FOOTERROW2}", "");
-                                sAllegato1 = sAllegato1.replace("{TotaleDocumento}", parseFloat(sommaTotale).toFixed(2));
+                                sAllegato1 = sAllegato1.replace("{TotaleDocumento}", parseFloat(sommaTotale).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
                             }
                             sAllegato1 = sAllegato1.replaceAll("&", "&amp;");
                             var xmlz = (new DOMParser()).parseFromString(sAllegato1, "application/xml"),
@@ -2760,7 +3109,7 @@ sap.ui.define([
                     if (Rows[0].ZRilCont && Rows[0].Ztotdoc > 0) {
                         oModel.setProperty("/Row", Rows[0]);
                         if (!this._searchHelpNotaCreditoDialog) {
-                            this._searchHelpNotaCreditoDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.Fragments.NotaCredito", this);
+                            this._searchHelpNotaCreditoDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.FA.Fragments.NotaCredito", this);
                             this.getView().addDependent(this._searchHelpNotaCreditoDialog);
                         }
                         this._searchHelpNotaCreditoDialog.open();
@@ -2780,13 +3129,13 @@ sap.ui.define([
                 let oModel = this.getView().getModel("notaCreditoModel").getData(),
                     bFiltro = false,
                     sErrore = "";
-                if (!oModel.Importo) {
+                /*if (!oModel.Importo) {
                     bFiltro = true;
                     if (sErrore === "") {
                         sErrore = "Valorizzare i seguenti campi:" + "\n";
                     }
                     sErrore += "Importo" + "\n";
-                }
+                }*/
                 if (!oModel.DataDocumento) {
                     bFiltro = true;
                     if (sErrore === "") {
@@ -2794,28 +3143,34 @@ sap.ui.define([
                     }
                     sErrore += "Data Documento" + "\n";
                 }
-                if (!parseFloat(oModel.Importo) > parseFloat(oModel.Row.Ztotdoc)) {
+                /*if (parseFloat(oModel.Importo) > parseFloat(oModel.Row.Ztotdoc)) {
                     bFiltro = true;
                     sErrore += "Inserire un importo minore del valore della fattura" + "\n";
-                }
+                }*/
                 if (bFiltro) {
                     sap.m.MessageToast.show(sErrore);
                     return;
                 }
+                oModel.DataDocumento.setHours(oModel.DataDocumento.getHours() - oModel.DataDocumento.getTimezoneOffset() / 60);
                 var NotaCredito = {
-                    "Testo1": oModel.Nota1 ? oModel.Nota1 : "",
-                    "Testo2": oModel.Nota2 ? oModel.Nota2 : "",
-                    "Testo3": oModel.Nota3 ? oModel.Nota3 : "",
+                    "Testo1": oModel.Note1 ? oModel.Note1 : "",
+                    "Testo2": oModel.Note2 ? oModel.Note2 : "",
+                    "Testo3": oModel.Note3 ? oModel.Note3 : "",
                     "Zidstorico": oModel.Row.Zidstorico,
                     "Znumprot": oModel.Row.Znumprot,
                     "Zdatadocumento": oModel.DataDocumento,
-                    "Ztotdoc": oModel.Importo,
+                    "Ztotdoc": oModel.Row.Ztotdoc.toFixed(2),
+                    "Ztotfattura": oModel.Row.Ztotdoc.toFixed(2)
                 };
                 this.oGlobalBusyDialog.open();
-                this.getView().getModel().create("/NotaCreditoSet", NotaCredito, {
+                this.getView().getModel("faModel").create("/NotaCreditoSet", NotaCredito, {
                     success: (oDataFAD1) => {
                         this.oGlobalBusyDialog.close();
-                        sap.m.MessageToast.show("Successo");
+                        if (oDataFAD1.Message === "") {
+                            sap.m.MessageToast.show("Successo");
+                        } else {
+                            sap.m.MessageToast.show(oDataFAD1.Message);
+                        }
                         this.onCloseNotaCredito();
                         this.onFilterSearchFAD3();
                     },
@@ -2838,7 +3193,7 @@ sap.ui.define([
                     if (Rows[0].ZRilCont && Rows[0].Ztotdoc > 0 && Rows[0].Zprogsdi !== "" && Rows[0].Zstatus === "I" && Rows[0].Znumprot !== "") {
                         oModel.setProperty("/Row", Rows[0]);
                         if (!this._searchHelpCambioRegimeFiscaleDialog) {
-                            this._searchHelpCambioRegimeFiscaleDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.Fragments.CambioRegimeFiscale", this);
+                            this._searchHelpCambioRegimeFiscaleDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.FA.Fragments.CambioRegimeFiscale", this);
                             this.getView().addDependent(this._searchHelpCambioRegimeFiscaleDialog);
                         }
                         this._searchHelpCambioRegimeFiscaleDialog.open();
@@ -2872,7 +3227,7 @@ sap.ui.define([
                     }
                     sErrore += "Data Documento" + "\n";
                 }
-                if (!parseFloat(oModel.Importo) > parseFloat(oModel.Row.Ztotdoc)) {
+                if (parseFloat(oModel.Importo) > parseFloat(oModel.Row.Ztotdoc)) {
                     bFiltro = true;
                     sErrore += "Inserire un importo minore del valore della fattura" + "\n";
                 }
@@ -2890,7 +3245,7 @@ sap.ui.define([
                     "Ztotdoc": oModel.Importo,
                 };
                 this.oGlobalBusyDialog.open();
-                this.getView().getModel().create("/CambioRegimeFiscSet", NotaCredito, {
+                this.getView().getModel("faModel").create("/CambioRegimeFiscSet", NotaCredito, {
                     success: (oDataFAD1) => {
                         this.oGlobalBusyDialog.close();
                         sap.m.MessageToast.show("Successo");

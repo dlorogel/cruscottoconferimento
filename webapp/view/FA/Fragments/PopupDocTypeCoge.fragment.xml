@@ -1,0 +1,95 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+	xmlns:o="sap.ui.layout.form"
+	controllerName="it.orogel.cruscottoconferimento.controller.FA.FA"
+>
+	<Dialog
+		title="{i18n>lbl.InserireValori}"
+		contentHeight="20%"
+		contentWidth="60%"
+	>
+		<content>
+			<o:SimpleForm
+				editable="true"
+				layout="ColumnLayout"
+				singleContainerFullSize="false"
+				columnsXL="2"
+				columnsL="2"
+				columnsM="2"
+				visible="true"
+			>
+				<Label
+                    required="true"
+					text="Tipo Documento"
+					labelFor="Note"
+					class="sapUiSmallMarginTop"
+				/>
+				<Input
+					id="iTipoDocumentoM3"
+					type="Text"
+					value="{emissioneFatturaModel>/TipoDocumento}"
+					description="{appModel>/TipoDocumentoDescription}"
+					showValueHelp="true"
+					valueHelpOnly="false"
+					valueHelpRequest=".onValueHelpCoge($event,'TipoDocumentoSet')"
+					suggest=".onValueHelpCoge($event,'TipoDocumentoSet')"
+				/>
+				<Label
+                    required="true"
+					text="Conto CoGe"
+					labelFor="iNote1"
+					class="sapUiSmallMarginTop"
+				/>
+				<Input
+					id="iContiCoGeM3"
+					type="Text"
+					value="{emissioneFatturaModel>/ContoCoge}"
+					description="{appModel>/ContoCogeDescription}"
+					showValueHelp="true"
+					valueHelpOnly="false"
+					valueHelpRequest=".onValueHelpCoge($event,'ContiCoGeSet')"
+					suggest=".onValueHelpCoge($event,'ContiCoGeSet')"
+				/>
+			</o:SimpleForm>
+			<!--<FlexBox alignItems="Center">
+            <VBox>
+                <items>
+                    <HBox>
+                        <ToolbarSpacer width="2rem"/>
+                        <Label text="Tipo Documento" labelFor="Note" class="sapUiSmallMarginTop"></Label>
+                        <ToolbarSpacer width="2rem"/>
+                        <Input type="Text" value="{appModel>/StatoDa}" description="{appModel>/StatoDaDescription}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpStati($event,'StatoDa')" suggest=".onValueHelpStati($event,'StatoDa')"/>
+                        <ToolbarSpacer width="6rem"/>
+                        <Label text="Conto CoGe" labelFor="iNote1" class="sapUiSmallMarginTop"></Label>
+                        <ToolbarSpacer width="2rem"/>
+                        <Input type="Text" value="{appModel>/StatoA}" description="{appModel>/StatoADescription}" showValueHelp="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpStati($event,'StatoA')" suggest=".onValueHelpStati($event,'StatoA')"/>
+                        <VBox>
+                        </VBox>
+                        <ToolbarSpacer width="2rem"/>
+                        <VBox>
+                        </VBox>
+                        <ToolbarSpacer width="2rem"/>
+                    </HBox>
+                </items>
+                <HBox>
+                    <Button text="{i18n>lbl.Conferma}" type="Emphasized" press="onConfermaCoge" class="sapUiLargeMarginBeginEnd" />
+                    <Button text="{i18n>lbl.Annulla}" type="Reject" press="onAnnullaCoge" class="sapUiLargeMarginBeginEnd" />
+                </HBox>
+            </VBox>
+        </FlexBox>-->
+		</content>
+		<buttons>
+			<Button
+				text="{i18n>lbl.Conferma}"
+				type="Emphasized"
+				press="onConfermaCoge"
+			/>
+			<Button
+				text="{i18n>lbl.Annulla}"
+				type="Reject"
+				press="onAnnullaCoge"
+			/>
+		</buttons>
+	</Dialog>
+</c:FragmentDefinition>

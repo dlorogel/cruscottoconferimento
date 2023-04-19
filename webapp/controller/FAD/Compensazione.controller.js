@@ -8,21 +8,20 @@ sap.ui.define([
     'sap/m/Token',
     "it/orogel/cruscottoconferimento/model/Constants",
     "it/orogel/cruscottoconferimento/model/CostantiAttributi",
-    "../model/formatter",
-    "it/orogel/cruscottoconferimento/libs/Download",
+    "../../model/formatter",
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, History, FilterOperator, Filter, JSONModel, Fragment, Token, Constants, CostantiAttributi, formatter, Download) {
+    function (Controller, History, FilterOperator, Filter, JSONModel, Fragment, Token, Constants, CostantiAttributi, formatter) {
         "use strict";
 
-        return Controller.extend("it.orogel.cruscottoconferimento.controller.Compensazione", {
+        return Controller.extend("it.orogel.cruscottoconferimento.controller.FAD.Compensazione", {
             formatter: formatter,
             onInit: function () {
                 this.oGlobalBusyDialog = new sap.m.BusyDialog();
                 var oRouter = this.getOwnerComponent().getRouter();
-                oRouter.getRoute("Compensazione").attachPatternMatched(this._onObjectMatched, this);
+                oRouter.getRoute("FAD.Compensazione").attachPatternMatched(this._onObjectMatched, this);
                 this.oComponent = this.getOwnerComponent();
                 var partiteAperteModel = this.getOwnerComponent().setModel(new JSONModel({}), "partiteAperteModel");
                 const oAppModel = this.oComponent.getModel("appModel");
@@ -110,7 +109,7 @@ sap.ui.define([
                 const oAppModel = this.getView().getModel("appModel");
                 oAppModel.setProperty("/PartiteSenzaSeme", 1);
                 if (!this._searchHelpEMPDialog) {
-                    this._searchHelpEMPDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.Fragments.PartiteAperte", this);
+                    this._searchHelpEMPDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.FAD.Fragments.PartiteAperte", this);
                     this.getView().addDependent(this._searchHelpEMPDialog);
                 }
                 this._searchHelpEMPDialog.open();
@@ -149,12 +148,12 @@ sap.ui.define([
                 if (!ZCapitaleSocialeCheck) {
                     ZCapitaleSocialeCheck = false;
                 }
-                sFrom.setHours(sFrom.getHours() + sFrom.getTimezoneOffset() / 60);
-                sTo.setHours(sTo.getHours() + sTo.getTimezoneOffset() / 60);
-                sFromFornitori.setHours(sFromFornitori.getHours() + sFromFornitori.getTimezoneOffset() / 60);
-                sToFornitori.setHours(sToFornitori.getHours() + sToFornitori.getTimezoneOffset() / 60);
-                //sFromSociale.setHours(sFromSociale.getHours() + sFromSociale.getTimezoneOffset() / 60);
-                //sToSociale.setHours(sToSociale.getHours() + sToSociale.getTimezoneOffset() / 60);
+                sFrom.setHours(sFrom.getHours() - sFrom.getTimezoneOffset() / 60);
+                //sTo.setHours(sTo.getHours() - sTo.getTimezoneOffset() / 60);
+                sFromFornitori.setHours(sFromFornitori.getHours() - sFromFornitori.getTimezoneOffset() / 60);
+                //sToFornitori.setHours(sToFornitori.getHours() - sToFornitori.getTimezoneOffset() / 60);
+                //sFromSociale.setHours(sFromSociale.getHours() - sFromSociale.getTimezoneOffset() / 60);
+                //sToSociale.setHours(sToSociale.getHours() - sToSociale.getTimezoneOffset() / 60);
                 aFilter.push(new Filter("Cliente", sap.ui.model.FilterOperator.EQ, ZClienteCheck));
                 oFinalFilter.aFilters.push(new Filter({
                     filters: aFilter,
@@ -265,7 +264,7 @@ sap.ui.define([
                         });
                         oPromiseCompensazione.then((aResults) => {
                             if (!this.RiassuntoPartiteDialog) {
-                                this.RiassuntoPartiteDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.Fragments.RiassuntoPartite", this);
+                                this.RiassuntoPartiteDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.FAD.Fragments.RiassuntoPartite", this);
                                 this.getView().addDependent(this.RiassuntoPartiteDialog);
                             }
                             this._setTableRiassuntoPartite(aResults);
@@ -388,9 +387,9 @@ sap.ui.define([
                     if (aRowsDettaglioPartite1[i].Selezionato !== aRowsDettaglioPartite1Copy[i].Selezionato) {
                         var Find = aRowsRiassuntoPartite.find(y => y.Lifnr === aRowsDettaglioPartite1[i].Kunnr && y.Rubkrs === aRowsDettaglioPartite1[i].Rubkrs);
                         if (Find && aRowsDettaglioPartite1[i].Selezionato) {
-                            Find.PartiteCliente = (parseFloat(Find.PartiteFornitore) + parseFloat(aRowsDettaglioPartite1[i].Tsl));
+                            Find.PartiteCliente = (parseFloat(Find.PartiteCliente) + parseFloat(aRowsDettaglioPartite1[i].Tsl));
                         } else if (Find && !aRowsDettaglioPartite1[i].Selezionato) {
-                            Find.PartiteCliente = (parseFloat(Find.PartiteFornitore) - parseFloat(aRowsDettaglioPartite1[i].Tsl));
+                            Find.PartiteCliente = (parseFloat(Find.PartiteCliente) - parseFloat(aRowsDettaglioPartite1[i].Tsl));
                         }
                     }
                 }
@@ -404,9 +403,9 @@ sap.ui.define([
                     if (aRowsDettaglioPartite2[i].Selezionato !== aRowsDettaglioPartite2Copy[i].Selezionato) {
                         var Find = aRowsRiassuntoPartite.find(y => y.Lifnr === aRowsDettaglioPartite2[i].Lifnr && y.Rubkrs === aRowsDettaglioPartite2[i].Rubkrs);
                         if (Find && aRowsDettaglioPartite2[i].Selezionato) {
-                            Find.PartiteFornitore = (parseFloat(Find.PartiteFornitore) + parseFloat(aRowsDettaglioPartite2[i].Tsl));
-                        } else if (Find && !aRowsDettaglioPartite2[i].Selezionato) {
                             Find.PartiteFornitore = (parseFloat(Find.PartiteFornitore) - parseFloat(aRowsDettaglioPartite2[i].Tsl));
+                        } else if (Find && !aRowsDettaglioPartite2[i].Selezionato) {
+                            Find.PartiteFornitore = (parseFloat(Find.PartiteFornitore) + parseFloat(aRowsDettaglioPartite2[i].Tsl));
                         }
                     }
                 }
@@ -475,7 +474,7 @@ sap.ui.define([
                 if (!this._pValueHelpDialog) {
                     this._pValueHelpDialog = Fragment.load({
                         id: oView.getId(),
-                        name: "it.orogel.cruscottoconferimento.view.Fragments.DynamicFragPartite",
+                        name: "it.orogel.cruscottoconferimento.view.FAD.Fragments.DynamicFragPartite",
                         controller: this
                     }).then(function (oValueHelpDialog) {
                         oView.addDependent(oValueHelpDialog);
@@ -643,7 +642,7 @@ sap.ui.define([
             },
             onChangeRowRiassuntoPartite: function (oEvent) {
                 if (!this.DettaglioPartiteDialog) {
-                    this.DettaglioPartiteDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.Fragments.DettaglioPartite", this);
+                    this.DettaglioPartiteDialog = sap.ui.xmlfragment("it.orogel.cruscottoconferimento.view.FAD.Fragments.DettaglioPartite", this);
                     this.getView().addDependent(this.DettaglioPartiteDialog);
                 }
                 const oAppModel = this.getView().getModel("appModel");
@@ -795,27 +794,27 @@ sap.ui.define([
                                 if (Find.CapitaleSociale !== 0.00) {
                                     sAllegato1 = sAllegato1.replace("{TotaleCapitale}", parseFloat(Find.CapitaleSociale).toFixed(2));
                                 } else {
-                                    sAllegato1 = sAllegato1.replace("{TotaleCapitale}", "");
+                                    sAllegato1 = sAllegato1.replace("{TotaleCapitale}", "0.00");
                                 }
                                 if (Find.PartiteCliente !== 0.00) {
                                     sAllegato1 = sAllegato1.replace("{TotalePartiteCl}", parseFloat(Find.PartiteCliente).toFixed(2));
                                 } else {
-                                    sAllegato1 = sAllegato1.replace("{TotalePartiteCl}", "");
+                                    sAllegato1 = sAllegato1.replace("{TotalePartiteCl}", "0.00");
                                 }
                                 if (Find.PartiteFornitore !== 0.00) {
                                     sAllegato1 = sAllegato1.replace("{TotalePartiteFo}", parseFloat(Find.PartiteFornitore).toFixed(2));
                                 } else {
-                                    sAllegato1 = sAllegato1.replace("{TotalePartiteFo}", "");
+                                    sAllegato1 = sAllegato1.replace("{TotalePartiteFo}", "0.00");
                                 }
                             } else {
-                                sAllegato1 = sAllegato1.replace("{TotaleCapitale}", "");
-                                sAllegato1 = sAllegato1.replace("{TotalePartiteCl}", "");
-                                sAllegato1 = sAllegato1.replace("{TotalePartiteFo}", "");
+                                sAllegato1 = sAllegato1.replace("{TotaleCapitale}", "0.00");
+                                sAllegato1 = sAllegato1.replace("{TotalePartiteCl}", "0.00");
+                                sAllegato1 = sAllegato1.replace("{TotalePartiteFo}", "0.00");
                             }
                         } else {
-                            sAllegato1 = sAllegato1.replace("{TotaleCapitale}", "");
-                            sAllegato1 = sAllegato1.replace("{TotalePartiteCl}", "");
-                            sAllegato1 = sAllegato1.replace("{TotalePartiteFo}", "");
+                            sAllegato1 = sAllegato1.replace("{TotaleCapitale}", "0.00");
+                            sAllegato1 = sAllegato1.replace("{TotalePartiteCl}", "0.00");
+                            sAllegato1 = sAllegato1.replace("{TotalePartiteFo}", "0.00");
                         }
                         STotaleSaldo = parseFloat(STotaleSaldo) + parseFloat(TotaleSaldo);
                         sAllegato1 = sAllegato1.replace("{Saldo}", parseFloat(TotaleSaldo).toFixed(2));
@@ -850,10 +849,16 @@ sap.ui.define([
                             "embedFont": "0"
                         };
                     var oPDFModel = this.getView().getModel("pdfModel");
-                    var filename = "Compensazione" + ".pdf";
+                    var filename = "Compensazione";
                     oPDFModel.create(Constants.PDF.ENTITY, mObj, {
                         success: (oData) => {
-                            download("data:application/pdf;base64," + oData.PDFOut, filename, "application/pdf");
+                            var binary = atob(oData.PDFOut);
+                            var len = binary.length;
+                            var bytes = new Uint8Array(len);
+                            for (var i = 0; i < len; i++) {
+                                bytes[i] = binary.charCodeAt(i);
+                            }
+                            sap.ui.core.util.File.save(bytes.buffer, filename, "pdf", "application/pdf");
                             this.oGlobalBusyDialog.close();
                         },
                         error: (oError) => {
@@ -869,6 +874,7 @@ sap.ui.define([
                 this.oGlobalBusyDialog.open();
                 const oAppModel = this.getView().getModel("appModel");
                 var RowsCompensazione = oAppModel.getProperty("/rowsNoError"),
+                    CheckImporto = oAppModel.getProperty("/rowsCompensazione"),
                     DettaglioDefinitivo = oAppModel.getProperty("/rowsDettaglioPartiteDefinitivo"),
                     RowsStorico = [];
                 var aUniqueRbukrs = [...new Set(RowsCompensazione.map(item => item.Societa))];
@@ -885,169 +891,182 @@ sap.ui.define([
                             "ZCONFMAGGIORAZSet": [],
                             "ZCONFACCPREGSet": [],
                             "FAD1ToCOMPENSAZNav": []
-
                         };
-                        var Find = RowsCompensazioneFiltered.find(z => z.Fornitore === y && z.Errore === "");
-                        if (Find) {
-                            //RowStorico.ZCONFSTORHEAD2Set = Find.ZCONFSTORHEAD2Set.results;
-                            Find.ZCONFSTORHEAD2Set.results.forEach(b => {
-                                if (!b.Zdatadocumento) {
-                                    delete b.Zdatadocumento;
-                                } else {
-                                    b.Zdatadocumento = new Date(b.Zdatadocumento);
-                                }
-                                RowStorico.ZCONFSTORHEAD2Set.push(b);
-                            });
-
-                            Find.ZCONFSTORPOS2Set.results.forEach(b => {
-                                if (!b.Bedat) {
-                                    delete b.Bedat;
-                                } else {
-                                    b.Bedat = new Date(b.Bedat);
-                                }
-                                if (!b.Zdatadocumento) {
-                                    delete b.Zdatadocumento;
-                                } else {
-                                    b.Zdatadocumento = new Date(b.Zdatadocumento);
-                                }
-                                RowStorico.ZCONFSTORPOS2Set.push(b);
-                            });
-                            Find.ZCONFSTORRECAP2Set.results.forEach(b => {
-                                if (!b.Zdatadocumento) {
-                                    delete b.Zdatadocumento;
-                                } else {
-                                    b.Zdatadocumento = new Date(b.Zdatadocumento);
-                                }
-                                if (!b.Zdataaccettazionea) {
-                                    delete b.Zdataaccettazionea;
-                                } else {
-                                    b.Zdataaccettazionea = new Date(b.Zdataaccettazionea);
-                                }
-                                if (!b.Zdataaccettazioneda) {
-                                    delete b.Zdataaccettazioneda;
-                                } else {
-                                    b.Zdataaccettazioneda = new Date(b.Zdataaccettazioneda);
-                                }
-                                RowStorico.ZCONFSTORRECAP2Set.push(b);
-                            });
-                            Find.ZCONFMAGGIORAZSet.results.forEach(b => {
-                                RowStorico.ZCONFMAGGIORAZSet.push(b);
-                            });
-                            Find.ZCONFACCPREGSet.results.forEach(b => {
-                                RowStorico.ZCONFACCPREGSet.push(b);
-                            });
-                            //RowStorico.ZCONFSTORPOS2Set = Find.ZCONFSTORPOS2Set.results;
-                            //RowStorico.ZCONFSTORRECAP2Set = Find.ZCONFSTORRECAP2Set.results;
-                        }
-                        if (DettaglioDefinitivo) {
-                            var aFind = DettaglioDefinitivo.filter(a => a.Rbukrs === x && (a.Lifnr === y || a.Kunnr === y));
-                            if (aFind.length > 0) {
-                                aFind.forEach(oFind => {
-                                    var Tipoc = "C";
-                                    if (oFind.Tipo === "2") {
-                                        Tipoc = "F";
-                                    } else if (oFind.Tipo === "3") {
-                                        Tipoc = "S";
+                        var CheckErrore = CheckImporto.find(z => z.Lifnr === y && parseFloat(z.Ztotdoc) !== 0);
+                        if (CheckErrore) {
+                            var Find = RowsCompensazioneFiltered.find(z => z.Fornitore === y && z.Errore === "");
+                            if (Find) {
+                                //RowStorico.ZCONFSTORHEAD2Set = Find.ZCONFSTORHEAD2Set.results;
+                                Find.ZCONFSTORHEAD2Set.results.forEach(b => {
+                                    if (!b.Zdatadocumento) {
+                                        delete b.Zdatadocumento;
+                                    } else {
+                                        b.Zdatadocumento = new Date(b.Zdatadocumento);
                                     }
-                                    var oPartita = {
-                                        "Gjahr": oFind.Gjahr,
-                                        "Lifnr": y,
-                                        "Rbukrs": oFind.Rbukrs,
-                                        "Buzei": oFind.Buzei,
-                                        "Belnr": oFind.Belnr,
-                                        "Tipo": Tipoc
-                                    };
-                                    RowStorico.FAD1ToCOMPENSAZNav.push(oPartita);
+                                    RowStorico.ZCONFSTORHEAD2Set.push(b);
                                 });
-                            }
-                        }
-                        RowsStorico.push(RowStorico);
-                        Find = RowsCompensazioneFiltered.find(z => z.Fornitore === y && z.Errore === "3");
-                        if (Find) {
-                            var RowStoricoError3 = {
-                                "Societa": x,
-                                "Fornitore": y,
-                                "ZCONFSTORHEAD2Set": [],
-                                "ZCONFSTORPOS2Set": [],
-                                "ZCONFSTORRECAP2Set": [],
-                                "ZCONFMAGGIORAZSet": [],
-                                "ZCONFACCPREGSet": [],
-                                //"FAD1ToCOMPENSAZNav": []
-                            };
-                            Find.ZCONFSTORHEAD2Set.results.forEach(b => {
-                                if (!b.Zdatadocumento) {
-                                    delete b.Zdatadocumento;
-                                } else {
-                                    b.Zdatadocumento = new Date(b.Zdatadocumento);
-                                }
-                                RowStorico.ZCONFSTORHEAD2Set.push(b);
-                            });
 
-                            Find.ZCONFSTORPOS2Set.results.forEach(b => {
-                                if (!b.Bedat) {
-                                    delete b.Bedat;
-                                } else {
-                                    b.Bedat = new Date(b.Bedat);
+                                Find.ZCONFSTORPOS2Set.results.forEach(b => {
+                                    if (!b.Bedat) {
+                                        delete b.Bedat;
+                                    } else {
+                                        b.Bedat = new Date(b.Bedat);
+                                    }
+                                    if (!b.Zdatadocumento) {
+                                        delete b.Zdatadocumento;
+                                    } else {
+                                        b.Zdatadocumento = new Date(b.Zdatadocumento);
+                                    }
+                                    RowStorico.ZCONFSTORPOS2Set.push(b);
+                                });
+                                Find.ZCONFSTORRECAP2Set.results.forEach(b => {
+                                    if (!b.Zdatadocumento) {
+                                        delete b.Zdatadocumento;
+                                    } else {
+                                        b.Zdatadocumento = new Date(b.Zdatadocumento);
+                                    }
+                                    if (!b.Zdataaccettazionea) {
+                                        delete b.Zdataaccettazionea;
+                                    } else {
+                                        b.Zdataaccettazionea = new Date(b.Zdataaccettazionea);
+                                    }
+                                    if (!b.Zdataaccettazioneda) {
+                                        delete b.Zdataaccettazioneda;
+                                    } else {
+                                        b.Zdataaccettazioneda = new Date(b.Zdataaccettazioneda);
+                                    }
+                                    RowStorico.ZCONFSTORRECAP2Set.push(b);
+
+                                });
+                                Find.ZCONFMAGGIORAZSet.results.forEach(b => {
+                                    RowStorico.ZCONFMAGGIORAZSet.push(b);
+                                });
+                                Find.ZCONFACCPREGSet.results.forEach(b => {
+                                    RowStorico.ZCONFACCPREGSet.push(b);
+                                });
+                                //RowStorico.ZCONFSTORPOS2Set = Find.ZCONFSTORPOS2Set.results;
+                                //RowStorico.ZCONFSTORRECAP2Set = Find.ZCONFSTORRECAP2Set.results;
+                                if (DettaglioDefinitivo) {
+                                    var aFind = DettaglioDefinitivo.filter(a => a.Rbukrs === x && (a.Lifnr === y || a.Kunnr === y));
+                                    if (aFind.length > 0) {
+                                        aFind.forEach(oFind => {
+                                            if(oFind.Selezionato){
+                                            var Tipoc = "C";
+                                            if (oFind.Tipo === "2") {
+                                                Tipoc = "F";
+                                            } else if (oFind.Tipo === "3") {
+                                                Tipoc = "S";
+                                            }
+                                            var oPartita = {
+                                                "Gjahr": oFind.Gjahr,
+                                                "Lifnr": y,
+                                                "Rbukrs": oFind.Rbukrs,
+                                                "Buzei": oFind.Buzei,
+                                                "Belnr": oFind.Belnr,
+                                                "Tipo": Tipoc
+                                            };
+                                            RowStorico.FAD1ToCOMPENSAZNav.push(oPartita);
+                                        }
+                                        });
+                                    }
                                 }
-                                if (!b.Zdatadocumento) {
-                                    delete b.Zdatadocumento;
-                                } else {
-                                    b.Zdatadocumento = new Date(b.Zdatadocumento);
-                                }
-                                RowStorico.ZCONFSTORPOS2Set.push(b);
-                            });
-                            Find.ZCONFSTORRECAP2Set.results.forEach(b => {
-                                if (!b.Zdatadocumento) {
-                                    delete b.Zdatadocumento;
-                                } else {
-                                    b.Zdatadocumento = new Date(b.Zdatadocumento);
-                                }
-                                if (!b.Zdataaccettazionea) {
-                                    delete b.Zdataaccettazionea;
-                                } else {
-                                    b.Zdataaccettazionea = new Date(b.Zdataaccettazionea);
-                                }
-                                if (!b.Zdataaccettazioneda) {
-                                    delete b.Zdataaccettazioneda;
-                                } else {
-                                    b.Zdataaccettazioneda = new Date(b.Zdataaccettazioneda);
-                                }
-                                RowStorico.ZCONFSTORRECAP2Set.push(b);
-                            });
-                            Find.ZCONFMAGGIORAZSet.results.forEach(b => {
-                                RowStorico.ZCONFMAGGIORAZSet.push(b);
-                            });
-                            Find.ZCONFACCPREGSet.results.forEach(b => {
-                                RowStorico.ZCONFACCPREGSet.push(b);
-                            });
-                            RowsStorico.push(RowStoricoError3);
+                            }
+                            RowsStorico.push(RowStorico);
+                            Find = RowsCompensazioneFiltered.find(z => z.Fornitore === y && z.Errore === "3");
+                            if (Find) {
+                                var RowStoricoError3 = {
+                                    "Societa": x,
+                                    "Fornitore": y,
+                                    "ZCONFSTORHEAD2Set": [],
+                                    "ZCONFSTORPOS2Set": [],
+                                    "ZCONFSTORRECAP2Set": [],
+                                    //"ZCONFMAGGIORAZSet": [],
+                                    //"ZCONFACCPREGSet": [],
+                                    //"FAD1ToCOMPENSAZNav": []
+                                };
+                                Find.ZCONFSTORHEAD2Set.results.forEach(b => {
+                                    if (!b.Zdatadocumento) {
+                                        delete b.Zdatadocumento;
+                                    } else {
+                                        b.Zdatadocumento = new Date(b.Zdatadocumento);
+                                    }
+                                    RowStoricoError3.ZCONFSTORHEAD2Set.push(b);
+
+                                });
+
+                                Find.ZCONFSTORPOS2Set.results.forEach(b => {
+                                    if (!b.Bedat) {
+                                        delete b.Bedat;
+                                    } else {
+                                        b.Bedat = new Date(b.Bedat);
+                                    }
+                                    if (!b.Zdatadocumento) {
+                                        delete b.Zdatadocumento;
+                                    } else {
+                                        b.Zdatadocumento = new Date(b.Zdatadocumento);
+                                    }
+                                    RowStoricoError3.ZCONFSTORPOS2Set.push(b);
+
+                                });
+                                Find.ZCONFSTORRECAP2Set.results.forEach(b => {
+                                    if (!b.Zdatadocumento) {
+                                        delete b.Zdatadocumento;
+                                    } else {
+                                        b.Zdatadocumento = new Date(b.Zdatadocumento);
+                                    }
+                                    if (!b.Zdataaccettazionea) {
+                                        delete b.Zdataaccettazionea;
+                                    } else {
+                                        b.Zdataaccettazionea = new Date(b.Zdataaccettazionea);
+                                    }
+                                    if (!b.Zdataaccettazioneda) {
+                                        delete b.Zdataaccettazioneda;
+                                    } else {
+                                        b.Zdataaccettazioneda = new Date(b.Zdataaccettazioneda);
+                                    }
+                                    RowStoricoError3.ZCONFSTORRECAP2Set.push(b);
+
+                                });
+                                /*Find.ZCONFMAGGIORAZSet.results.forEach(b => {
+                                    RowStorico.ZCONFMAGGIORAZSet.push(b);
+                                });
+                                Find.ZCONFACCPREGSet.results.forEach(b => {
+                                    RowStorico.ZCONFACCPREGSet.push(b);
+                                });*/
+                                RowsStorico.push(RowStoricoError3);
+                            }
                         }
                     });
                 });
                 var batchChanges = [];
-                var sServiceUrl = "/sap/opu/odata/sap/ZCRUSCOTTOCONFERIMENTO_SRV/";
+                var sServiceUrl = "/sap/opu/odata/sap/ZCRUSCCONFFAD_SRV/";
                 var oDataModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
-                for (var i = 0; i < RowsStorico.length; i++) {
-                    batchChanges.push(oDataModel.createBatchOperation("FAD1Set", "POST", RowsStorico[i]));
-                }
-                oDataModel.addBatchChangeOperations(batchChanges);
-                const oPromiseBatch = new Promise((resolve, reject) => {
-                    oDataModel.submitBatch(function (data, responseProcess) {
-                        //sap.m.MessageToast.show("Successo");
-                        resolve();
-                    }.bind(this),
-                        function (err) {
-                            //sap.m.MessageToast.show("Errore");
-                            reject();
-                        });
-                });
-                oPromiseBatch.then(() => {
+                if (RowsStorico.length === 0) {
                     sap.m.MessageToast.show("Successo");
                     this.oGlobalBusyDialog.close();
-                }, oError => {
-                    sap.m.MessageToast.show("Errore");
-                    this.oGlobalBusyDialog.close();
-                });
+                } else {
+                    for (var i = 0; i < RowsStorico.length; i++) {
+                        batchChanges.push(oDataModel.createBatchOperation("FAD1Set", "POST", RowsStorico[i]));
+                    }
+                    oDataModel.addBatchChangeOperations(batchChanges);
+                    const oPromiseBatch = new Promise((resolve, reject) => {
+                        oDataModel.submitBatch(function (data, responseProcess) {
+                            //sap.m.MessageToast.show("Successo");
+                            resolve();
+                        }.bind(this),
+                            function (err) {
+                                //sap.m.MessageToast.show("Errore");
+                                reject();
+                            });
+                    });
+                    oPromiseBatch.then(() => {
+                        sap.m.MessageToast.show("Successo");
+                        this.oGlobalBusyDialog.close();
+                    }, oError => {
+                        sap.m.MessageToast.show("Errore");
+                        this.oGlobalBusyDialog.close();
+                    });
+                }
             }
         });
     });

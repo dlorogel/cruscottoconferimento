@@ -1,4 +1,4 @@
-<mvc:View controllerName="it.orogel.cruscottoconferimento.controller.FAD"
+<mvc:View controllerName="it.orogel.cruscottoconferimento.controller.FAD.FAD"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns:core="sap.ui.core"
     xmlns="sap.m">

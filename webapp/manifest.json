@@ -16,7 +16,16 @@
         },
         "dataSources": {
             "mainService": {
-                "uri": "/sap/opu/odata/sap/ZCRUSCOTTOCONFERIMENTO_SRV/",
+                "uri": "/sap/opu/odata/sap/ZCRUSCCONFFAD_SRV/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "2.0",
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "faService": {
+                "uri": "/sap/opu/odata/sap/ZCRUSCCONFFA_SRV_01/",
                 "type": "OData",
                 "settings": {
                     "odataVersion": "2.0",
@@ -146,6 +155,15 @@
                     "refreshAfterChange": true
                 }
             },
+            "faModel": {
+                "dataSource": "faService",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": true
+                }
+            },
             "pdfModel": {
                 "dataSource": "pdfService",
                 "preload": true,
@@ -220,31 +238,31 @@
                     ]
                 },
                 {
-                    "name": "FAD",
-                    "pattern": "FAD",
+                    "name": "FAD.FAD",
+                    "pattern": "FAD.FAD",
                     "target": [
                         "TargetFAD"
                     ]
                 },
                 {
-                    "name": "FAD1Detail",
-                    "pattern": "FAD1Detail",
-                    "target": [
-                        "TargetFAD1Detail"
-                    ]
-                },
-                {
-                    "name": "FAD2Detail",
-                    "pattern": "FAD2Detail",
-                    "target": [
-                        "TargetFAD2Detail"
-                    ]
-                },
-                {
-                    "name": "Compensazione",
-                    "pattern": "Compensazione",
+                    "name": "FAD.Compensazione",
+                    "pattern": "FAD.Compensazione",
                     "target": [
                         "TargetCompensazione"
+                    ]
+                },
+                {
+                    "name": "FA.FA",
+                    "pattern": "FA.FA",
+                    "target": [
+                        "TargetFA"
+                    ]
+                },
+                {
+                    "name": "FA.Compensazione",
+                    "pattern": "FA.Compensazione",
+                    "target": [
+                        "TargetCompensazioneFA"
                     ]
                 }
             ],
@@ -260,29 +278,29 @@
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "FAD",
-                    "viewName": "FAD"
-                },
-                "TargetFAD1Detail": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "FAD1Detail",
-                    "viewName": "FAD1Detail"
-                },
-                "TargetFAD2Detail": {
-                    "viewType": "XML",
-                    "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "FAD2Detail",
-                    "viewName": "FAD2Detail"
+                    "viewId": "FAD.FAD",
+                    "viewName": "FAD.FAD"
                 },
                 "TargetCompensazione": {
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "Compensazione",
-                    "viewName": "Compensazione"
+                    "viewId": "FAD.Compensazione",
+                    "viewName": "FAD.Compensazione"
+                },
+                "TargetFA": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "FA.FA",
+                    "viewName": "FA.FA"
+                },
+                "TargetCompensazioneFA": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "viewId": "FA.Compensazione",
+                    "viewName": "FA.Compensazione"
                 }
             }
         },

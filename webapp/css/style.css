@@ -1,1 +1,16 @@
 /* Enter your custom styles here */
+
+/*.sapUiVlt .sapUiVltCell .TEST ~ */
+/*.TestiConferimento>.sapUiRespGridSpanL12>.sapUiAFLayout>div:nth-child(1) {
+    flex-basis: 38rem !important;
+    max-width: 38rem !important;
+}*/
+/*.smalltextconferimento {
+    flex-basis: 1rem !important;
+    max-width: 1rem !important;
+}*/
+
+/*#__layout49>div:nth-child(1) {
+    flex-basis: 38rem !important;
+    max-width: 38rem !important;
+}*/

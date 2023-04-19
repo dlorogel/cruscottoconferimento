@@ -1,0 +1,26 @@
+<mvc:View controllerName="it.orogel.cruscottoconferimento.controller.FA.FA"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Page id="page" title="Fattura di Acconto" showNavButton="true" navButtonPress="onNavBack">
+        <IconTabBar id="idTabBar" class="sapUiResponsiveContentPadding" select="onTabSelect">
+            <items>
+                <IconTabFilter text="Conferimento tra cooperative" key="FAD1">
+                    <core:Fragment fragmentName="it.orogel.cruscottoconferimento.view.FA.FAD1" type="XML" />
+                </IconTabFilter>
+                <IconTabFilter text="Importo Forfettario" key="FAD2">
+                    <core:Fragment fragmentName="it.orogel.cruscottoconferimento.view.FA.FAD2" type="XML" />
+                </IconTabFilter>
+                <IconTabFilter text="Storico" key="FAD3">
+                    <core:Fragment fragmentName="it.orogel.cruscottoconferimento.view.FA.FAD3" type="XML" />
+                </IconTabFilter>
+                <IconTabFilter text="Conferimento Triangolato" key="FAD4">
+                    <core:Fragment fragmentName="it.orogel.cruscottoconferimento.view.FA.FAD4" type="XML" />
+                </IconTabFilter>
+                <IconTabFilter text="Vendita Fresco" key="FAD5">
+                    <core:Fragment fragmentName="it.orogel.cruscottoconferimento.view.FA.FAD5" type="XML" />
+                </IconTabFilter>
+            </items>
+        </IconTabBar>
+    </Page>
+</mvc:View>

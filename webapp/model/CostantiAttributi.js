@@ -30,6 +30,11 @@ sap.ui.define([], function () {
                 id: "iLIFN2",
                 filterField: "Produttore"
             },
+            KUNNR: {
+                key: "KUNNR",
+                id: "iKUNNR",
+                filterField: "BP"
+            },
             UNSEZ: {
                 key: "UNSEZ",
                 id: "iUNSEZ",
@@ -227,7 +232,23 @@ sap.ui.define([], function () {
             SPECIEM2: {
                 key: "SPECIE",
                 id: "iSPECIE"
-            }
+            },
+            MTARTM2: {
+                key: "MTART",
+                id: "iMTART"
+            },
+            ZBP: {
+                key: "ZBP",
+                id: "iZBP"
+            },
+            TipoDocumentoSet: {
+                key: "TipoDocumento",
+                id: "iTipoDocumento"
+            },
+            ContiCoGeSet: {
+                key: "ContiCoGeSet",
+                id: "iContiCoGeSet"
+            },
         },
         ATTRCOMPENSAZIONE: {
             ZZ1SPECIE: {

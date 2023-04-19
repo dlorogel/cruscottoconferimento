@@ -5,12 +5,6 @@ sap.ui.define([], function () {
         PDF: {
             ENTITY: "/PDFSet"
         },
-        CAMBIOSTATO: {
-            P: ["C", "S", "P"],
-            P2: ["C", "P"],
-            F: ["C", "F"],
-            I: ["E", "I"]
-        },
         LIQUIDAZIONE: {
             XML: '<?xml version="1.0" encoding="UTF-8"?>' +
                 "<form1>" +

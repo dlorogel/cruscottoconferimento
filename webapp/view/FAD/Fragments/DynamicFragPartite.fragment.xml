@@ -1,0 +1,12 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog id="_IDGenSelectDialog1FragPartite" noDataText="{i18n>noValues}" title="{i18n>selValues}" search="._handleValueHelpSearch" confirm="._handleValueHelpClose($event)" cancel="._handleValueHelpClose($event)" showClearButton="true" multiSelect="true" items="{
+			path: 'partiteAperteModel>/',
+			sorter: {
+				path: 'key',
+				descending: false
+			}
+		}">
+		<StandardListItem title="{partiteAperteModel>key}" description="{partiteAperteModel>text}" iconDensityAware="false" iconInset="true" type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>
